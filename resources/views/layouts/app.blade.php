@@ -7,7 +7,7 @@
     <title>Mijn Amor Travel</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans text-gray-800 antialiased flex flex-col min-h-screen bg-white">
+<body class="text-gray-800 antialiased flex flex-col min-h-screen bg-white">
 
     <x-front.navbar />
 

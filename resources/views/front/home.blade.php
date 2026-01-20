@@ -1,4 +1,4 @@
-<x-main title="Home - Mijn Amor Travel">
+<x-main>
     
     @include('front.components.homepage.hometext')
     @include('front.components.homepage.homeabout')
