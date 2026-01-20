@@ -33,10 +33,10 @@
                         {{-- Stats (10,000+) --}}
                         <div class="flex items-center md:gap-4 gap-6">
                             <div class="flex -space-x-4">
-                                <img class="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-white object-cover z-10" src="{{ asset('logos/Bulet2.svg') }}" alt="Bali"/>
-                                <img class="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-white object-cover z-0" src="{{ asset('logos/Bulet3.svg') }}" alt="Paris"/>
+                                <img class="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-white object-cover z-10" src="{{ asset('img/homepage/icon/circle_one.svg') }}" alt="Bali"/>
+                                <img class="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-white object-cover z-0" src="{{ asset('img/homepage/icon/circle_two.svg') }}" alt="Paris"/>
                             </div>
-                            <div class="text-white text-start"> {{-- Tambah text-start sedikit agar align kiri seperti di React --}}
+                            <div class="text-white text-start">
                                 <h2 class="text-[20px] md:text-[30px] font-bold">10,000+</h2>
                                 <p class="text-[10px] md:text-sm font-light">{{ __('hero.travel_places') }}</p>
                             </div>
@@ -54,7 +54,7 @@
                     
                             <div class="relative">
                                 <div class="absolute top-0 -right-3 w-12 h-12 md:w-16 md:h-16 bg-black rounded-full z-15"></div>
-                                <img class="w-12 h-12 md:w-16 md:h-16 rounded-full relative z-20" src="{{ asset('logos/Bulet1.svg') }}" alt="Feature"/>
+                                <img class="w-12 h-12 md:w-16 md:h-16 rounded-full relative z-20" src="{{ asset('img/homepage/icon/circle_three.svg') }}" alt="Feature"/>
                             </div>
                         </div>
                     </div>

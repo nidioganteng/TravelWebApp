@@ -1,5 +1,4 @@
 @php
-    // Data Bahasa (Sama seperti array di React)
     $languages = [
         ['code' => 'en', 'name' => 'EN', 'flag' => 'https://flagcdn.com/w40/us.png'],
         ['code' => 'id', 'name' => 'ID', 'flag' => 'https://flagcdn.com/w40/id.png'],
@@ -10,9 +9,6 @@
     $currentLocale = app()->getLocale();
     $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $languages[0];
 @endphp
-
-{{-- 3. Komponen Utama Navbar (Container Utama) --}}
-{{-- React: const [isOpen, setIsOpen] = useState(false); -> Alpine: x-data="{ mobileOpen: false }" --}}
 <div class="fixed inset-x-0 z-20 w-full backdrop-blur-sm" x-data="{ mobileOpen: false }">
     <div class="mx-auto c-space max-w-7xl">
         <div class="flex items-center justify-between py-4 sm:py-4">
