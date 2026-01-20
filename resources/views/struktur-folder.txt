@@ -1,0 +1,51 @@
+resources/
+└── views/
+    │
+    ├── layouts/                 <-- 1. CANGKANG UTAMA (Master Templates)
+    │   ├── app.blade.php        <-- Layout Website Public (Ada Navbar & Footer Travel)
+    │   ├── admin.blade.php      <-- Layout Admin (Ada Sidebar Kiri & Header Admin)
+    │   ├── user.blade.php       <-- Layout User Dashboard (Mirip Admin atau Custom)
+    │   └── auth.blade.php       <-- Layout Login/Register (Polos/Simple)
+    │
+    ├── components/              <-- 2. KOMPONEN UI (Potongan Kode)
+    │   ├── ui/                  <-- Elemen Dasar (Bisa dipakai di mana aja)
+    │       ├── button.blade.php
+    │       ├── card.blade.php
+    │       ├── input.blade.php
+    │       └── alert.blade.php
+    │   ├── front/               <-- Komponen Khusus Website Depan
+    │       ├── navbar.blade.php
+    │       └── footer.blade.php
+    │   ├── admin/               <-- Komponen Khusus Admin
+    │       ├── sidebar.blade.php
+    │       ├── topbar.blade.php
+    │       └── stats-card.blade.php
+    │
+    ├── front/                   <-- 3. HALAMAN PUBLIC (Dilihat Semua Orang)
+    │   ├── home.blade.php       <-- Halaman Utama
+    │   ├── about.blade.php      <-- Halaman About
+    │   ├── contact.blade.php    <-- Halaman Contact
+    │   ├── products.blade.php   <-- Halaman Produk
+    │   └── components/          <-- Children dari halaman utama
+    │       ├── homepage/        
+    │       ├── about/
+    │       ├── product/
+    │       └── contact/        
+    │
+    ├── admin/                   <-- 4. HALAMAN ADMIN (Butuh Login Admin)
+    │   ├── dashboard.blade.php
+    │   ├── users/               <-- Manajemen User
+    │   │   └── index.blade.php
+    │   └── transactions/        <-- Manajemen Transaksi
+    │       └── index.blade.php
+    │
+    ├── user/                    <-- 5. HALAMAN USER (Butuh Login User)
+    │   ├── dashboard.blade.php  <-- Ringkasan Akun User
+    │   ├── history.blade.php    <-- Riwayat Tiket User
+    │   └── profile.blade.php    <-- Edit Profil
+    │
+    └── auth/                    <-- 6. HALAMAN LOGIN/REGISTER
+        ├── login.blade.php
+        ├── register.blade.php
+        └── forgot-password.blade.php
+

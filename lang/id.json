@@ -1,0 +1,71 @@
+{
+    "nav.home": "BERANDA",
+    "nav.about": "TENTANG",
+    "nav.product": "PRODUK",
+    "nav.contact": "KONTAK",
+
+    "hero.book_now": "Pesan Sekarang",
+    "hero.travel_places": "Tempat Wisata",
+    "hero.features": "Fitur",
+    "hero.desc": "Tempat yang orang suka <br/> kunjungi berkali-kali",
+
+    "herabout.section": "#Tentang Kami",
+    "herabout.title": "Kami adalah agen perjalanan terpercaya yang berdedikasi untuk memberikan pengalaman tak terlupakan",
+    "herabout.descrip": "Ubah impian perjalanan Anda menjadi kenyataan tanpa khawatir sejenak pun. Dari percikan inspirasi pertama hingga kembalinya Anda dengan selamat ke rumah, kami membimbing Anda melalui setiap tahap perjalanan Anda. Misi kami adalah memberikan pengalaman perjalanan yang disesuaikan, aman, dan mudah sesuai dengan keinginan unik Anda, memastikan setiap detik dipenuhi dengan keajaiban dan penemuan",
+    "herabout.sectionB": "TUJUAN KAMI",
+    "herabout.desc1": "Rasakan surga pulau yang tiada duanya. Dari hati spiritual Ubud yang tenang hingga pantai-pantai Seminyak yang semarak, Bali menawarkan perpaduan sempurna antara budaya kaya, pemandangan menakjubkan, dan ketenangan tropis",
+    "herabout.desc2": "Masuki jantung sejarah dan spiritualitas. Saksikan kemegahan arsitektur Basilika Santo Petrus dan karya seni utama Museum Vatikan di negara kota terkecil namun paling berpengaruh di dunia",
+    "herabout.desc3": "Jelajahi pesona abadi Belgia, tempat arsitektur abad pertengahan bertemu dengan cokelat kelas dunia. Temukan alun-alun bersejarah di Brussels dan kanal-kanal memikat di Bruges untuk pelarian Eropa yang tak terlupakan",
+    "herabout.button": "Lihat Lebih Banyak",
+
+    "hero_youtube.text": "Jelajahi dunia melalui mata komunitas perjalanan kami yang dinamis. Kami tidak hanya merencanakan perjalanan, kami mengkurasi petualangan yang mengubah hidup yang menyatukan orang-orang. Tonton perjalanan terbaru kami dan lihat bagaimana kami mengubah destinasi global menjadi kenangan bersama. Kisah hebat Anda berikutnya dimulai di sini.",
+    "hero_youtube.button": "TONTON LEBIH BANYAK",
+
+    "hero_review.section": "#Ulasan",
+    "hero_review.title": "Mitra Tepercaya Anda dalam Perjalanan",
+
+    "hero_CTA.text": "Jangan tunggu lagi! Mulailah petualangan Anda <br className=\"hidden md:block\" /> dan jelajahi pengalaman baru hari ini",
+    "hero_CTA.button": "Pesan Sekarang",
+
+    "about.title": "Tentang Kami",
+
+    "about_intro.title": "<0>Pengenalan</0> Ke Agen Tur dan Perjalanan yang Sangat Terpercaya",
+    "about_intro.desc": "Di Mjin Amor Travel, kami percaya bahwa bepergian lebih dari sekadar mengunjungi lokasi baru. Ini tentang cerita yang Anda kumpulkan dan kenangan yang tetap bersama Anda selamanya. Sejak didirikan pada tahun 2018, kami telah mendedikasikan diri untuk menjadi lebih dari sekadar penyedia layanan; kami adalah mitra Anda dalam penjelajahan. Misi kami adalah menjembatani kesenjangan antara impian dan kenyataan Anda dengan mengungkap permata tersembunyi paling menakjubkan di dunia, yang dikurasi khusus untuk mereka yang mencari keaslian.",
+    "about_intro.bubble_one": "Perjalanan Aman & Terjamin",
+    "about_intro.bubble_desc_one": "Keamanan Anda adalah prioritas kami, dengan akomodasi yang terverifikasi.",
+    "about_intro.bubble_two": "Destinasi yang Dikurasi",
+    "about_intro.bubble_desc_two": "Rute dan tempat tersembunyi yang dipilih dengan cermat.",
+    "about_intro.bubble_three": "Pengalaman yang Dipersonalisasi",
+    "about_intro.bubble_desc_three": "Itinerary yang dibuat sesuai dengan gaya perjalanan Anda.",
+
+    "about_img.img_one": "Ciptakan kenangan tak terlupakan dengan orang-orang yang paling berarti.",
+    "about_img.img_two": "Melarikan diri dari yang biasa dan membenamkan diri dalam alam. Temukan permata tersembunyi yang menyegarkan jiwa Anda.",
+
+    "about_destination.section": "TUJUAN KAMI",
+    "about_destination.desc": "Jelajahi dunia destinasi yang menakjubkan bersama kami. Dari pantai yang masih asli hingga gunung yang megah, pengalaman perjalanan yang kami kurasi dirancang untuk menginspirasi dan memikat. Temukan permata tersembunyi, benamkan diri Anda dalam budaya yang beragam, dan ciptakan kenangan tak terlupakan saat Anda melakukan perjalanan ke beberapa tempat terindah di Bumi. Petualangan Anda menanti!",
+
+    "product.title": "Produk",
+
+    "contact.title": "Hubungi Kami",
+
+    "contact_form.title": "Kirim pesan kepada kami",
+    "contact_form.desc": "Punya pertanyaan tentang perjalanan kami atau butuh rencana perjalanan khusus? Kirim pesan kepada kami, dan tim kami akan segera menghubungi Anda untuk membantu merencanakan liburan impian Anda.",
+    "contact_form.name": "Nama",
+    "contact_form.email": "Email",
+    "contact_form.message": "Pesan",
+    "contact_form.send": "Kirim Pesan",
+    "contact_form.help_center": "Hai! Kami di sini untuk membantu Anda.",
+    "contact_form.hotline": "Hotline:",
+    "contact_form.sms": "SMS/WhatsApp:",
+    "contact_form.email_contact": "Email:",
+    "contact_form.socials": "Hubungi kami melalui",
+
+    "footer.about_us": "Tentang Kami",
+    "footer.products": "Produk",
+    "footer.contact_us": "Hubungi Kami",
+    "footer.track_records": "Rekam Jejak",
+    "footer.title": "Dapatkan Pembaruan",
+    "footer.desc": "Berlangganan newsletter kami untuk menerima pembaruan dan pengumuman khusus.",
+    "footer.send_message": "Kirim Pesan Kepada Kami",
+    "footer.sign": "Daftar"
+}

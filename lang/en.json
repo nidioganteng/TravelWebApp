@@ -1,0 +1,71 @@
+{
+    "nav.home": "HOME",
+    "nav.about": "ABOUT",
+    "nav.product": "PRODUCT",
+    "nav.contact": "CONTACT",
+
+    "hero.book_now": "Book Now",
+    "hero.travel_places": "Travel Places",
+    "hero.features": "Features",
+    "hero.desc": "Places people love to visit <br/> more and more time",
+
+    "herabout.section": "#About Us",
+    "herabout.title": "We are a trusted travel agency dedicated to providing unforgettable experiences",
+    "herabout.descrip": "Transform your travel dreams into seamless realities without a moment’s worry. From the first spark of inspiration to your safe return home, we guide you through every milestone of your journey. Our mission is to deliver bespoke, secure, and effortless travel experiences tailored to your unique desires, ensuring every second is filled with wonder and discovery",
+    "herabout.sectionB": "OUR DESTINATION",
+    "herabout.desc1": "Experience the ultimate island paradise. From the serene spiritual heart of Ubud to the vibrant beaches of Seminyak, Bali offers a perfect blend of rich culture, breathtaking landscapes, and tropical tranquility",
+    "herabout.desc2": "Step into the heart of history and spirituality. Witness the architectural grandeur of St. Peter’s Basilica and the artistic masterpieces of the Vatican Museums in the world’s smallest yet most influential city-state",
+    "herabout.desc3": "Explore the timeless charm of Belgium, where medieval architecture meets world-class chocolate. Discover the historic squares of Brussels and the enchanting canals of Bruges for an unforgettable European escape",
+    "herabout.button": "View More",
+
+    "hero_youtube.text": "Explore the world through the eyes of our vibrant travel community. We don't just plan trips, we curate life changing adventures that bring people together. Watch our latest journeys unfold and see how we turn global destinations into shared memories. Your next great story starts here.",
+    "hero_youtube.button": "WATCH MORE",
+
+    "hero_review.section": "#Reviews",
+    "hero_review.title": "Your Trusted Partner In Travel",
+
+    "hero_CTA.text": "Don’t wait any longer! Start your adventure <br className=\"hidden md:block\" /> and explore new experience today",
+    "hero_CTA.button": "Book Now",
+
+    "about.title": "About Us",
+
+    "about_intro.title": "<0>Introduction</0> To Very Trusted Tour And Travel Agency",
+    "about_intro.desc": "At Mjin Amor Travel, we believe that traveling is more than just visiting new locations. it is about the stories you collect and the memories that stay with you forever. Since our establishment in 2018, we have dedicated ourselves to being more than just a service provider we are your dedicated partners in exploration. Our mission is to bridge the gap between your dreams and reality by uncovering the world’s most breathtaking hidden gems, curated specifically for those who seek authenticity.",
+    "about_intro.bubble_one": "Safe & Secure Travel",
+    "about_intro.bubble_desc_one": "Your safety is our priority, with verified accommodations.",
+    "about_intro.bubble_two": "Curated Destinations",
+    "about_intro.bubble_desc_two": "Carefully selected routes and hidden spots.",
+    "about_intro.bubble_three": "Personalized Experience",
+    "about_intro.bubble_desc_three": "Tailor-made itineraries designed to match your travel style.",
+
+    "about_img.img_one": "Create unforgettable memories with the people who matter most.",
+    "about_img.img_two": "Escape the ordinary and immerse yourself in nature. Discover hidden gems that rejuvenate your soul.",
+
+    "about_destination.section": "OUR DESTINATIONS",
+    "about_destination.desc": "Explore a world of breathtaking destinations with us. From pristine beaches to majestic mountains, our curated travel experiences are designed to inspire and captivate. Discover hidden gems, immerse yourself in diverse cultures, and create unforgettable memories as you journey to some of the most beautiful places on Earth. Your adventure awaits!",
+
+    "product.title": "Product",
+
+    "contact.title": "Contact",
+
+    "contact_form.title": "Send us a message",
+    "contact_form.desc": "Have questions about our trips or need a custom itinerary? Send us a message, and our team will get back to you shortly to help plan your dream vacation.",
+    "contact_form.name": "Name",
+    "contact_form.email": "Email",
+    "contact_form.message": "Message",
+    "contact_form.send": "Send Message",
+    "contact_form.help_center": "Hi! We are here to help you.",
+    "contact_form.hotline": "Hotline:",
+    "contact_form.sms": "SMS/WhatsApp:",
+    "contact_form.email_contact": "Email:",
+    "contact_form.socials": "Contact with us",
+
+    "footer.about_us": "About Us",
+    "footer.products": "Products",
+    "footer.contact_us": "Contact Us",
+    "footer.track_records": "Track Records",
+    "footer.title": "Get Updates",
+    "footer.desc": "Subscribe to our newsletter to receive updates and special announcements.",
+    "footer.send_message": "Send Us A Message",
+    "footer.sign": "Sign Up"
+}
