@@ -1,47 +1,94 @@
 <x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    <div class="min-h-screen bg-white flex items-center justify-center p-4">
+        <div class="bg-white rounded-[20px] shadow-2xl w-full max-w-5xl flex overflow-hidden min-h-150">
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+            <div class="hidden md:block md:w-1/2 p-4">
+                <div class="relative h-full w-full rounded-[15px] overflow-hidden group">
+                    <img src="/img/login/assets/login_img.svg" alt="Scenery" class="absolute inset-0 w-full h-full object-cover">
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                    <a href="/" class="absolute top-6 right-6 bg-black text-white px-5 py-2 rounded-full text-sm font-medium flex items-center gap-2 hover:bg-gray-800 transition">
+                        back to website
+                        <span>&rarr;</span>
+                    </a>
+
+                    <div class="absolute bottom-8 left-8">
+                        <img src="/img/login/icon/MijnIconWhite.svg" alt="Mijn Amor Icon" class="w-24">
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full md:w-1/2 p-12 flex flex-col justify-between">
+                
+                <div class="flex justify-end mb-10">
+                    @php
+                    $languages = [
+                        ['code' => 'en', 'name' => 'EN', 'flag' => 'https://flagcdn.com/w40/us.png'],
+                        ['code' => 'id', 'name' => 'ID', 'flag' => 'https://flagcdn.com/w40/id.png'],
+                        ['code' => 'nl', 'name' => 'NL', 'flag' => 'https://flagcdn.com/w40/nl.png']
+                    ];
+                    $currentLocale = app()->getLocale();
+                    $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $languages[0];
+                    @endphp
+
+                    <div class="relative" x-data="{ langOpen: false }" @click.away="langOpen = false">
+                        <button @click="langOpen = !langOpen" class="flex items-center gap-2 focus:outline-none hover:opacity-80 transition">
+                            <img src="{{ $currentLang['flag'] }}" alt="{{ $currentLang['name'] }}" class="w-6 h-4 object-cover rounded-sm" />
+                            <span class="text-black text-sm font-bold uppercase">{{ $currentLang['code'] }}</span>
+                        </button>
+                        <div x-show="langOpen" style="display: none;" class="absolute top-full right-0 mt-2 w-32 bg-white border border-gray-100 rounded-lg shadow-xl overflow-hidden z-50">
+                            @foreach($languages as $lang)
+                            <a href="{{ route('lang.switch', $lang['code']) }}"
+                                class="flex items-center gap-3 w-full px-4 py-3 text-sm text-left transition hover:bg-gray-50 {{ $currentLocale === $lang['code'] ? 'text-blue-500 font-bold' : 'text-gray-700' }}">
+                                <img src="{{ $lang['flag'] }}" alt="{{ $lang['name'] }}" class="w-5 h-3 object-cover rounded-sm" />
+                                {{ $lang['name'] }}
+                            </a>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+
+                <div class="my-auto">
+                    <h1 class="text-[#67a3bc] text-5xl font-bold mb-2">Welcome back!</h1>
+                    <p class="text-gray-600 mb-8 font-medium">
+                        Don't have an account? <a href="{{ route('register') }}" class="text-[#67a3bc] hover:underline">Create Account</a>
+                    </p>
+
+                    <x-auth-session-status class="mb-4" :status="session('status')" />
+
+                    <form method="POST" action="{{ route('login') }}" class="space-y-6">
+                        @csrf
+
+                        <div>
+                            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" placeholder="Email" required autofocus autocomplete="username" />
+                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                        </div>
+
+                        <div>
+                            <x-text-input id="password" class="block mt-1 w-full"
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                required autocomplete="current-password" />
+                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                        </div>
+
+                        <div class="flex items-center justify-start">
+                            @if (Route::has('password.request'))
+                                <a class="text-sm text-gray-600 hover:text-[#67a3bc]" href="{{ route('password.request') }}">
+                                    {{ __('Forget password?') }}
+                                </a>
+                            @endif
+                        </div>
+
+                        <button type="submit" class="w-full bg-[#67a3bc] text-white font-bold py-4 rounded-xl hover:bg-[#568da3] transition duration-300 uppercase tracking-wider text-lg shadow-md">
+                            Sign In
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="h-4"></div>
+            </div>
+
         </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
+    </div>
 </x-guest-layout>

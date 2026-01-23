@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ asset('MijnAmor.svg') }}" type="image/svg">
-    <title>{{ config('app.name', 'Mijn Amor Travel') }}</title>
+    <title>Mijn Amor Travel</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
