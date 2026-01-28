@@ -1,44 +1,68 @@
-<div class="w-full md:w-80 bg-white border border-gray-200 rounded-3xl p-6 flex flex-col min-h-150 shadow-sm">
-    <div class="flex items-center gap-4 mb-6 pb-6 border-b border-gray-100">
-        <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center text-xl font-bold text-gray-400 shadow-inner">
-            {{ collect(explode(' ', auth()->user()->name))->map(fn($n) => ucfirst(substr($n, 0, 1)))->join('') }}
-        </div>
-        <div>
-            <h3 class="font-extrabold text-gray-900 text-lg leading-tight">{{ auth()->user()->name }}</h3>
-            <p class="text-xs text-gray-400 truncate">{{ auth()->user()->email }}</p>
-        </div>
+<div x-data="{ sidebarOpen: false }" class="w-full md:w-80 bg-white border border-gray-200 rounded-3xl p-6 flex flex-col shadow-sm transition-all duration-300">
+    
+    {{-- MOBILE TOGGLE HEADER (Hanya muncul di HP/Tablet kecil) --}}
+    <div class="md:hidden flex items-center justify-between mb-4">
+        <span class="font-bold text-gray-700 text-lg">Menu Profil</span>
+        <button @click="sidebarOpen = !sidebarOpen" class="focus:outline-none p-2 rounded-lg hover:bg-gray-100 transition">
+            {{-- Icon Hamburger (Garis 3) --}}
+            <svg x-show="!sidebarOpen" class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+            {{-- Icon Close (Silang) --}}
+            <svg x-show="sidebarOpen" style="display: none;" class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
     </div>
 
-    <nav class="flex-1 space-y-2">
-        <a href="{{ route('profile.booking') }}"
-            class="flex items-center gap-3 px-4 py-4 font-bold transition rounded-xl 
-       {{ request()->routeIs('profile.booking') ? 'bg-[#0099FF] text-white shadow-lg' : 'text-gray-500 hover:bg-blue-50' }}">
+    {{-- SIDEBAR CONTENT WRAPPER --}}
+    {{-- Logic: Hidden di mobile (kecuali sidebarOpen=true), selalu Flex di desktop (md:flex) --}}
+    <div :class="sidebarOpen ? 'flex' : 'hidden'" class="flex-col md:flex h-full transition-all duration-300">
+        
+        {{-- USER INFO --}}
+        <div class="flex items-center gap-4 mb-6 pb-6 border-b border-gray-100">
+            <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center text-xl font-bold text-gray-400 shadow-inner shrink-0">
+                {{ collect(explode(' ', auth()->user()->name))->map(fn($n) => ucfirst(substr($n, 0, 1)))->join('') }}
+            </div>
+            <div class="overflow-hidden">
+                <h3 class="font-extrabold text-gray-900 text-lg leading-tight truncate">{{ auth()->user()->name }}</h3>
+                <p class="text-xs text-gray-400 truncate">{{ auth()->user()->email }}</p>
+            </div>
+        </div>
 
-            <svg class="w-6 h-6 {{ request()->routeIs('profile.booking') ? 'text-white' : 'text-blue-500' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            My Booking
-        </a>
+        {{-- NAVIGATION LINKS --}}
+        <nav class="flex-1 space-y-2">
+            <a href="{{ route('profile.booking') }}"
+                class="flex items-center gap-3 px-4 py-4 font-bold transition rounded-xl 
+           {{ request()->routeIs('profile.booking') ? 'bg-[#0099FF] text-white shadow-lg' : 'text-gray-500 hover:bg-blue-50' }}">
 
-        <a href="{{ route('profile.edit') }}"
-            class="flex items-center gap-3 px-4 py-4 font-bold transition rounded-xl 
-       {{ request()->routeIs('profile.edit') ? 'bg-[#0099FF] text-white shadow-lg' : 'text-gray-500 hover:bg-blue-50' }}">
+                <svg class="w-6 h-6 {{ request()->routeIs('profile.booking') ? 'text-white' : 'text-blue-500' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                My Booking
+            </a>
 
-            <svg class="w-6 h-6 {{ request()->routeIs('profile.edit') ? 'text-white' : 'text-blue-500' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            My Account
-        </a>
-    </nav>
+            <a href="{{ route('profile.edit') }}"
+                class="flex items-center gap-3 px-4 py-4 font-bold transition rounded-xl 
+           {{ request()->routeIs('profile.edit') ? 'bg-[#0099FF] text-white shadow-lg' : 'text-gray-500 hover:bg-blue-50' }}">
 
-    <form method="POST" action="{{ route('logout') }}" class="mt-auto pt-6">
-        @csrf
-        <button type="submit" class="flex items-center gap-3 px-4 py-2 text-gray-900 font-bold hover:text-red-500 transition">
-            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-            </svg>
-            Log Out
-        </button>
-    </form>
+                <svg class="w-6 h-6 {{ request()->routeIs('profile.edit') ? 'text-white' : 'text-blue-500' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                My Account
+            </a>
+        </nav>
+
+        {{-- LOGOUT --}}
+        <form method="POST" action="{{ route('logout') }}" class="mt-auto pt-6">
+            @csrf
+            <button type="submit" class="flex items-center gap-3 px-4 py-2 text-gray-900 font-bold hover:text-red-500 transition w-full">
+                <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                Log Out
+            </button>
+        </form>
+    </div>
 </div>

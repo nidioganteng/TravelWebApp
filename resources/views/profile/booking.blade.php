@@ -76,7 +76,11 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                             <h3 class="text-xl font-bold text-gray-900 mb-1">No Active Bookings Found</h3>
                             <p class="text-gray-500 text-sm leading-relaxed">
                                 Anything you booked shows up here, but it seems like you haven't made any. <br>
-                                <span class="text-[#0099FF] font-semibold cursor-pointer hover:underline">Let's create one via homepage!</span>
+                                <span class="text-[#0099FF] font-semibold cursor-pointer hover:underline">
+                                    <a href="/products">
+                                    Let's create one via products!
+                                    </a>
+                                </span>
                             </p>
                         </div>
                     </div>

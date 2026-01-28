@@ -169,7 +169,6 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                 </div>
 
                 {{-- HAMBURGER BUTTON --}}
-                {{-- React: onClick={() => setIsOpen(!isOpen)} --}}
                 <button @click="mobileOpen = !mobileOpen" class="text-white">
                     {{-- Logika ganti icon --}}
                     <img :src="mobileOpen ? '{{ asset('img/navbar/close.svg') }}' : '{{ asset('img/navbar/menu.svg') }}'" alt="toggle" class="w-8 h-8" />
@@ -179,7 +178,6 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
     </div>
 
     {{-- MOBILE MENU DROPDOWN --}}
-    {{-- React: {isOpen && (...)} --}}
     <div x-show="mobileOpen"
         style="display: none;"
         class="block overflow-hidden text-center sm:hidden backdrop-blur-lg">
