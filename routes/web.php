@@ -2,6 +2,12 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\TravelRecordController;
+use App\Http\Controllers\Admin\BookingController;
+use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\Admin\Auth\AdminAuthController;
 
 Route::get('lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'id', 'nl'])) {
@@ -37,3 +43,33 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Menampilkan Form Login (GET) -> akses: /admin/login
+    Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
+
+    // Proses Submit Login (POST)
+    Route::post('/login', [AdminAuthController::class, 'login'])->name('login.submit');
+
+    // Proses Logout Admin (POST)
+    Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
+});
+
+// GROUP ADMIN (Semua route di dalam ini diproteksi Middleware)
+Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function () {
+
+    // 1. Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // 2. Manage Product (CRUD)
+    Route::resource('products', ProductController::class);
+
+    // 3. Track Record (CRUD)
+    Route::resource('travel-records', TravelRecordController::class);
+
+    // 4. Booking List (Biasanya cuma butuh index & show/update)
+    Route::resource('bookings', BookingController::class);
+
+    // 5. Messages (Biasanya cuma index & destroy)
+    Route::resource('messages', MessageController::class);
+});
