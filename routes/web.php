@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\TravelRecordController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\Auth\AdminAuthController;
+use App\Http\Controllers\ContactController;
 
 Route::get('lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'id', 'nl'])) {
@@ -73,3 +74,7 @@ Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function ()
     // 5. Messages (Biasanya cuma index & destroy)
     Route::resource('messages', MessageController::class);
 });
+
+// Route untuk memproses kirim pesan (POST)
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::resource('messages', MessageController::class);

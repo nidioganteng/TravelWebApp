@@ -71,13 +71,12 @@
                     </button>
                 </div>
 
-                <div x-data="{ open: {{ request()->is('admin/messages*') ? 'true' : 'false' }} }">
-                    <button @click="open = !open"
-                        class="w-full flex items-center px-6 py-3 rounded-full transition-all {{ request()->routeIs('admin/messages') ? 'bg-white text-[#0099FF] shadow-lg' : 'hover:bg-white/10' }}">
-                        <i class="fas fa-envelope w-6 mr-4"></i>
-                        <span class="font-medium">Messages</span>
-                    </button>
-                </div>
+                {{-- Messages (Langsung Link, Hapus x-data) --}}
+                <a href="{{ route('admin.messages.index') }}" 
+                class="w-full flex items-center px-6 py-3 rounded-full transition-all {{ request()->routeIs('admin.messages*') ? 'bg-white text-[#0099FF] shadow-lg' : 'hover:bg-white/10' }}">
+                    <i class="fas fa-envelope w-6 mr-4"></i>
+                    <span class="font-medium">Messages</span>
+                </a>
 
                 <div x-data="{ open: {{ request()->is('admin/settings*') ? 'true' : 'false' }} }">
                     <button @click="open = !open"
@@ -101,7 +100,7 @@
             </div>
         </aside>
 
-        <main class="flex-1 ml-72 p-8">
+        <main class="flex-1 ml-72 bg-gray-50 min-h-screen">
             {{ $slot }}
         </main>
     </div>

@@ -1,4 +1,12 @@
 <div class="relative z-20 -mt-24 w-full max-w-6xl mx-auto px-4 pb-20">
+
+    {{-- PERUBAHAN 1: Tambahkan Alert Sukses di sini --}}
+    @if(session('success'))
+        <div class="mb-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-2xl relative shadow-lg" role="alert">
+            <strong class="font-bold">Berhasil!</strong>
+            <span class="block sm:inline">{{ session('success') }}</span>
+        </div>
+    @endif
   
     <div class="flex flex-col md:flex-row bg-white rounded-[30px] shadow-2xl overflow-hidden">
 
@@ -9,33 +17,44 @@
                 {{ __('contact_form.desc') }}
             </p>
 
-            <form class="space-y-6">
+            {{-- PERUBAHAN 2: Tambahkan action, method, dan @csrf --}}
+            <form action="{{ route('contact.store') }}" method="POST" class="space-y-6">
+                @csrf {{-- WAJIB ADA: Tiket keamanan Laravel --}}
+
                 <div>
                     <label class="block text-black font-bold mb-2">{{ __('contact_form.name') }}</label>
-                    {{-- Perhatikan class bg di bawah ini sudah bersih --}}
+                    {{-- PERUBAHAN 3: Tambahkan name="name" dan required --}}
                     <input 
                         type="text" 
+                        name="name" 
+                        required
                         class="w-full bg-[#F3F3F3] rounded-2xl px-6 py-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
 
                 <div>
                     <label class="block text-black font-bold mb-2">{{ __('contact_form.email') }}</label>
+                    {{-- PERUBAHAN 4: Tambahkan name="email" dan required --}}
                     <input 
                         type="email" 
+                        name="email"
+                        required
                         class="w-full bg-[#F3F3F3] rounded-2xl px-6 py-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
 
                 <div>
                     <label class="block text-black font-bold mb-2">{{ __('contact_form.message') }}</label>
+                    {{-- PERUBAHAN 5: Tambahkan name="message" dan required --}}
                     <textarea 
+                        name="message"
+                        required
                         rows="4"
                         class="w-full bg-[#F3F3F3] rounded-2xl px-6 py-4 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                     ></textarea>
                 </div>
                 <div class="flex justify-end pt-4">
-                    <button class="bg-[#10435E] text-white font-bold py-4 px-10 rounded-2xl shadow-lg hover:bg-[#0d364b] transition-colors">
+                    <button type="submit" class="bg-[#10435E] text-white font-bold py-4 px-10 rounded-2xl shadow-lg hover:bg-[#0d364b] transition-colors">
                         {{ __('contact_form.send') }}
                     </button>
                 </div>
