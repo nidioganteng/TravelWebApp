@@ -1,87 +1,82 @@
-@php
-    $tripsData = [
-        [
-            'id' => 1,
-            'title' => "Christmas Market Weekend in Paris – December 20–21, 2025",
-            'image' => '/img/product/assets/paris.svg', 
-            'description' => "Experience the magic of the 'City of Lights' like never before on this exclusive weekend getaway. As Christmas approaches, Paris transforms into a dazzling wonderland with millions of twinkling lights adorning the Champs-Élysées and the Eiffel Tower. You will have two full days to explore the most enchanting Christmas markets, from the festive village at La Défense to the traditional stalls in the Tuileries Garden. Indulge in authentic French crêpes, sip on warm mulled wine, and shop for unique artisanal gifts. Whether you want to enjoy a romantic river cruise on the Seine or simply get lost in the festive atmosphere of Montmartre, this trip offers the perfect blend of shopping, sightseeing, and holiday cheer. We handle all the logistics so you can focus on creating unforgettable memories.",
-            'departures' => [
-                "Duivendrecht Station at 06:45",
-                "Benedictus and Bernadette Church Rijswijk at 07:40",
-                "Schiedam Station at 08:05",
-                "Rotterdam Central Station at 08:20"
-            ],
-            'returnInfo' => "Return from Paris at 13:00 on the second day.",
-            'price' => "€235"
-        ],
-        [
-            'id' => 2,
-            'title' => "Christmas Market Day Trip to Düsseldorf – December 13, 2025",
-            'image' => '/img/product/assets/dusseldorf.svg', 
-            'description' => "Immerse yourself in the authentic tradition of a German Christmas without the hassle of long-distance travel. Düsseldorf is famous for having one of the most beautiful Christmas markets in Germany, where the city center turns into a gingerbread world. Unlike other cities, Düsseldorf offers several unique themed markets all within walking distance, including the 'Angel Market' (Engelchenmarkt) with its golden pavilion and the historic market at the Town Hall. Stroll along the luxury Königsallee boulevard under the giant chestnut trees illuminated by thousands of lights. Enjoy the smell of roasted almonds, Bratwurst, and traditional Glühwein while shopping for handmade crafts. This day trip is the perfect quick escape to feel the true spirit of Christmas with friends and family.",
-            'departures' => [
-                "Duivendrecht Station at 06:45",
-                "Benedictus and Bernadette Church Rijswijk at 07:40",
-                "Schiedam Station at 08:05",
-                "Rotterdam Central Station at 08:20"
-            ],
-            'returnInfo' => "Return from Düsseldorf at 17:00.",
-            'price' => "€55"
-        ]
-    ];
-@endphp
-
 <section class="w-full bg-white py-12 px-4 md:px-8">
     <div class="max-w-7xl mx-auto space-y-12">
-      
-        {{-- Looping Data Trips --}}
+
         @foreach ($tripsData as $trip)
-            <div class="bg-white border border-gray-300 rounded-[20px] p-6 md:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_4px_25px_rgba(0,0,0,0.15)] transition-shadow duration-300">
-            
-                <h2 class="text-2xl md:text-3xl font-extrabold text-black text-center mb-8">
-                    {{ $trip['title'] }}
-                </h2>
+        <div class="bg-white border border-gray-300 rounded-[20px] p-6 md:p-14 shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_4px_25px_rgba(0,0,0,0.15)] transition-shadow duration-300">
 
-                <div class="flex flex-col lg:flex-row gap-8">
-                    
-                    <div class="w-full lg:w-[45%]">
-                        <div class="h-75 lg:h-full w-full overflow-hidden rounded-2xl">
-                            <img 
-                                src="{{ asset($trip['image']) }}" 
-                                alt="{{ $trip['title'] }}" 
-                                class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                            />
+            <h2 class="text-2xl md:text-3xl font-extrabold text-black text-center mb-8">
+                {{ $trip->product_name }}
+            </h2>
+
+            <div class="flex flex-col lg:flex-row gap-8">
+
+                <div class="w-full lg:w-[45%]">
+                    <div class="h-125 w-100 overflow-hidden rounded-2xl relative group"
+                        x-data="{
+                            activeSlide: 0,
+                            slides: {{ json_encode($trip['product_image']) }},
+                            init() {
+                                if (this.slides.length > 1) {
+                                    setInterval(() => {
+                                        this.activeSlide = (this.activeSlide === this.slides.length - 1) ? 0 : this.activeSlide + 1;
+                                    }, 10000);
+                                }
+                            }
+                        }">
+
+                        <div class="relative h-full w-full">
+                            <template x-for="(image, index) in slides" :key="index">
+                                <div x-show="activeSlide === index"
+                                    x-transition:enter="transition duration-700 ease-out"
+                                    x-transition:enter-start="opacity-0"
+                                    x-transition:enter-end="opacity-100"
+                                    x-transition:leave="transition duration-700 ease-in"
+                                    x-transition:leave-start="opacity-100"
+                                    x-transition:leave-end="opacity-0"
+                                    class="absolute inset-0">
+                                    <img :src="'/storage/' + image"
+                                        alt="{{ $trip['product_name'] }}"
+                                        class="w-full h-full object-cover">
+                                </div>
+                            </template>
                         </div>
-                    </div>
-                    <div class="w-full lg:w-[55%] flex flex-col justify-between">
-                        <div>
 
-                            <p class="text-gray-700 text-justify leading-relaxed mb-6">
-                                {{ $trip['description'] }}
-                            </p>
-
-                            <div class="mb-4">
-                                <p class="font-semibold text-black mb-2">Departure locations:</p>
-                                <ul class="list-disc pl-5 space-y-1 text-gray-700">
-                                    @foreach ($trip['departures'] as $loc)
-                                        <li>{{ $loc }}</li>
-                                    @endforeach
-                                </ul>
+                        <template x-if="slides.length > 1">
+                            <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-2">
+                                <template x-for="(image, index) in slides" :key="index">
+                                    <div :class="activeSlide === index ? 'bg-white w-5' : 'bg-white/50 w-2'"
+                                        class="h-1.5 rounded-full transition-all duration-500">
+                                    </div>
+                                </template>
                             </div>
-
-                            <p class="text-gray-700">
-                                {{ $trip['returnInfo'] }}
-                            </p>
-                        </div>
-                        <div class="mt-8">
-                            <button class="w-full bg-[#10435E] text-white text-lg font-bold py-4 px-6 rounded-xl shadow-md hover:bg-[#0d364b] transition-colors duration-300">
-                                Price per person: {{ $trip['price'] }}
-                            </button>
-                        </div>
+                        </template>
                     </div>
-
                 </div>
+
+                <div class="w-full lg:w-[75%] flex flex-col justify-between">
+                    <div>
+
+                        <p class="text-gray-700 text-justify leading-relaxed mb-6">
+                            {{ $trip['product_description'] }}
+                        </p>
+
+                        <div class="mb-4">
+                            <p class="font-semibold text-black mb-2">Departure locations:</p>
+                            <div class="prose max-w-none list-disc pl-2 trix-content">
+                                {!! $trip->departure_locations !!}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="mt-8">
+                        <button class="w-full bg-[#10435E] text-white text-lg font-bold py-4 px-6 rounded-xl shadow-md hover:bg-[#0d364b] transition-colors duration-300">
+                            Price per person: {{ $trip['product_price'] }}
+                        </button>
+                    </div>
+                </div>
+
             </div>
+        </div>
         @endforeach
 
     </div>

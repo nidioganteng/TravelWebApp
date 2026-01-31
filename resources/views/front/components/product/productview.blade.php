@@ -1,10 +1,9 @@
-<div class="relative w-full min-h-screen"> 
+<div class="relative w-full min-h-screen">
     {{-- Header Image Section --}}
     <div class="relative h-[50vh] w-full">
-        <div 
+        <div
             class="absolute inset-0 w-full h-full"
-            style="background-image: url('{{ asset('/img/product/assets/background_product.svg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;"
-        ></div>
+            style="background-image: url('{{ asset('/img/product/assets/background_product.svg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
         <div class="absolute inset-0 bg-black/30"></div>
 
         <div class="relative z-10 flex h-full items-center justify-center">
