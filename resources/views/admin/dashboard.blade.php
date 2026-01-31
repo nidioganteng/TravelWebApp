@@ -1,7 +1,6 @@
 <x-admin-layout>
-    <div class="mb-6 flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-gray-800">Dashboard Overview</h1>
-        <span class="text-gray-500 text-sm">{{ date('l, d F Y') }}</span>
+    <div class="bg-white py-9 px-8 shadow-md border-b border-gray-100 mb-8">
+        <h1 class="text-3xl font-bold text-black tracking-tight">Dashboard</h1>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">

@@ -44,21 +44,23 @@
                     </div>
                 </div>
 
-                <div x-data="{ open: {{ request()->is('admin/track-record*') ? 'true' : 'false' }} }">
+                <div x-data="{ open: {{ request()->routeIs('admin.travel-records*') ? 'true' : 'false' }} }">
                     <button @click="open = !open"
-                        class="w-full flex items-center px-6 py-3 rounded-full transition-all {{ request()->is('admin/track-record*') ? 'bg-white text-[#0099FF]' : 'hover:bg-white/10' }}">
+                        class="w-full flex items-center px-6 py-3 rounded-full transition-all {{ request()->routeIs('admin.travel-records*') ? 'bg-white text-[#0099FF] shadow-lg' : 'hover:bg-white/10' }}">
                         <i class="fas fa-list-check w-6 mr-4"></i>
                         <span class="font-medium flex-1 text-left">Track Record</span>
                         <i class="fas fa-chevron-down text-xs transition-transform" :class="open ? 'rotate-180' : ''"></i>
                     </button>
                     <div x-show="open" class="ml-12 mt-2 border-l-2 border-white/50 space-y-2 pb-2">
-                        <a href="/admin/track-record/add" class="relative flex items-center pl-6 py-2 text-sm hover:text-white/80">
+                        {{-- Add Track Record --}}
+                        <a href="{{ route('admin.travel-records.create') }}" class="relative flex items-center pl-6 py-2 text-sm hover:text-white/80">
                             <span class="absolute left-0 w-4 border-t-2 border-white/50"></span>
-                            <span class="{{ request()->is('admin/track-record/add') ? 'border-b-2 border-white' : '' }}">Add Track Record</span>
+                            <span class="{{ request()->routeIs('admin.travel-records.create') ? 'font-bold border-b-2 border-white' : '' }}">Add Track Record</span>
                         </a>
-                        <a href="/admin/track-record/list" class="relative flex items-center pl-6 py-2 text-sm hover:text-white/80">
+                        {{-- Track Record List --}}
+                        <a href="{{ route('admin.travel-records.index') }}" class="relative flex items-center pl-6 py-2 text-sm hover:text-white/80">
                             <span class="absolute left-0 w-4 border-t-2 border-white/50"></span>
-                            <span class="{{ request()->is('admin/track-record/list') ? 'border-b-2 border-white' : '' }}">Track Records</span>
+                            <span class="{{ request()->routeIs('admin.travel-records.index') ? 'font-bold border-b-2 border-white' : '' }}">Track Records</span>
                         </a>
                     </div>
                 </div>
