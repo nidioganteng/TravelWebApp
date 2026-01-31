@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\Auth\AdminAuthController;
 use App\Http\Controllers\ContactController;
+use App\Models\TrackRecord;
 
 Route::get('lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'id', 'nl'])) {
@@ -21,9 +22,40 @@ Route::get('/', function () {
     return view('front.home');
 })->name('home');
 
-Route::get('/about', function () {
-    return view('front.about');
+// Route About (Dengan Default Tahun 2025 & Range Manual)
+Route::get('/about', function (\Illuminate\Http\Request $request) {
+    
+    // 1. Logika Penentuan Tahun Terpilih
+    if ($request->has('year')) {
+        $selectedYear = $request->year;
+    } else {
+        $selectedYear = 2025; //
+    }
+
+    // 2. Query Data
+    $query = App\Models\TrackRecord::query();
+
+    if ($selectedYear) {
+        $query->where('year', $selectedYear);
+    }
+
+    $trackRecords = $query->latest()->get();
+
+    // 3. Generate List Tahun
+    $availableYears = range(date('Y'), 2018);
+
+    // Kirim variable 'selectedYear' ke view biar UI tau lagi nampilin tahun berapa
+    return view('front.about', compact('trackRecords', 'availableYears', 'selectedYear'));
+
 })->name('about');
+
+// Route Detail Track Record
+Route::get('/track-record/{slug}', function ($slug) {
+    
+    $record = App\Models\TrackRecord::with('items')->where('slug', $slug)->firstOrFail();
+    return view('front.show', compact('record'));
+
+})->name('track-record.show');
 
 Route::get('/products', function () {
     return view('front.products');
