@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\Auth\AdminAuthController;
 use App\Http\Controllers\ContactController;
 use App\Models\TrackRecord;
+use App\Http\Controllers\UserController;
 
 Route::get('lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'id', 'nl'])) {
@@ -24,7 +25,7 @@ Route::get('/', function () {
 
 // Route About (Dengan Default Tahun 2025 & Range Manual)
 Route::get('/about', function (\Illuminate\Http\Request $request) {
-    
+
     // 1. Logika Penentuan Tahun Terpilih
     if ($request->has('year')) {
         $selectedYear = $request->year;
@@ -46,20 +47,16 @@ Route::get('/about', function (\Illuminate\Http\Request $request) {
 
     // Kirim variable 'selectedYear' ke view biar UI tau lagi nampilin tahun berapa
     return view('front.about', compact('trackRecords', 'availableYears', 'selectedYear'));
-
 })->name('about');
 
 // Route Detail Track Record
 Route::get('/track-record/{slug}', function ($slug) {
-    
+
     $record = App\Models\TrackRecord::with('items')->where('slug', $slug)->firstOrFail();
     return view('front.show', compact('record'));
-
 })->name('track-record.show');
 
-Route::get('/products', function () {
-    return view('front.products');
-})->name('products');
+Route::get('/products', [UserController::class, 'index'])->name('products');
 
 Route::get('/contact', function () {
     return view('front.contact');
@@ -95,7 +92,10 @@ Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function ()
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // 2. Manage Product (CRUD)
-    Route::resource('products', ProductController::class);
+    Route::resource('products', ProductController::class); // Ini sudah mencakup index, create, store, edit, update, destroy
+    Route::post('/products/{id}/publish', [ProductController::class, 'publish'])->name('products.publish');
+    Route::patch('/admin/products/{product}/toggle', [App\Http\Controllers\Admin\ProductController::class, 'togglePublish'])
+        ->name('products.toggle');
 
     // 3. Track Record (CRUD)
     Route::resource('travel-records', TravelRecordController::class);
