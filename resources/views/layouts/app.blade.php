@@ -8,6 +8,7 @@
     <link rel="icon" href="{{ asset('MijnAmor.svg') }}" type="image/svg">
     <title>Mijn Amor Travel</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body class="text-gray-800 antialiased flex flex-col min-h-screen bg-white">
