@@ -13,18 +13,15 @@ return new class extends Migration
     {
         Schema::create('track_records', function (Blueprint $table) {
             $table->id();
-            $table->string('city_name'); // Judul Utama (misal: Bromo Mountain)
+            $table->string('city_name'); 
             $table->text('description');
-            $table->year('year'); // Tahun (misal: 2023)
-            $table->string('banner_image'); // Path foto untuk banner besar di atas
-            $table->string('slug')->unique(); // Untuk URL yang cantik (misal: bromo-mountain-2023)
+            $table->year('year'); 
+            $table->string('banner_image'); 
+            $table->string('slug')->unique(); 
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('track_records');

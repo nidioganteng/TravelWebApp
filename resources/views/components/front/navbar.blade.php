@@ -13,12 +13,10 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
     <div class="mx-auto c-space max-w-7xl">
         <div class="flex items-center justify-between py-4 sm:py-4">
 
-            {{-- LOGO --}}
             <a href="{{ route('home') }}">
                 <img src="{{ asset('MijnAmor.svg') }}" alt="Mjin Amor" class="w-15" />
             </a>
 
-            {{-- DESKTOP NAV (Navigation Component) --}}
             <nav class="hidden sm:flex">
                 <ul class="nav-ul">
                     <li class="nav-li"><a href="{{ route('home') }}" class="nav-a">{{ __('nav.home') }}</a></li>
@@ -28,11 +26,8 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                 </ul>
             </nav>
 
-            {{-- DESKTOP RIGHT SECTION --}}
             <div class="hidden sm:flex items-center gap-10">
 
-                {{-- LANGUAGE SELECTOR (Desktop) --}}
-                {{-- React: const [isOpen, setIsOpen] = useState(false); --}}
                 <div class="relative" x-data="{ langOpen: false }" @click.away="langOpen = false">
                     <button
                         @click="langOpen = !langOpen"
@@ -41,12 +36,10 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                         <span class="text-white text-xs font-semibold uppercase">{{ $currentLang['code'] }}</span>
                     </button>
 
-                    {{-- Dropdown --}}
                     <div x-show="langOpen"
                         style="display: none;"
                         class="absolute top-full right-0 mt-2 w-32 bg-black/80 backdrop-blur-md border border-white/10 rounded-lg shadow-xl overflow-hidden z-50">
                         @foreach($languages as $lang)
-                        {{-- React: languages.map(...) --}}
                         <a href="{{ route('lang.switch', $lang['code']) }}"
                             class="flex items-center gap-3 w-full px-4 py-3 text-sm text-left transition hover:bg-white/20
                                {{ $currentLocale === $lang['code'] ? 'text-blue-400 font-bold' : 'text-white' }}">
@@ -56,7 +49,6 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                         @endforeach
                     </div>
                 </div>
-                {{-- END LANGUAGE SELECTOR --}}
 
                 <div class="flex items-center">
                     @auth
@@ -100,7 +92,6 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                 </div>
             </div>
 
-            {{-- MOBILE RIGHT SECTION --}}
             <div class="flex items-center sm:hidden gap-4 md:gap-8">
 
                 {{-- LANGUAGE SELECTOR (Mobile - Duplikat agar struktur sama persis dengan React) --}}
@@ -125,7 +116,6 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                         @endforeach
                     </div>
                 </div>
-                {{-- END LANGUAGE SELECTOR --}}
 
                 <div class="flex items-center">
                     @auth
@@ -168,16 +158,13 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                     @endauth
                 </div>
 
-                {{-- HAMBURGER BUTTON --}}
                 <button @click="mobileOpen = !mobileOpen" class="text-white">
-                    {{-- Logika ganti icon --}}
                     <img :src="mobileOpen ? '{{ asset('img/navbar/close.svg') }}' : '{{ asset('img/navbar/menu.svg') }}'" alt="toggle" class="w-8 h-8" />
                 </button>
             </div>
         </div>
     </div>
 
-    {{-- MOBILE MENU DROPDOWN --}}
     <div x-show="mobileOpen"
         style="display: none;"
         class="block overflow-hidden text-center sm:hidden backdrop-blur-lg">

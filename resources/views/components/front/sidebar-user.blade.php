@@ -1,25 +1,19 @@
 <div x-data="{ sidebarOpen: false }" class="w-full md:w-80 bg-white border border-gray-200 rounded-3xl p-6 flex flex-col shadow-sm transition-all duration-300">
     
-    {{-- MOBILE TOGGLE HEADER (Hanya muncul di HP/Tablet kecil) --}}
     <div class="md:hidden flex items-center justify-between mb-4">
         <span class="font-bold text-gray-700 text-lg">Menu Profil</span>
         <button @click="sidebarOpen = !sidebarOpen" class="focus:outline-none p-2 rounded-lg hover:bg-gray-100 transition">
-            {{-- Icon Hamburger (Garis 3) --}}
             <svg x-show="!sidebarOpen" class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
-            {{-- Icon Close (Silang) --}}
             <svg x-show="sidebarOpen" style="display: none;" class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
         </button>
     </div>
 
-    {{-- SIDEBAR CONTENT WRAPPER --}}
-    {{-- Logic: Hidden di mobile (kecuali sidebarOpen=true), selalu Flex di desktop (md:flex) --}}
     <div :class="sidebarOpen ? 'flex' : 'hidden'" class="flex-col md:flex h-full transition-all duration-300">
         
-        {{-- USER INFO --}}
         <div class="flex items-center gap-4 mb-6 pb-6 border-b border-gray-100">
             <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center text-xl font-bold text-gray-400 shadow-inner shrink-0">
                 {{ collect(explode(' ', auth()->user()->name))->map(fn($n) => ucfirst(substr($n, 0, 1)))->join('') }}
@@ -29,8 +23,6 @@
                 <p class="text-xs text-gray-400 truncate">{{ auth()->user()->email }}</p>
             </div>
         </div>
-
-        {{-- NAVIGATION LINKS --}}
         <nav class="flex-1 space-y-2">
             <a href="{{ route('profile.booking') }}"
                 class="flex items-center gap-3 px-4 py-4 font-bold transition rounded-xl 
@@ -53,8 +45,6 @@
                 My Account
             </a>
         </nav>
-
-        {{-- LOGOUT --}}
         <form method="POST" action="{{ route('logout') }}" class="mt-auto pt-6">
             @csrf
             <button type="submit" class="flex items-center gap-3 px-4 py-2 text-gray-900 font-bold hover:text-red-500 transition w-full">

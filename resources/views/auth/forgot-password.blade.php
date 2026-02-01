@@ -1,8 +1,6 @@
 <x-guest-layout>
     <div class="min-h-screen flex flex-col justify-center items-center bg-gray-100 px-4">
         <div class="relative flex flex-col md:flex-row min-h-112.5 items-center justify-center bg-white rounded-3xl overflow-hidden shadow-sm p-8 max-w-5xl mx-auto">
-
-            {{-- Sisi Kiri: Form Forgot Password --}}
             <div class="w-full md:w-1/2 p-6 flex flex-col justify-center">
                 <div class="mb-6">
                     <h1 class="text-4xl font-extrabold text-[#0099FF] mb-2">
@@ -39,14 +37,11 @@
                 </form>
             </div>
 
-            {{-- Sisi Kanan: Tempat Ilustrasi --}}
             <div class="hidden md:flex w-full md:w-1/2 justify-center items-center p-6">
                 <div class="w-full flex justify-center">
                     <img src="/img/login/assets/forgot_password.svg" alt="Illustration" class="max-w-[80%] h-auto">
                 </div>
             </div>
-
-            {{-- LANGUAGE SELECTOR (Top Right) --}}
             @php
             $languages = [
             ['code' => 'en', 'name' => 'EN', 'flag' => 'https://flagcdn.com/w40/us.png'],
@@ -69,7 +64,6 @@
                     </svg>
                 </button>
 
-                {{-- Dropdown --}}
                 <div x-show="langOpen"
                     x-transition:enter="transition ease-out duration-100"
                     x-transition:enter-start="opacity-0 scale-95"
@@ -86,8 +80,6 @@
                     @endforeach
                 </div>
             </div>
-            {{-- END LANGUAGE SELECTOR --}}
-
         </div>
     </div>
 </x-guest-layout>

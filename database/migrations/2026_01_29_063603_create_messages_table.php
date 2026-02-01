@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->string('name');    // Nama Pengirim
-            $table->string('email');   // Email Pengirim
-            $table->text('message');   // Isi Pesan (pakai text karena bisa panjang)
-            $table->timestamps();      // Otomatis catat jam dibuat (created_at)
+            $table->string('name');   
+            $table->string('email');   
+            $table->text('message');   
+            $table->timestamps();     
         });
     }
 

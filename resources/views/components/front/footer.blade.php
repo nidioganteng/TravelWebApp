@@ -1,8 +1,6 @@
 <footer class="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen bg-[#87B8BE] text-white py-10 px-4 md:py-12 md:px-6">
     <div class="max-w-7xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-5 lg:gap-8 items-center md:items-start">
-            
-            {{-- COLUMN 1: NAVIGATION & SOCIALS --}}
             <div class="space-y-6 flex flex-col items-center md:items-start text-center md:text-left">
                 <nav class="flex flex-col space-y-3 text-lg font-medium">
                     <a href="{{ route('about') }}" class="hover:opacity-80">{{ __('footer.about_us') }}</a>
@@ -27,7 +25,6 @@
                 </div>
             </div>
 
-            {{-- COLUMN 2: NEWSLETTER --}}
             <div class="border-x-0 md:border-x border-white/40 px-0 md:px-4 lg:px-10 text-center w-full">
                 <h2 class="text-2xl md:text-3xl font-semibold mb-2">{{ __('footer.title') }}</h2>
                 <p class="lg:text-sm md:text-[12px] mb-6 leading-relaxed px-2 md:px-0">
@@ -55,7 +52,6 @@
                 </form>
             </div>
 
-            {{-- COLUMN 3: CONTACT INFO --}}
             <div class="flex flex-col items-center md:items-end text-center md:text-right space-y-4">
                 <a href="{{ route('contact') }}" class="flex items-center gap-2 text-lg font-medium hover:opacity-80">
                     {{ __('footer.send_message') }} <span>→</span>
@@ -72,7 +68,6 @@
 
         </div>
 
-        {{-- COPYRIGHT SECTION --}}
         <div class="mt-12 md:mt-16 pt-6 border-t border-white/20 flex flex-col md:flex-row justify-between items-center text-xs opacity-90 gap-4 md:gap-0">
             <p>© 2025 Mijn Amor. All Rights Reserved</p>
             <div class="flex gap-4">

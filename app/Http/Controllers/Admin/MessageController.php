@@ -4,26 +4,21 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Message; // Import Model
+use App\Models\Message; 
 
 class MessageController extends Controller
 {
-    // MENAMPILKAN DAFTAR PESAN
     public function index()
     {
-        // Ambil semua pesan, urutkan dari yang terbaru (latest)
         $messages = Message::latest()->get();
-        
-        // Kirim ke view admin
         return view('admin.message', compact('messages'));
     }
 
-    // MENGHAPUS PESAN
     public function destroy($id)
     {
-        $message = Message::findOrFail($id); // Cari pesan
-        $message->delete(); // Hapus
+        $message = Message::findOrFail($id);
+        $message->delete();
 
-        return redirect()->back()->with('success', 'Pesan berhasil dihapus.');
+        return redirect()->back()->with('success', 'Message successfully deleted.');
     }
 }

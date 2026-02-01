@@ -1,14 +1,13 @@
 <x-admin-layout>
-    <div class="max-w-7xl mx-auto">
-        <div class="flex items-center justify-between mb-6">
-            <div class="flex items-center space-x-4">
-                <a href="{{ route('admin.products.index') }}" class="text-[#0099FF] text-3xl">
-                    <i class="fas fa-arrow-left"></i>
-                </a>
-                <h2 class="text-2xl font-bold text-[#0099FF]">New Product</h2>
-            </div>
-        </div>
 
+    <div class="flex items-center gap-4 bg-white py-9 px-8 shadow-md border-b border-gray-100">
+        <a href="{{ route('admin.products.index') }}" class="text-[#0099FF] hover:text-blue-500 transition">
+            <i class="fas fa-arrow-left text-2xl"></i>
+        </a>
+        <h1 class="text-2xl font-bold text-[#0099FF]"><a href="{{ route('admin.products.index') }}">New Product</a></h1>
+    </div>
+
+    <div class="max-w-7xl mx-auto mt-20">
         @if ($errors->any())
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl mb-4">
             <ul class="list-disc list-inside">

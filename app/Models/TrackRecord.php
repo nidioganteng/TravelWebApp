@@ -9,10 +9,8 @@ class TrackRecord extends Model
 {
     use HasFactory;
 
-    // Agar bisa diisi massal
     protected $guarded = ['id'];
 
-    // Relasi: Satu Track Record memiliki BANYAK Items
     public function items()
     {
         return $this->hasMany(TrackRecordItem::class);

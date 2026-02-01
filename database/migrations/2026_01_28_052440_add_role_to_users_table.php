@@ -12,8 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            // Kita selipkan kolom 'role' setelah email
-            // Default 'user' supaya yang register biasa gak error
             $table->string('role')->default('user')->after('email');
         });
     }

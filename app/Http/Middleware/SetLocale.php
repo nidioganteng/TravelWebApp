@@ -10,16 +10,11 @@ use Illuminate\Support\Facades\Session;
 
 class SetLocale
 {
-    /**
-     * Handle an incoming request.
-     */
     public function handle(Request $request, Closure $next): Response
     {
-        // Cek apakah user sudah memilih bahasa di session?
         if (Session::has('locale')) {
             App::setLocale(Session::get('locale'));
         }
-
         return $next($request);
     }
 }

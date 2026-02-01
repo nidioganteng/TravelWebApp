@@ -2,7 +2,6 @@
  {{-- HERO HEADER --}}
     <header class="relative h-screen w-full overflow-hidden flex items-center justify-center">
         <div class="absolute inset-0">
-            {{-- Tambahkan object-center atau object-bottom jika ingin mengatur fokus potongan --}}
             <img src="{{ Storage::url($record->banner_image) }}" class="w-full h-full object-cover object-center">
             
             {{-- Overlay --}}

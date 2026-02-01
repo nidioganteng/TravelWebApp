@@ -13,19 +13,14 @@ return new class extends Migration
     {
         Schema::create('track_record_items', function (Blueprint $table) {
             $table->id();
-            // KUNCI PENTING: Ini menghubungkan item ke track record induknya.
-            // onDelete('cascade') artinya kalau induknya dihapus, item-item ini ikut terhapus otomatis.
             $table->foreignId('track_record_id')->constrained('track_records')->onDelete('cascade');
-            $table->string('title'); // Judul per item cerita
-            $table->text('description'); // Deskripsi lengkap per item
-            $table->string('image'); // Foto per item
+            $table->string('title'); 
+            $table->text('description'); 
+            $table->string('image'); 
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('track_record_items');

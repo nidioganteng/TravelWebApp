@@ -3,7 +3,6 @@
     $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 @endphp
 
-{{-- Menampilkan Error Validasi (Optional, buat debugging) --}}
 @if ($errors->any())
     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
         <strong class="font-bold">Ada Error!</strong>
@@ -15,7 +14,6 @@
     </div>
 @endif
 
-{{-- BAGIAN 1: FORM PERSONAL DATA --}}
 <div class="bg-white border border-gray-200 rounded-xl p-6 mb-6">
     <h3 class="text-lg font-bold text-gray-900 mb-6">Personal Data</h3>
     
@@ -23,11 +21,9 @@
         @csrf
         @method('patch')
 
-        {{-- Input Hidden Email (Agar lolos validasi required) --}}
         <input type="hidden" name="email" value="{{ $user->email }}">
 
         <div class="space-y-6">
-            {{-- Full Name --}}
             <div>
                 <label class="block text-sm font-medium text-gray-500 mb-2">Full Name</label>
                 <input type="text" name="name" value="{{ old('name', $user->name) }}" class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm text-gray-900 px-4 py-3" required autocomplete="name">
@@ -36,7 +32,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {{-- Gender --}}
                 <div>
                     <label class="block text-sm font-medium text-gray-500 mb-2">Gender</label>
                     <div class="relative">
@@ -52,11 +47,9 @@
                     <x-input-error class="mt-2" :messages="$errors->get('gender')" />
                 </div>
 
-                {{-- Birthdate --}}
                 <div>
                     <label class="block text-sm font-medium text-gray-500 mb-2">Birthdate</label>
                     <div class="grid grid-cols-3 gap-2">
-                        {{-- Tanggal (1-31) --}}
                         <div class="relative">
                             <select name="birth_day" class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm text-gray-900 px-2 py-3 appearance-none bg-white">
                                 <option value="" disabled selected>Day</option>
@@ -66,7 +59,6 @@
                             </select>
                         </div>
 
-                        {{-- Bulan (January-December) --}}
                         <div class="relative">
                             <select name="birth_month" class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm text-gray-900 px-2 py-3 appearance-none bg-white">
                                 <option value="" disabled selected>Month</option>
@@ -76,7 +68,6 @@
                             </select>
                         </div>
 
-                        {{-- Tahun (Current Year - 1950) --}}
                         <div class="relative">
                             <select name="birth_year" class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm text-gray-900 px-2 py-3 appearance-none bg-white">
                                 <option value="" disabled selected>Year</option>
@@ -89,14 +80,12 @@
                 </div>
             </div>
 
-            {{-- City --}}
             <div>
                 <label class="block text-sm font-medium text-gray-500 mb-2">City of Residence</label>
                 <input type="text" name="city" value="{{ old('city', $user->city) }}" placeholder="Enter your city" class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm text-gray-900 px-4 py-3">
                 <x-input-error class="mt-2" :messages="$errors->get('city')" />
             </div>
 
-            {{-- Save Button --}}
             <div class="flex justify-end pt-4 items-center gap-4">
                 @if (session('status') === 'profile-updated')
                     <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)" class="text-sm text-green-600">
@@ -111,7 +100,7 @@
     </form>
 </div>
 
-{{-- BAGIAN 2: EMAIL (READ ONLY) --}}
+
 <div class="bg-white border border-gray-200 rounded-xl p-6">
     <h3 class="text-lg font-bold text-gray-900 mb-4">Email</h3>
     <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-lg border border-gray-100">

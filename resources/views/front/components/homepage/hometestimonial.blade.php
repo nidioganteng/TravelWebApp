@@ -45,7 +45,6 @@
 @endphp
 
 <section class="w-full overflow-hidden"> 
-    {{-- Added px-4 for mobile breathing room --}}
     <div class="container mx-auto max-w-7xl px-4 md:px-0">
         
         <div class="text-center max-w-7xl mx-auto section-spacing">
@@ -59,9 +58,6 @@
         </div>
 
         <div class="relative flex w-full flex-col items-center justify-center overflow-hidden">
-            
-            {{-- MARQUEE COMPONENT --}}
-            {{-- className="[--duration:20s]" dipindah ke class blade --}}
             <x-ui.marquee pauseOnHover class="[--duration:20s]">
                 @foreach($firstRow as $review)
                     <div class=""> {{-- Div pembungkus kosong seperti di React --}}
@@ -88,13 +84,11 @@
                 @endforeach
             </x-ui.marquee>
 
-            {{-- GRADIENTS (Sesuai React v4 syntax: bg-linear-to-r) --}}
             <div class="pointer-events-none absolute inset-y-0 left-0 w-1/6 md:w-1/4 bg-linear-to-r from-[#FFFFFF]"></div>
             <div class="pointer-events-none absolute inset-y-0 right-0 w-1/6 md:w-1/4 bg-linear-to-l from-[#FFFFFF]"></div>
         </div>
     </div>
 
-    {{-- CTA SECTION --}}
     <div 
         class="relative w-full max-w-7xl mx-auto h-100 md:h-175 overflow-hidden rounded-xl md:rounded-3xl flex flex-col items-center justify-center text-center mt-10 mb-8 md:mb-16 px-4 md:px-0"
         style="background-image: url('{{ asset('img/homepage/assets/CTAimg.svg') }}'); background-size: cover; background-position: center;"

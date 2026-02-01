@@ -83,14 +83,6 @@
                     <i class="fas fa-envelope w-6 mr-4"></i>
                     <span class="font-medium">Messages</span>
                 </a>
-
-                <div x-data="{ open: {{ request()->is('admin/settings*') ? 'true' : 'false' }} }">
-                    <button @click="open = !open"
-                        class="w-full flex items-center px-6 py-3 rounded-full transition-all {{ request()->routeIs('admin/settings') ? 'bg-white text-[#0099FF] shadow-lg' : 'hover:bg-white/10' }}">
-                        <i class="fas fa-cog w-6 mr-4"></i>
-                        <span class="font-medium">Settings</span>
-                    </button>
-                </div>
             </nav>
 
             <div class="mt-auto border-t border-white/20 p-4 bg-[#0066FF]">

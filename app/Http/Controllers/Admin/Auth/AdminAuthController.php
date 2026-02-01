@@ -8,44 +8,36 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminAuthController extends Controller
 {
-    // 1. Tampilkan Halaman Login Admin
     public function showLoginForm()
     {
         return view('admin.auth.login');
     }
 
-    // 2. Proses Login Admin
     public function login(Request $request)
     {
-        // Validasi input
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        // Coba Login
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            // CEK ROLE: Apakah dia benar-benar Admin?
             if (Auth::user()->role === 'admin') {
                 return redirect()->intended(route('admin.dashboard'));
             }
 
-            // Kalau ternyata dia User biasa yang coba login di form admin:
             Auth::logout();
             return back()->withErrors([
-                'email' => 'Anda bukan Admin. Silakan login di halaman User.',
+                'email' => 'You are not an admin. Please log in to the Users page.',
             ]);
         }
 
-        // Kalau password salah
         return back()->withErrors([
-            'email' => 'Email atau password salah.',
+            'email' => 'Incorrect email or password.',
         ]);
     }
 
-    // 3. Logout Admin
     public function logout(Request $request)
     {
         Auth::logout();

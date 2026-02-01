@@ -1,14 +1,13 @@
 <x-admin-layout>
-    <div class="space-y-10">
-        <div class="flex items-center justify-between mb-7 max-w-7xl mx-auto">
-            <div class="flex items-center space-x-4">
-                <a href="{{ route('admin.products.index') }}" class="text-[#0099FF] text-3xl">
-                    <i class="fas fa-arrow-left"></i>
-                </a>
-                <h2 class="text-2xl font-bold text-[#0099FF]">Product List</h2>
-            </div>
-        </div>
 
+    <div class="flex items-center gap-4 bg-white py-9 px-8 shadow-md border-b border-gray-100">
+        <a href="{{ route('admin.products.index') }}" class="text-[#0099FF] hover:text-blue-500 transition">
+            <i class="fas fa-arrow-left text-2xl"></i>
+        </a>
+        <h1 class="text-2xl font-bold text-[#0099FF]"><a href="{{ route('admin.products.index') }}">Product List</a></h1>
+    </div>
+
+    <div class="space-y-10 max-w-7xl mx-auto mt-10 mb-20">
         @if(session('success'))
         <div x-data="{ show: true }"
             x-show="show"
@@ -100,18 +99,29 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex justify-between items-center mt-4 product-card">
-                        <span class="bg-[#0F4464] text-white px-3 py-1 rounded-full text-[10px]">
-                            Price per person: €{{ number_format($product->product_price, 0) }}
+
+                    <div class="flex justify-between items-center mt-6 product-card">
+                        
+                        <span class="bg-[#0F4464] text-white px-4 py-2 rounded-full text-[14px] font-semibold shadow-md">
+                            Price per person €{{ number_format($product->product_price, 0) }}
                         </span>
-                        <form action="{{ route('admin.products.publish', $product->id) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="bg-[#44C379] hover:bg-green-800 text-white px-4 py-1 rounded-full text-[10px] font-bold">PUBLISH</button>
-                        </form>
-                        <button type="button"
-                            class="delete-product-btn absolute top-2 right-2 text-red-500 hover:text-red-700"
-                            data-id="{{ $product->id }}">
-                            <i class="fas fa-trash pointer-events-none"></i> </button>
+
+                        <div class="flex items-center gap-3">
+                            
+                            <form action="{{ route('admin.products.publish', $product->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="bg-[#44C379] hover:bg-green-700 text-white px-6 py-2 rounded-full text-[14px] font-bold shadow-md transition transform active:scale-95 tracking-wider">
+                                    PUBLISH
+                                </button>
+                            </form>
+
+                            <button type="button"
+                                class="delete-product-btn bg-white border border-red-100 text-red-500 hover:bg-red-500 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition shadow-sm"
+                                data-id="{{ $product->id }}">
+                                <i class="fas fa-trash pointer-events-none text-xs"></i> 
+                            </button>
+                        </div>
+
                     </div>
                 </div>
                 @empty
@@ -196,15 +206,17 @@
                         </div>
                     </div>
 
-                    <div class="flex justify-between items-center mt-4">
-                        <span class="bg-[#0F4464] text-white px-3 py-1 rounded-full text-[10px]">
-                            Price per person: €{{ number_format($product->product_price, 0) }}
+                    <div class="flex justify-between items-center mt-6">
+                        <span class="bg-[#0F4464] text-white px-4 py-2 rounded-full text-[14px] font-semibold shadow-md">
+                            Price per person €{{ number_format($product->product_price, 0) }}
                         </span>
+                        
                         <form action="{{ route('admin.products.toggle', $product->id) }}" method="POST">
                             @csrf
                             @method('PATCH')
-                            <button type="submit" class="bg-[#B14141] hover:bg-red-900 text-white px-4 py-1 rounded-full text-[10px] font-bold">
-                                <i class="fas fa-archive"></i> Unpublish (Archive)
+                            <button type="submit" class="bg-[#B14141] hover:bg-red-900 text-white px-6 py-2 rounded-full text-[14px] font-semibold shadow-md transition transform active:scale-95 flex items-center gap-2">
+                                <i class="fas fa-archive"></i> 
+                                <span>Unpublish</span>
                             </button>
                         </form>
                     </div>

@@ -1,6 +1,5 @@
 <div class="relative z-20 -mt-24 w-full max-w-6xl mx-auto px-4 pb-20">
 
-    {{-- PERUBAHAN 1: Tambahkan Alert Sukses di sini --}}
     @if(session('success'))
         <div class="mb-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-2xl relative shadow-lg" role="alert">
             <strong class="font-bold">Berhasil!</strong>
@@ -10,20 +9,17 @@
   
     <div class="flex flex-col md:flex-row bg-white rounded-[30px] shadow-2xl overflow-hidden">
 
-        {{-- LEFT SIDE: FORM --}}
         <div class="w-full md:w-3/5 p-8 md:p-12">
             <h2 class="text-3xl font-bold text-black mb-4">{{ __('contact_form.title') }}</h2>
             <p class="text-gray-500 mb-8">
                 {{ __('contact_form.desc') }}
             </p>
 
-            {{-- PERUBAHAN 2: Tambahkan action, method, dan @csrf --}}
             <form action="{{ route('contact.store') }}" method="POST" class="space-y-6">
                 @csrf {{-- WAJIB ADA: Tiket keamanan Laravel --}}
 
                 <div>
                     <label class="block text-black font-bold mb-2">{{ __('contact_form.name') }}</label>
-                    {{-- PERUBAHAN 3: Tambahkan name="name" dan required --}}
                     <input 
                         type="text" 
                         name="name" 
@@ -34,7 +30,6 @@
 
                 <div>
                     <label class="block text-black font-bold mb-2">{{ __('contact_form.email') }}</label>
-                    {{-- PERUBAHAN 4: Tambahkan name="email" dan required --}}
                     <input 
                         type="email" 
                         name="email"
@@ -45,7 +40,6 @@
 
                 <div>
                     <label class="block text-black font-bold mb-2">{{ __('contact_form.message') }}</label>
-                    {{-- PERUBAHAN 5: Tambahkan name="message" dan required --}}
                     <textarea 
                         name="message"
                         required

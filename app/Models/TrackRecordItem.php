@@ -11,7 +11,6 @@ class TrackRecordItem extends Model
 
     protected $guarded = ['id'];
 
-    // Relasi: Item ini milik satu Track Record induk
     public function trackRecord()
     {
         return $this->belongsTo(TrackRecord::class);

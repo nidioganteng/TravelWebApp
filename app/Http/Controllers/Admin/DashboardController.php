@@ -4,20 +4,22 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
-// use App\Models\Product; (Nanti dibuka kalau modelnya sudah ada)
-// use App\Models\Booking; (Nanti dibuka kalau modelnya sudah ada)
+use App\Models\Message;
+use App\Models\Product;
+use App\Models\TrackRecord;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        // Contoh mengambil data untuk statistik
-        // Kalau Model Booking/Product belum ada, kita kasih angka 0 dulu biar gak error
-        $total_users = User::where('role', 'user')->count();
-        $total_bookings = 0; // Nanti ganti jadi: Booking::count();
-        $total_products = 0; // Nanti ganti jadi: Product::count();
+        $total_visited_places = TrackRecord::count();
+        $recent_messages = Message::latest()->take(3)->get();
+        $recent_products = Product::latest()->take(2)->get();
 
-        return view('admin.dashboard', compact('total_users', 'total_bookings', 'total_products'));
+        return view('admin.dashboard', compact(
+            'total_visited_places',
+            'recent_messages',
+            'recent_products'
+        ));
     }
 }

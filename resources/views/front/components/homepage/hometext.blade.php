@@ -1,5 +1,4 @@
 <section class="relative flex flex-col min-h-screen w-full overflow-hidden">
-    {{-- Background Image --}}
     <div class="absolute inset-0">
         <div class="relative h-screen overflow-y-hidden">
             <div
@@ -9,19 +8,14 @@
         </div>
     </div>
 
-    {{-- Content --}}
     <div class="c-space absolute inset-0 flex flex-col items-center justify-start md:items-start md:justify-start z-10 pointer-events-none">
         <div class="pointer-events-auto w-full">
             <div class="z-10 md:mt-75 mt-70 max-w-7xl mx-auto">
                 <div class="flex-col md:flex md:items-start md:justify-start flex items-center justify-center text-center">
 
-                    {{-- Logo Images --}}
-                    {{-- Gunakan asset() agar gambar terbaca di server --}}
                     <img src="{{ asset('img/homepage/assets/MijnAmorText.svg') }}" alt="" class="w-100 md:w-170" />
                     <img src="{{ asset('img/homepage/assets/TravelText.svg') }}" alt="" class="w-70 md:w-95" />
 
-                    {{-- Button CTA --}}
-                    {{-- Mengarah ke halaman produk --}}
                     <a href="{{ route('products') }}">
                         <button class="bg-[#0F4464] text-white text-[14px] md:text-[18px] font-semibold py-3 px-10 rounded-full md:mt-12 mt-6 hover:underline">
                             {{ __('hero.book_now') }}
@@ -30,7 +24,6 @@
 
                     <div class="flex items-center justify-center gap-5 md:gap-10 mt-5">
 
-                        {{-- Stats (10,000+) --}}
                         <div class="flex items-center md:gap-4 gap-6">
                             <div class="flex -space-x-4">
                                 <img class="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-white object-cover z-10" src="{{ asset('img/homepage/icon/circle_one.svg') }}" alt="Bali" />
@@ -42,7 +35,6 @@
                             </div>
                         </div>
 
-                        {{-- Features Bubble --}}
                         <div class="bg-white rounded-full p-1 pl-7 flex items-center gap-6 max-w-md shadow-lg relative text-start">
                             <div class="flex-1">
                                 <h3 class="text-black font-bold text-[10px] md:text-[14px]">{{ __('hero.features') }}</h3>

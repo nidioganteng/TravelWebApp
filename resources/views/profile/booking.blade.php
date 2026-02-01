@@ -5,7 +5,6 @@ $languages = [
 ['code' => 'nl', 'name' => 'NL', 'flag' => 'https://flagcdn.com/w40/nl.png']
 ];
 
-// Logika menentukan bahasa aktif (mirip languages.find di React)
 $currentLocale = app()->getLocale();
 $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $languages[0];
 @endphp
@@ -31,8 +30,6 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                         </div>
 
                         <div class="flex items-center gap-4">
-                            {{-- LANGUAGE SELECTOR (Desktop) --}}
-                            {{-- React: const [isOpen, setIsOpen] = useState(false); --}}
                             <div class="relative" x-data="{ langOpen: false }" @click.away="langOpen = false">
                                 <button
                                     @click="langOpen = !langOpen"
@@ -41,12 +38,10 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                                     <span class="text-black text-xs font-semibold uppercase">{{ $currentLang['code'] }}</span>
                                 </button>
 
-                                {{-- Dropdown --}}
                                 <div x-show="langOpen"
                                     style="display: none;"
                                     class="absolute top-full right-0 mt-2 w-32 bg-black/80 backdrop-blur-md border border-white/10 rounded-lg shadow-xl overflow-hidden z-50">
                                     @foreach($languages as $lang)
-                                    {{-- React: languages.map(...) --}}
                                     <a href="{{ route('lang.switch', $lang['code']) }}"
                                         class="flex items-center gap-3 w-full px-4 py-3 text-sm text-left transition hover:bg-white/20
                                {{ $currentLocale === $lang['code'] ? 'text-blue-400 font-bold' : 'text-white' }}">
@@ -56,7 +51,6 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                                     @endforeach
                                 </div>
                             </div>
-                            {{-- END LANGUAGE SELECTOR --}}
 
                             <a href="/" class="flex items-center gap-2 bg-black text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-gray-800 transition duration-300">
                                 back to website

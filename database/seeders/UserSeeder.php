@@ -15,21 +15,21 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. BUAT AKUN ADMIN (Ini yang akan kamu pakai login nanti)
+        // 1. BUAT AKUN ADMIN
         User::create([
             'name' => 'Super Admin',
-            'email' => 'admin@travel.com', // Email Admin
+            'email' => 'admin@travel.com', 
             'status' => 'active',
-            'password' => Hash::make('password'), // Password: password
-            'role' => 'admin', // <--- KUNCI UTAMA: Role admin
+            'password' => Hash::make('password'), 
+            'role' => 'admin', 
         ]);
 
-        // 2. User Lama (Saya perbaiki passwordnya pakai Hash biar bisa login)
+        // 2. User Lama 
         User::create([
             'name' => 'Risma',
             'email' => 'jagungbakar@gmail.com',
             'status' => 'active',
-            'password' => Hash::make('rismaCantik23'), // Harus di-Hash
+            'password' => Hash::make('rismaCantik23'), 
             'role' => 'user',
         ]);
 
@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
             'name' => 'Benedito',
             'email' => 'nidio.shop24@gmail.com',
             'status' => 'active',
-            'password' => Hash::make('beneditoCantik24'), // Harus di-Hash
+            'password' => Hash::make('beneditoCantik24'), 
             'role' => 'user',
         ]);
     }
