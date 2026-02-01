@@ -6,7 +6,7 @@ export function initDeleteProduct() {
         const productId = button.getAttribute('data-id');
         const productCard = button.closest('.product-card');
 
-        if (confirm('Hapus produk ini?')) {
+        if (confirm('Delete this product?')) {
             axios({
                 method: 'delete',
                 url: `/admin/products/${productId}`, 
@@ -19,13 +19,13 @@ export function initDeleteProduct() {
                 if (response.data.success) {
                 window.location.reload(); 
                 } else {
-                alert('Gagal: ' + response.data.message);
+                alert('Fail: ' + response.data.message);
                 }
              })
             
             .catch(error => {
                 console.error('Error Detail:', error.response);
-                alert('Terjadi kesalahan pada server.');
+                alert('An error occurred on the server.');
             });
         }
     });

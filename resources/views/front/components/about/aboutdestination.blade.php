@@ -1,10 +1,10 @@
 <div>
     <div class="text-center max-w-7xl mx-auto section-spacing">
-        <h1 class="text-xl md:text-[48px] font-extrabold text-black mb-4 leading-tight">
+        <h1 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-black mb-4 leading-tight">
             {{ __('about_destination.section') }}
         </h1>
 
-        <p class="text-gray-600 text-[8px] sm:text-[10px] md:text-[12px] lg:text-sm leading-relaxed max-w-3xl md:max-w-7xl mx-auto">
+        <p class="text-gray-600 text-[10px] sm:text-[12px] md:text-[14px] leading-relaxed max-w-3xl md:max-w-7xl mx-auto">
             {{ __('about_destination.desc') }}
         </p>
     </div>

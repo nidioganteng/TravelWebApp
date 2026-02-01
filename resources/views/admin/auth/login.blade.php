@@ -36,7 +36,7 @@
         </template>
     </div>
 
-    <div class="relative z-10 w-full max-w-100 p-8 mx-4">
+    <div class="relative z-10 w-full max-w-100 p-8 mx-4 text-white">
         <div class="absolute inset-0 bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 shadow-2xl"></div>
 
         <div class="relative z-20 text-center px-4 py-6">

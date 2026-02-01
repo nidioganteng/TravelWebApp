@@ -2,13 +2,12 @@
 
     <div class="flex flex-col md:flex-row gap-10 mb-16 items-center">
         <div class="w-full md:w-1/2">
-            <h2 class="text-3xl font-extrabold text-black leading-tight">
-                {{-- Gunakan {!! !!} agar tag HTML di dalam JSON terbaca --}}
+            <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-black leading-tight">
                 {!! __('about_intro.title') !!}
             </h2>
         </div>
         <div class="w-full md:w-1/2">
-            <p class="text-gray-600 text-[15px] leading-relaxed text-justify">
+            <p class="text-gray-600 text-[10px] sm:text-[12px] md:text-[14px] leading-relaxed text-justify">
                 {{ __('about_intro.desc') }}
             </p>
         </div>

@@ -1,8 +1,8 @@
-<section class="w-full bg-white py-12 px-4 md:px-8">
+<section class="w-full bg-white py-12 px-4 md:px-8 overflow-x-hidden">
     <div class="max-w-7xl mx-auto space-y-12">
 
         @foreach ($tripsData as $trip)
-        <div class="bg-white border border-gray-300 rounded-[20px] p-6 md:p-14 shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_4px_25px_rgba(0,0,0,0.15)] transition-shadow duration-300">
+        <div class="bg-white border border-gray-300 rounded-[20px] p-6 md:p-14 shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
 
             <h2 class="text-2xl md:text-3xl font-extrabold text-black text-center mb-8">
                 {{ $trip->product_name }}
@@ -10,8 +10,8 @@
 
             <div class="flex flex-col lg:flex-row gap-8">
 
-                <div class="w-full lg:w-[45%]">
-                    <div class="h-125 w-100 overflow-hidden rounded-2xl relative group"
+                <div class="w-full lg:w-[40%]">
+                    <div class="aspect-4/5 w-full overflow-hidden rounded-2xl relative"
                         x-data="{
                             activeSlide: 0,
                             slides: {{ json_encode($trip['product_image']) }},
@@ -53,9 +53,8 @@
                     </div>
                 </div>
 
-                <div class="w-full lg:w-[75%] flex flex-col justify-between">
+                <div class="w-full lg:w-[60%] flex flex-col justify-between">
                     <div>
-
                         <p class="text-gray-700 text-justify leading-relaxed mb-6">
                             {{ $trip['product_description'] }}
                         </p>
@@ -66,11 +65,11 @@
                                 {!! $trip->departure_locations !!}
                             </div>
                         </div>
-
                     </div>
+
                     <div class="mt-8">
                         <button class="w-full bg-[#10435E] text-white text-lg font-bold py-4 px-6 rounded-xl shadow-md hover:bg-[#0d364b] transition-colors duration-300">
-                            Price per person: {{ $trip['product_price'] }}
+                            € {{ $trip['product_price'] }}
                         </button>
                     </div>
                 </div>

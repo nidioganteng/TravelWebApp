@@ -1,18 +1,18 @@
 <section>
     <div class="w-full px-4 md:px-8 max-w-7xl mx-auto section-spacing text-center">
-        <h3 class="text-[#61A4BF] font-semibold text-sm md:text-xl lg:text-2xl mb-2 md:mb-4 tracking-wide">
+        <h3 class="text-[#61A4BF] font-semibold text-md md:text-xl lg:text-2xl mb-2 md:mb-4 tracking-wide">
             {{ __('herabout.section') }}
         </h3>
-        <h1 class="text-black font-extrabold text-lg sm:text-2xl md:text-3xl lg:text-4xl mb-4 md:mb-8 leading-tight">
+        <h1 class="text-black font-extrabold text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-4 md:mb-8 leading-tight">
             {{ __('herabout.title') }}
         </h1>
-        <p class="text-gray-600 text-[8px] sm:text-[10px] md:text-[12px] lg:text-sm leading-relaxed max-w-3xl md:max-w-5xl mx-auto">
+        <p class="text-gray-600 text-[10px] sm:text-[12px] md:text-[14px] leading-relaxed max-w-3xl md:max-w-5xl mx-auto">
             {{ __('herabout.descrip') }}
         </p>
     </div>
     <div class="bg-[#A8A8A8] flex flex-col items-center justify-center py-10 md:py-20 px-4 mt-10 md:mt-16 w-screen relative left-1/2 -translate-x-1/2">
         
-        <h1 class="text-2xl md:text-4xl font-bold text-black mb-8 md:mb-12 text-center">
+        <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-black mb-8 md:mb-12 text-center">
             {{ __('herabout.sectionB') }}
         </h1>
 
@@ -28,7 +28,7 @@
                 </div>
                 
                 <div class="px-5 md:px-6 pt-5 grow flex flex-col">
-                    <h2 class="font-bold text-xl md:text-2xl text-black mb-2">Belgia</h2>
+                    <h2 class="font-bold text-base sm:text-xl md:text-2xl text-black mb-2">Belgia</h2>
                     <p class="text-gray-600 text-sm mb-4 leading-relaxed grow">
                         {{ __('herabout.desc1') }}
                     </p>
@@ -49,7 +49,7 @@
                     />
                 </div>
                 <div class="px-5 md:px-6 pt-5 grow flex flex-col">
-                    <h2 class="font-bold text-xl md:text-2xl text-black mb-2">Bali</h2>
+                    <h2 class="font-bold text-base sm:text-xl md:text-2xl text-black mb-2">Bali</h2>
                     <p class="text-gray-600 text-sm mb-4 leading-relaxed grow">
                         {{ __('herabout.desc2') }}
                     </p>
@@ -70,7 +70,7 @@
                     />
                 </div>
                 <div class="px-5 md:px-6 pt-5 grow flex flex-col">
-                    <h2 class="font-bold text-xl md:text-2xl text-black mb-2">Vatican City</h2>
+                    <h2 class="font-bold text-base sm:text-xl md:text-2xl text-black mb-2">Vatican City</h2>
                     <p class="text-gray-600 text-sm mb-4 leading-relaxed grow">
                         {{ __('herabout.desc3') }}
                     </p>

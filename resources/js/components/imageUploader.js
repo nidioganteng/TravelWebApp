@@ -12,7 +12,7 @@ export default function imageUploader() {
 
             selectedFiles.forEach((file) => {
                 if (!validTypes.includes(file.type) || (file.size / 1024) > maxSizeInKB) {
-                    alert(`File ${file.name} tidak valid atau terlalu besar!`);
+                    alert(`File ${file.name} file invalid or too large!`);
                     return;
                 }
                 this.allFiles.items.add(file);

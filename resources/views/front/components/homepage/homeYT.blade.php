@@ -31,7 +31,7 @@
     </div>
 
     <div class="max-w-7xl mx-auto text-center mb-8 md:mb-10">
-        <p class="text-gray-700 text-[10px] md:text-[16px] leading-relaxed">
+        <p class="text-gray-700 text-[10px] sm:text-[12px] md:text-[14px] leading-relaxed">
             {{ __('hero_youtube.text') }} 
         </p>
     </div>

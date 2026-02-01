@@ -1,15 +1,17 @@
 <x-admin-layout>
-    <div class="flex items-center gap-4 bg-white py-9 px-8 shadow-md border-b border-gray-100">
+    <div class="flex items-center gap-4 bg-white py-6 md:py-9 px-6 md:px-8 shadow-md border-b border-gray-100 sticky top-0 z-40 lg:relative">
         <a href="{{ route('admin.travel-records.index') }}" class="text-[#0099FF] hover:text-blue-500 transition">
-            <i class="fas fa-arrow-left text-2xl"></i>
+            <i class="fas fa-arrow-left text-xl md:text-2xl"></i>
         </a>
-        <h1 class="text-2xl font-bold text-[#0099FF]"><a href="{{ route('admin.travel-records.index') }}">New Track Record</a></h1>
+        <h1 class="text-xl md:text-2xl font-bold text-[#0099FF]">
+            <a href="{{ route('admin.travel-records.index') }}">New Track Record</a>
+        </h1>
     </div>
 
     @if ($errors->any())
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
-        <strong class="font-bold">Ada yang salah!</strong>
-        <ul class="mt-2 list-disc list-inside text-sm">
+    <div class="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-xl mx-4 md:mx-12 mt-6 relative mb-4">
+        <strong class="font-bold text-sm">Ada yang salah!</strong>
+        <ul class="mt-2 list-disc list-inside text-xs">
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
@@ -17,35 +19,35 @@
     </div>
     @endif
 
-    <form x-data="{ items: [{id: Date.now()}] }" id="trackRecordForm" action="{{ route('admin.travel-records.store') }}" method="POST" enctype="multipart/form-data" class="p-8 lg:p-12">
+    <form x-data="{ items: [{id: Date.now()}] }" id="trackRecordForm" action="{{ route('admin.travel-records.store') }}" method="POST" enctype="multipart/form-data" class="p-4 md:p-8 lg:p-12">
         @csrf
 
-        <div class="flex flex-col lg:flex-row gap-8 items-start mb-8">
+        <div class="flex flex-col lg:flex-row gap-6 md:gap-8 items-start mb-8">
             
-            <div class="w-full lg:flex-1 bg-white rounded-[20px] p-8 shadow-sm border border-gray-100">
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            <div class="w-full lg:flex-1 bg-white rounded-[20px] p-6 md:p-8 shadow-sm border border-gray-100">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-center">
 
-                    <div class="md:col-span-5 flex flex-col gap-5">
+                    <div class="md:col-span-5 flex flex-col gap-5 order-2 md:order-1">
                         <div>
                             <label class="block text-sm font-bold text-black mb-2">City</label>
-                            <input type="text" name="city_name" class="w-full border border-gray-400 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:border-[#0099FF] transition placeholder-gray-400" placeholder="City name...." required>
+                            <input type="text" name="city_name" class="w-full border border-gray-400 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:border-[#0099FF] transition placeholder-gray-400 text-sm md:text-base" placeholder="City name...." required>
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-black mb-2">Description</label>
-                            <textarea name="description" rows="4" class="w-full border border-gray-400 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:border-[#0099FF] transition placeholder-gray-400 resize-none h-32" placeholder="Write the main description here..." required></textarea>
+                            <textarea name="description" rows="4" class="w-full border border-gray-400 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:border-[#0099FF] transition placeholder-gray-400 resize-none h-32 text-sm md:text-base" placeholder="Write the main description here..." required></textarea>
                         </div>
                     </div>
 
-                    <div class="md:col-span-7 h-full">
-                        <div class="relative w-full h-full min-h-50 border-[2.5px] border-dashed border-black rounded-xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-blue-50 transition group overflow-hidden">
+                    <div class="md:col-span-7 h-full order-1 md:order-2">
+                        <div class="relative w-full h-full min-h-50 md:min-h-50 border-[2.5px] border-dashed border-black rounded-xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-blue-50 transition group overflow-hidden">
                             <input type="file" name="banner_image" class="absolute inset-0 w-full h-full opacity-0 z-20 cursor-pointer" accept="image/*" onchange="handlePreview(this)">
                             
                             <div class="flex flex-col items-center justify-center z-10 pointer-events-none px-4 transition-opacity duration-300 upload-ui">
-                                <div class="bg-[#0099FF] text-white w-40 py-2.5 rounded-lg font-bold text-lg shadow-md flex items-center justify-center gap-2 mb-3">
+                                <div class="bg-[#0099FF] text-white w-32 md:w-40 py-2 md:py-2.5 rounded-lg font-bold text-base md:text-lg shadow-md flex items-center justify-center gap-2 mb-3">
                                     <i class="fas fa-upload"></i> Upload
                                 </div>
-                                <p class="text-xs font-bold text-black">Choose images or drag & drop it here.</p>
-                                <p class="text-[10px] text-black font-bold mt-1">SVG. Max 10 MB.</p>
+                                <p class="text-[10px] md:text-xs font-bold text-black">Choose images or drag & drop it here.</p>
+                                <p class="text-[9px] md:text-[10px] text-black font-bold mt-1 uppercase">SVG / PNG / JPG. Max 10 MB.</p>
                             </div>
                             
                             <img class="absolute inset-0 w-full h-full object-cover z-10 hidden preview-img">
@@ -57,67 +59,69 @@
 
             <div class="w-full lg:w-64 flex flex-col gap-4 shrink-0">
                 <div class="relative w-full">
-                    <select name="year" class="w-full appearance-none bg-white border border-gray-200 text-black font-bold py-3 pl-6 pr-10 rounded-full shadow-md cursor-pointer hover:bg-gray-50 transition focus:outline-none" required>
+                    <select name="year" class="w-full appearance-none bg-white border border-gray-200 text-black font-bold py-3 pl-6 pr-10 rounded-full shadow-md cursor-pointer hover:bg-gray-50 transition focus:outline-none text-sm md:text-base" required>
                         <option value="" disabled selected>Select year</option>
                         @for ($i = date('Y'); $i >= 2020; $i--)
                             <option value="{{ $i }}">{{ $i }}</option>
                         @endfor
                     </select>
-
                     <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-black">
-                        <i class="fas fa-chevron-down text-sm"></i>
+                        <i class="fas fa-chevron-down text-xs md:text-sm"></i>
                     </div>
                 </div>
 
-                <button type="submit" class="w-full bg-[#27AE60] text-white py-3 rounded-full font-bold shadow-md hover:bg-green-700 transition text-center text-lg">
-                    Publish
-                </button>
+                <div class="flex flex-row lg:flex-col gap-4">
+                    <button type="submit" class="flex-1 lg:w-full bg-[#27AE60] text-white py-3 rounded-full font-bold shadow-md hover:bg-green-700 transition text-center text-base md:text-lg">
+                        Publish
+                    </button>
 
-                <button type="button" onclick="window.location.reload()" class="w-full bg-[#D12020] text-white py-3 rounded-full font-bold shadow-md hover:bg-red-700 transition text-center text-lg">
-                    Discard
-                </button>
+                    <button type="button" onclick="if(confirm('Discard changes?')) window.location.reload()" class="flex-1 lg:w-full bg-[#D12020] text-white py-3 rounded-full font-bold shadow-md hover:bg-red-700 transition text-center text-base md:text-lg">
+                        Discard
+                    </button>
+                </div>
             </div>
 
         </div> 
 
-        <div class="flex justify-end mb-6">
-            <button type="button" @click="items.push({id: Date.now()})" class="bg-[#0099FF] text-white px-5 py-2 rounded-lg font-bold text-sm shadow-md hover:bg-blue-600 transition flex items-center gap-2">
-                Add Description <i class="fas fa-plus"></i>
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-lg font-bold text-gray-800 lg:hidden">Additional Info</h3>
+            <button type="button" @click="items.push({id: Date.now()})" class="bg-[#0099FF] text-white px-4 md:px-5 py-2 rounded-lg font-bold text-xs md:text-sm shadow-md hover:bg-blue-600 transition flex items-center gap-2">
+                Add <span class="hidden md:inline">Description</span> <i class="fas fa-plus"></i>
             </button>
         </div>
 
-        <div class="flex flex-col gap-8">
+        <div class="flex flex-col gap-6 md:gap-8">
             <template x-for="(item, index) in items" :key="item.id">
                 
-                <div class="bg-white rounded-[20px] p-8 shadow-sm border border-gray-100 relative group w-full">
+                <div class="bg-white rounded-[20px] p-6 md:p-8 shadow-sm border border-gray-100 relative group w-full">
 
-                    <button type="button" @click="items = items.filter(i => i.id !== item.id)" x-show="items.length > 1" class="absolute top-4 right-4 text-gray-300 hover:text-red-500 transition z-20 text-xl">
+                    <button type="button" @click="items = items.filter(i => i.id !== item.id)" x-show="items.length > 1" class="absolute top-4 right-4 text-gray-300 hover:text-red-500 transition z-20 text-xl p-2">
                         <i class="fas fa-trash-alt"></i>
                     </button>
 
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-center">
 
-                        <div class="md:col-span-5 flex flex-col gap-5" :class="index % 2 !== 0 ? 'md:order-last' : ''">
+                        <div class="md:col-span-5 flex flex-col gap-5 order-2" :class="index % 2 !== 0 ? 'md:order-last' : 'md:order-first'">
                             <div>
                                 <label class="block text-sm font-bold text-black mb-2">Title</label>
-                                <input type="text" :name="'items['+index+'][title]'" class="w-full border border-gray-400 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:border-[#0099FF] transition placeholder-gray-400" placeholder="title...." required>
+                                <input type="text" :name="'items['+index+'][title]'" class="w-full border border-gray-400 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:border-[#0099FF] transition placeholder-gray-400 text-sm md:text-base" placeholder="title...." required>
                             </div>
                             <div>
                                 <label class="block text-sm font-bold text-black mb-2">Description</label>
-                                <textarea :name="'items['+index+'][description]'" rows="4" class="w-full border border-gray-400 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:border-[#0099FF] transition placeholder-gray-400 resize-none h-40" placeholder="Your Text Here" required></textarea>
+                                <textarea :name="'items['+index+'][description]'" rows="4" class="w-full border border-gray-400 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:border-[#0099FF] transition placeholder-gray-400 resize-none h-32 md:h-40 text-sm md:text-base" placeholder="Your Text Here" required></textarea>
                             </div>
                         </div>
 
-                        <div class="md:col-span-7 h-full">
-                            <div class="relative w-full h-full min-h-62.5 border-[2.5px] border-dashed border-black rounded-xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-blue-50 transition group overflow-hidden">
+                        <div class="md:col-span-7 h-full order-1">
+                            <div class="relative w-full h-full min-h-55 md:min-h-62.5 border-[2.5px] border-dashed border-black rounded-xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-blue-50 transition group overflow-hidden">
                                 <input type="file" :name="'items['+index+'][image]'" class="absolute inset-0 w-full h-full opacity-0 z-20 cursor-pointer" accept="image/*" onchange="handlePreview(this)">
                                 
                                 <div class="flex flex-col items-center justify-center z-10 pointer-events-none px-4 transition-opacity duration-300 upload-ui">
-                                    <div class="bg-[#0099FF] text-white w-40 py-2.5 rounded-lg font-bold text-lg shadow-md flex items-center justify-center gap-2 mb-3">
+                                    <div class="bg-[#0099FF] text-white w-32 md:w-40 py-2 md:py-2.5 rounded-lg font-bold text-base md:text-lg shadow-md flex items-center justify-center gap-2 mb-3">
                                         <i class="fas fa-upload"></i> Upload
                                     </div>
-                                    <p class="text-xs font-bold text-black">Choose images or drag & drop it here.</p>
-                                    <p class="text-[10px] text-black font-bold mt-1">SVG. Max 10 MB.</p>
+                                    <p class="text-[10px] md:text-xs font-bold text-black">Choose images or drag & drop it here.</p>
+                                    <p class="text-[9px] md:text-[10px] text-black font-bold mt-1">PNG / JPG / SVG. Max 10 MB.</p>
                                 </div>
                                 
                                 <img class="absolute inset-0 w-full h-full object-cover z-10 hidden preview-img">
@@ -129,30 +133,4 @@
             </template>
         </div>
     </form>
-    
-    <script>
-        function handlePreview(input) {
-            const file = input.files[0];
-            if (file) {
-                const reader = new FileReader();
-                const parent = input.closest('div.relative'); 
-                
-                if (parent) {
-                    const img = parent.querySelector('.preview-img');
-                    const ui = parent.querySelector('.upload-ui');
-
-                    reader.onload = (e) => {
-                        if (img) {
-                            img.src = e.target.result;
-                            img.classList.remove('hidden');
-                        }
-                        if (ui) {
-                            ui.classList.add('opacity-0');
-                        }
-                    }
-                    reader.readAsDataURL(file);
-                }
-            }
-        }
-    </script>
 </x-admin-layout>
