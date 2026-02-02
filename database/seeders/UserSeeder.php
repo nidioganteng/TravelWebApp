@@ -17,10 +17,10 @@ class UserSeeder extends Seeder
     {
         // 1. BUAT AKUN ADMIN
         User::create([
-            'name' => 'Super Admin',
-            'email' => 'admin@travel.com', 
+            'name' => 'Mijn Amor Admin',
+            'email' => 'mijnamor@travel.com', 
             'status' => 'active',
-            'password' => Hash::make('password'), 
+            'password' => Hash::make('M1jnAm0r_Tr4vel@2018'), 
             'role' => 'admin', 
         ]);
 

@@ -133,4 +133,31 @@
             </template>
         </div>
     </form>
+    
+    <script>
+    function handlePreview(input) {
+        const file = input.files[0];
+        if (file) {
+            const reader = new FileReader();
+            // Mencari container relative terdekat (tempat img preview berada)
+            const parent = input.closest('div.relative'); 
+            
+            if (parent) {
+                const img = parent.querySelector('.preview-img');
+                const ui = parent.querySelector('.upload-ui');
+
+                reader.onload = (e) => {
+                    if (img) {
+                        img.src = e.target.result;
+                        img.classList.remove('hidden'); // Munculkan gambar
+                    }
+                    if (ui) {
+                        ui.classList.add('opacity-0'); // Sembunyikan UI upload
+                    }
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+    }
+</script>
 </x-admin-layout>
