@@ -4,13 +4,13 @@
             <i class="fas fa-arrow-left text-xl md:text-2xl"></i>
         </a>
         <h1 class="text-xl md:text-2xl font-bold text-[#0099FF]">
-            <a href="{{ route('admin.travel-records.index') }}">New Track Record</a>
+            <a href="{{ route('admin.travel-records.index') }}">{{ __('admin.track_record_create_title') }}</a>
         </h1>
     </div>
 
     @if ($errors->any())
     <div class="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-xl mx-4 md:mx-12 mt-6 relative mb-4">
-        <strong class="font-bold text-sm">Ada yang salah!</strong>
+        <strong class="font-bold text-sm">{{ __('admin.track_record_alert_error') }}</strong>
         <ul class="mt-2 list-disc list-inside text-xs">
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
@@ -29,12 +29,12 @@
 
                     <div class="md:col-span-5 flex flex-col gap-5 order-2 md:order-1">
                         <div>
-                            <label class="block text-sm font-bold text-black mb-2">City</label>
-                            <input type="text" name="city_name" class="w-full border border-gray-400 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:border-[#0099FF] transition placeholder-gray-400 text-sm md:text-base" placeholder="City name...." required>
+                            <label class="block text-sm font-bold text-black mb-2">{{ __('admin.track_record_city_label') }}</label>
+                            <input type="text" name="city_name" class="w-full border border-gray-400 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:border-[#0099FF] transition placeholder-gray-400 text-sm md:text-base" placeholder="{{ __('admin.track_record_city_placeholder') }}" required>
                         </div>
                         <div>
-                            <label class="block text-sm font-bold text-black mb-2">Description</label>
-                            <textarea name="description" rows="4" class="w-full border border-gray-400 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:border-[#0099FF] transition placeholder-gray-400 resize-none h-32 text-sm md:text-base" placeholder="Write the main description here..." required></textarea>
+                            <label class="block text-sm font-bold text-black mb-2">{{ __('admin.track_record_desc_label') }}</label>
+                            <textarea name="description" rows="4" class="w-full border border-gray-400 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:border-[#0099FF] transition placeholder-gray-400 resize-none h-32 text-sm md:text-base" placeholder="{{ __('admin.track_record_desc_placeholder') }}" required></textarea>
                         </div>
                     </div>
 
@@ -44,10 +44,10 @@
                             
                             <div class="flex flex-col items-center justify-center z-10 pointer-events-none px-4 transition-opacity duration-300 upload-ui">
                                 <div class="bg-[#0099FF] text-white w-32 md:w-40 py-2 md:py-2.5 rounded-lg font-bold text-base md:text-lg shadow-md flex items-center justify-center gap-2 mb-3">
-                                    <i class="fas fa-upload"></i> Upload
+                                    <i class="fas fa-upload"></i> {{ __('admin.track_record_btn_upload') }}
                                 </div>
-                                <p class="text-[10px] md:text-xs font-bold text-black">Choose images or drag & drop it here.</p>
-                                <p class="text-[9px] md:text-[10px] text-black font-bold mt-1 uppercase">SVG / PNG / JPG. Max 10 MB.</p>
+                                <p class="text-[10px] md:text-xs font-bold text-black">{{ __('admin.track_record_img_instr') }}</p>
+                                <p class="text-[9px] md:text-[10px] text-black font-bold mt-1 uppercase">{{ __('admin.track_record_img_hint') }}</p>
                             </div>
                             
                             <img class="absolute inset-0 w-full h-full object-cover z-10 hidden preview-img">
@@ -60,7 +60,7 @@
             <div class="w-full lg:w-64 flex flex-col gap-4 shrink-0">
                 <div class="relative w-full">
                     <select name="year" class="w-full appearance-none bg-white border border-gray-200 text-black font-bold py-3 pl-6 pr-10 rounded-full shadow-md cursor-pointer hover:bg-gray-50 transition focus:outline-none text-sm md:text-base" required>
-                        <option value="" disabled selected>Select year</option>
+                        <option value="" disabled selected>{{ __('admin.track_record_year_placeholder') }}</option>
                         @for ($i = date('Y'); $i >= 2020; $i--)
                             <option value="{{ $i }}">{{ $i }}</option>
                         @endfor
@@ -72,11 +72,11 @@
 
                 <div class="flex flex-row lg:flex-col gap-4">
                     <button type="submit" class="flex-1 lg:w-full bg-[#27AE60] text-white py-3 rounded-full font-bold shadow-md hover:bg-green-700 transition text-center text-base md:text-lg">
-                        Publish
+                        {{ __('admin.track_record_btn_publish') }}
                     </button>
 
-                    <button type="button" onclick="if(confirm('Discard changes?')) window.location.reload()" class="flex-1 lg:w-full bg-[#D12020] text-white py-3 rounded-full font-bold shadow-md hover:bg-red-700 transition text-center text-base md:text-lg">
-                        Discard
+                    <button type="button" onclick="if(confirm('{{ __('admin.track_record_confirm_discard') }}')) window.location.reload()" class="flex-1 lg:w-full bg-[#D12020] text-white py-3 rounded-full font-bold shadow-md hover:bg-red-700 transition text-center text-base md:text-lg">
+                        {{ __('admin.track_record_btn_discard') }}
                     </button>
                 </div>
             </div>
@@ -84,9 +84,9 @@
         </div> 
 
         <div class="flex justify-between items-center mb-6">
-            <h3 class="text-lg font-bold text-gray-800 lg:hidden">Additional Info</h3>
+            <h3 class="text-lg font-bold text-gray-800 lg:hidden">{{ __('admin.track_record_additional_title') }}</h3>
             <button type="button" @click="items.push({id: Date.now()})" class="bg-[#0099FF] text-white px-4 md:px-5 py-2 rounded-lg font-bold text-xs md:text-sm shadow-md hover:bg-blue-600 transition flex items-center gap-2">
-                Add <span class="hidden md:inline">Description</span> <i class="fas fa-plus"></i>
+                {{ __('admin.track_record_btn_add_desc') }} <i class="fas fa-plus"></i>
             </button>
         </div>
 
@@ -103,12 +103,12 @@
 
                         <div class="md:col-span-5 flex flex-col gap-5 order-2" :class="index % 2 !== 0 ? 'md:order-last' : 'md:order-first'">
                             <div>
-                                <label class="block text-sm font-bold text-black mb-2">Title</label>
-                                <input type="text" :name="'items['+index+'][title]'" class="w-full border border-gray-400 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:border-[#0099FF] transition placeholder-gray-400 text-sm md:text-base" placeholder="title...." required>
+                                <label class="block text-sm font-bold text-black mb-2">{{ __('admin.track_record_item_title') }}</label>
+                                <input type="text" :name="'items['+index+'][title]'" class="w-full border border-gray-400 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:border-[#0099FF] transition placeholder-gray-400 text-sm md:text-base" placeholder="{{ __('admin.track_record_item_title_ph') }}" required>
                             </div>
                             <div>
-                                <label class="block text-sm font-bold text-black mb-2">Description</label>
-                                <textarea :name="'items['+index+'][description]'" rows="4" class="w-full border border-gray-400 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:border-[#0099FF] transition placeholder-gray-400 resize-none h-32 md:h-40 text-sm md:text-base" placeholder="Your Text Here" required></textarea>
+                                <label class="block text-sm font-bold text-black mb-2">{{ __('admin.track_record_desc_label') }}</label>
+                                <textarea :name="'items['+index+'][description]'" rows="4" class="w-full border border-gray-400 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:border-[#0099FF] transition placeholder-gray-400 resize-none h-32 md:h-40 text-sm md:text-base" placeholder="{{ __('admin.track_record_item_desc_ph') }}" required></textarea>
                             </div>
                         </div>
 
@@ -118,10 +118,10 @@
                                 
                                 <div class="flex flex-col items-center justify-center z-10 pointer-events-none px-4 transition-opacity duration-300 upload-ui">
                                     <div class="bg-[#0099FF] text-white w-32 md:w-40 py-2 md:py-2.5 rounded-lg font-bold text-base md:text-lg shadow-md flex items-center justify-center gap-2 mb-3">
-                                        <i class="fas fa-upload"></i> Upload
+                                        <i class="fas fa-upload"></i> {{ __('admin.track_record_btn_upload') }}
                                     </div>
-                                    <p class="text-[10px] md:text-xs font-bold text-black">Choose images or drag & drop it here.</p>
-                                    <p class="text-[9px] md:text-[10px] text-black font-bold mt-1">PNG / JPG / SVG. Max 10 MB.</p>
+                                    <p class="text-[10px] md:text-xs font-bold text-black">{{ __('admin.track_record_img_instr') }}</p>
+                                    <p class="text-[9px] md:text-[10px] text-black font-bold mt-1">{{ __('admin.track_record_img_hint') }}</p>
                                 </div>
                                 
                                 <img class="absolute inset-0 w-full h-full object-cover z-10 hidden preview-img">

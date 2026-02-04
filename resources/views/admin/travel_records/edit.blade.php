@@ -4,7 +4,7 @@
             <i class="fas fa-arrow-left text-xl md:text-2xl"></i>
         </a>
         <h1 class="text-xl md:text-2xl font-bold text-[#0099FF]">
-            <a href="{{ route('admin.travel-records.index') }}">Edit Track Record</a>
+            <a href="{{ route('admin.travel-records.index') }}">{{ __('admin.track_record_edit_title') }}</a>
         </h1>
     </div>
 
@@ -19,11 +19,13 @@
 
                     <div class="md:col-span-5 flex flex-col gap-5 order-2 md:order-1">
                         <div>
-                            <label class="block text-sm font-bold text-black mb-2">City</label>
+                            {{-- Reuse key dari Create --}}
+                            <label class="block text-sm font-bold text-black mb-2">{{ __('admin.track_record_city_label') }}</label>
                             <input type="text" name="city_name" value="{{ old('city_name', $travelRecord->city_name) }}" class="w-full border border-gray-400 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:border-[#0099FF] transition text-sm md:text-base" required>
                         </div>
                         <div>
-                            <label class="block text-sm font-bold text-black mb-2">Description</label>
+                            {{-- Reuse key dari Create --}}
+                            <label class="block text-sm font-bold text-black mb-2">{{ __('admin.track_record_desc_label') }}</label>
                             <textarea name="description" rows="4" class="w-full border border-gray-400 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:border-[#0099FF] transition resize-none h-32 text-sm md:text-base" required>{{ old('description', $travelRecord->description) }}</textarea>
                         </div>
                     </div>
@@ -34,9 +36,9 @@
 
                             <div class="flex flex-col items-center justify-center z-10 pointer-events-none px-4 transition-opacity duration-300 upload-ui {{ $travelRecord->banner_image ? 'opacity-0' : '' }}">
                                 <div class="bg-[#0099FF] text-white w-36 md:w-40 py-2 md:py-2.5 rounded-lg font-bold text-base md:text-lg shadow-md flex items-center justify-center gap-2 mb-3">
-                                    <i class="fas fa-upload"></i> Change Banner
+                                    <i class="fas fa-upload"></i> {{ __('admin.track_record_btn_change_banner') }}
                                 </div>
-                                <p class="text-[10px] md:text-xs font-bold text-black">Click to replace current banner.</p>
+                                <p class="text-[10px] md:text-xs font-bold text-black">{{ __('admin.track_record_banner_hint') }}</p>
                             </div>
 
                             <img src="{{ Storage::url($travelRecord->banner_image) }}" class="absolute inset-0 w-full h-full object-cover z-10 preview-img {{ $travelRecord->banner_image ? '' : 'hidden' }}">
@@ -60,20 +62,20 @@
 
                 <div class="flex flex-row lg:flex-col gap-4">
                     <button type="submit" class="flex-1 lg:w-full bg-[#27AE60] text-white py-3 rounded-full font-bold shadow-md hover:bg-green-700 transition text-center text-base md:text-lg">
-                        Update Changes
+                        {{ __('admin.track_record_btn_update') }}
                     </button>
 
                     <a href="{{ route('admin.travel-records.index') }}" class="flex-1 lg:w-full bg-[#D12020] text-white py-3 rounded-full font-bold shadow-md hover:bg-red-700 transition text-center text-base md:text-lg">
-                        Cancel
+                        {{ __('admin.track_record_btn_cancel') }}
                     </a>
                 </div>
             </div>
         </div> 
 
         <div class="flex justify-between items-center mb-6">
-            <h3 class="text-lg font-bold text-gray-800 lg:hidden">Extra Content</h3>
+            <h3 class="text-lg font-bold text-gray-800 lg:hidden">{{ __('admin.track_record_extra_title') }}</h3>
             <button type="button" @click="items.push({id: Date.now(), title: '', description: '', image_url: ''})" class="bg-[#0099FF] text-white px-4 md:px-5 py-2 rounded-lg font-bold text-xs md:text-sm shadow-md hover:bg-blue-600 transition flex items-center gap-2">
-                Add <span class="hidden md:inline">Description</span> <i class="fas fa-plus"></i>
+                {{ __('admin.track_record_btn_add_desc') }} <i class="fas fa-plus"></i>
             </button>
         </div>
 
@@ -90,11 +92,13 @@
 
                         <div class="md:col-span-5 flex flex-col gap-5 order-2" :class="index % 2 !== 0 ? 'md:order-last' : 'md:order-first'">
                             <div>
-                                <label class="block text-sm font-bold text-black mb-2">Title</label>
+                                {{-- Reuse key dari Create --}}
+                                <label class="block text-sm font-bold text-black mb-2">{{ __('admin.track_record_item_title') }}</label>
                                 <input type="text" :name="'items['+index+'][title]'" x-model="item.title" class="w-full border border-gray-400 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:border-[#0099FF] transition text-sm md:text-base" required>
                             </div>
                             <div>
-                                <label class="block text-sm font-bold text-black mb-2">Description</label>
+                                {{-- Reuse key dari Create --}}
+                                <label class="block text-sm font-bold text-black mb-2">{{ __('admin.track_record_desc_label') }}</label>
                                 <textarea :name="'items['+index+'][description]'" x-model="item.description" rows="4" class="w-full border border-gray-400 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:border-[#0099FF] transition resize-none h-32 md:h-40 text-sm md:text-base" required></textarea>
                             </div>
                         </div>
@@ -108,9 +112,10 @@
 
                                 <div class="flex flex-col items-center justify-center z-10 pointer-events-none px-4 transition-opacity duration-300 upload-ui" :class="item.image_url ? 'opacity-0' : ''">
                                     <div class="bg-[#0099FF] text-white w-36 md:w-40 py-2 md:py-2.5 rounded-lg font-bold text-base md:text-lg shadow-md flex items-center justify-center gap-2 mb-3">
-                                        <i class="fas fa-upload"></i> Upload
+                                        {{-- Reuse key dari Create --}}
+                                        <i class="fas fa-upload"></i> {{ __('admin.track_record_btn_upload') }}
                                     </div>
-                                    <p class="text-[10px] md:text-xs font-bold text-black">Choose images or drag & drop.</p>
+                                    <p class="text-[10px] md:text-xs font-bold text-black">{{ __('admin.track_record_img_instr') }}</p>
                                 </div>
 
                                 <img :src="item.image_url" class="absolute inset-0 w-full h-full object-cover z-10 preview-img" :class="item.image_url ? '' : 'hidden'">

@@ -5,7 +5,7 @@
 
                 <div class="relative z-10 w-2/3 md:w-2/3">
                     <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight">
-                        Welcome <br> back!
+                        {!! __('admin.dashboard_welcome') !!}
                     </h1>
                 </div>
 
@@ -20,7 +20,7 @@
                 
                 <div class="absolute left-6 md:left-8 top-0 bottom-0 flex flex-col justify-center z-10">
                     <h3 class="text-sm md:text-lg font-bold text-black mb-1 group-hover:text-[#0099FF] transition">
-                        Visited Place
+                        {{ __('admin.dashboard_visited_place') }}
                     </h3>
                     <span class="text-[#0099FF] text-5xl md:text-7xl font-extrabold tracking-tighter drop-shadow-sm">
                         {{ $total_visited_places }}
@@ -37,18 +37,18 @@
 
         <div class="mb-12">
             <div class="flex justify-between items-center mb-6">
-                <h3 class="text-lg md:text-xl font-bold text-gray-800">Messages</h3>
+                <h3 class="text-lg md:text-xl font-bold text-gray-800">{{ __('admin.dashboard_messages_title') }}</h3>
                 <a href="{{ route('admin.messages.index') }}" class="bg-[#0099FF] text-white px-4 md:px-5 py-2 rounded-full text-[10px] md:text-xs font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-200 flex items-center gap-2">
-                    View All <i class="fas fa-arrow-right text-[8px] md:text-xs"></i>
+                    {{ __('admin.dashboard_view_all') }} <i class="fas fa-arrow-right text-[8px] md:text-xs"></i>
                 </a>
             </div>
 
             <div class="bg-white rounded-3xl shadow-lg shadow-gray-200/50 border border-white overflow-hidden">
                 <div class="hidden md:grid grid-cols-12 px-8 py-5 bg-[#F8FAFC] text-gray-400 font-bold text-[11px] uppercase tracking-wider border-b border-gray-100">
-                    <div class="col-span-3">From</div>
-                    <div class="col-span-4">Email</div>
-                    <div class="col-span-3">Received At</div>
-                    <div class="col-span-2 text-right">Action</div>
+                    <div class="col-span-3">{{ __('admin.dashboard_table_from') }}</div>
+                    <div class="col-span-4">{{ __('admin.dashboard_table_email') }}</div>
+                    <div class="col-span-3">{{ __('admin.dashboard_table_received') }}</div>
+                    <div class="col-span-2 text-right">{{ __('admin.dashboard_table_action') }}</div>
                 </div>
 
                 <div class="flex flex-col">
@@ -67,14 +67,14 @@
                         </div>
                         <div class="md:col-span-2 w-full flex md:justify-end opacity-100 md:opacity-80 group-hover:opacity-100 transition">
                             <a href="{{ route('admin.messages.index') }}" class="w-full md:w-auto text-center bg-[#0099FF] text-white px-4 py-2 rounded-lg text-[10px] font-bold hover:bg-blue-600 transition shadow-md shadow-blue-200">
-                                View Message
+                                {{ __('admin.dashboard_btn_view_msg') }}
                             </a>
                         </div>
                     </div>
                     @empty
                     <div class="p-10 text-center text-gray-400 text-sm flex flex-col items-center">
                         <i class="far fa-envelope-open text-4xl mb-3 opacity-30"></i>
-                        There are no incoming messages yet.
+                        {{ __('admin.dashboard_msg_empty') }}
                     </div>
                     @endforelse
                 </div>
@@ -85,9 +85,9 @@
         {{-- 3. PRODUCT OVERVIEW --}}
         <div>
             <div class="flex justify-between items-center mb-6">
-                <h3 class="text-lg md:text-xl font-bold text-gray-800">Product Overview</h3>
+                <h3 class="text-lg md:text-xl font-bold text-gray-800">{{ __('admin.dashboard_products_title') }}</h3>
                 <a href="{{ route('admin.products.index') }}" class="bg-[#0099FF] text-white px-5 py-2 rounded-full text-[10px] md:text-xs font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-200 flex items-center gap-2">
-                    View All <i class="fas fa-arrow-right"></i>
+                    {{ __('admin.dashboard_view_all') }} <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
 
@@ -106,7 +106,7 @@
                                 <img src="{{ Storage::url($firstImage) }}" alt="{{ $product->product_name }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
                                 <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition duration-500"></div>
                             @else
-                                <div class="w-full h-full flex items-center justify-center text-gray-400 text-xs font-medium">No Image</div>
+                                <div class="w-full h-full flex items-center justify-center text-gray-400 text-xs font-medium">{{ __('admin.dashboard_prod_no_image') }}</div>
                             @endif
                         </div>
 
@@ -124,7 +124,7 @@
                             <div class="mb-5 bg-[#F8FAFC] p-3 rounded-xl border border-gray-100">
                                 <div class="flex items-center gap-2 mb-1">
                                     <i class="fas fa-map-marker-alt text-[#0099FF] text-[10px]"></i>
-                                    <span class="text-[9px] md:text-[10px] font-bold text-gray-400 uppercase tracking-wider">Departure:</span>
+                                    <span class="text-[9px] md:text-[10px] font-bold text-gray-400 uppercase tracking-wider">{{ __('admin.dashboard_prod_departure') }}</span>
                                 </div>
                                 <div class="text-[10px] text-gray-700 line-clamp-1 font-medium pl-4">
                                     {!! strip_tags($product->departure_locations) !!}
@@ -140,7 +140,7 @@
                                 <form action="{{ route('admin.products.publish', $product->id) }}" method="POST" class="shrink-0">
                                     @csrf
                                     <button type="submit" class="bg-[#44C379] hover:bg-green-600 text-white px-4 md:px-5 py-2 rounded-xl text-[9px] md:text-[10px] font-semibold uppercase tracking-wider shadow-md shadow-green-200 transition transform active:scale-95">
-                                        PUBLISH
+                                        {{ __('admin.dashboard_btn_publish') }}
                                     </button>
                                 </form>
                             </div>
@@ -149,7 +149,7 @@
                 @empty
                     <div class="col-span-1 lg:col-span-2 text-center py-12 text-gray-400 border-2 border-dashed border-gray-300 rounded-[30px] bg-gray-50">
                         <i class="fas fa-box-open text-4xl mb-3 text-gray-300"></i>
-                        <p>There are no new products yet.</p>
+                        <p>{{ __('admin.dashboard_prod_empty') }}</p>
                     </div>
                 @endforelse
             </div>

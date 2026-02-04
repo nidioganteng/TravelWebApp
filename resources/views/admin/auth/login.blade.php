@@ -20,6 +20,47 @@
           ] 
       }"
       x-init="setInterval(() => { activeSlide = (activeSlide + 1) % slides.length }, 5000)">
+    
+    @php
+        $languages = [
+            ['code' => 'en', 'name' => 'EN', 'flag' => 'https://flagcdn.com/w40/us.png'],
+            ['code' => 'id', 'name' => 'ID', 'flag' => 'https://flagcdn.com/w40/id.png'],
+            ['code' => 'nl', 'name' => 'NL', 'flag' => 'https://flagcdn.com/w40/nl.png'],
+            ['code' => 'de', 'name' => 'DE', 'flag' => 'https://flagcdn.com/w40/de.png'],
+            ['code' => 'fr', 'name' => 'FR', 'flag' => 'https://flagcdn.com/w40/fr.png']
+        ];
+
+        $currentLocale = app()->getLocale();
+        $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $languages[0];
+    @endphp
+
+    {{-- 2. POSISI POJOK KANAN ATAS (LANGUAGE SWITCHER) --}}
+    <div class="absolute top-6 right-6 z-50">
+        <div class="relative" x-data="{ langOpen: false }" @click.away="langOpen = false">
+            <button
+                @click="langOpen = !langOpen"
+                class="flex items-center gap-2 focus:outline-none hover:opacity-80 transition bg-black/30 backdrop-blur-sm px-3 py-2 rounded-full border border-white/10">
+                <img src="{{ $currentLang['flag'] }}" alt="{{ $currentLang['name'] }}" class="w-6 h-4 object-cover rounded-sm" />
+                <span class="text-white text-xs font-semibold uppercase">{{ $currentLang['code'] }}</span>
+            </button>
+
+            <div x-show="langOpen"
+                style="display: none;"
+                x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 scale-95"
+                x-transition:enter-end="opacity-100 scale-100"
+                class="absolute top-full right-0 mt-2 w-32 bg-black/80 backdrop-blur-md border border-white/10 rounded-lg shadow-xl overflow-hidden z-50">
+                @foreach($languages as $lang)
+                <a href="{{ route('lang.switch', $lang['code']) }}"
+                    class="flex items-center gap-3 w-full px-4 py-3 text-sm text-left transition hover:bg-white/20
+                       {{ $currentLocale === $lang['code'] ? 'text-blue-400 font-bold' : 'text-white' }}">
+                    <img src="{{ $lang['flag'] }}" alt="{{ $lang['name'] }}" class="w-5 h-3 object-cover rounded-sm" />
+                    {{ $lang['name'] }}
+                </a>
+                @endforeach
+            </div>
+        </div>
+    </div>
 
     <div id="slider-container" class="absolute inset-0 z-0">
         <template x-for="(slide, index) in slides" :key="index">
@@ -41,8 +82,8 @@
 
         <div class="relative z-20 text-center px-4 py-6">
             
-            <h1 class="text-4xl font-bold text-white mb-8 text-left">Login</h1>
-            <p class="text-gray-200 text-xs font-light mb-8 opacity-80 text-left">Welcome back! Please login your account</p>
+            <h1 class="text-4xl font-bold text-white mb-8 text-left">{{__('admin.login_title') }}</h1>
+            <p class="text-gray-200 text-xs font-light mb-8 opacity-80 text-left">{{__('admin.login_message') }}</p>
 
             <form method="POST" action="{{ route('admin.login.submit') }}" class="space-y-5">
                 @csrf
@@ -73,12 +114,12 @@
                 </div>
 
                 <button type="submit" class="w-full bg-[#0099FF] hover:bg-[#0066FF] text-white font-semibold py-3 px-4 rounded-lg shadow-lg transform active:scale-95 transition duration-200 mt-6">
-                    Login
+                    {{__('admin.login_button') }}
                 </button>
             </form>
 
             <div class="mt-6">
-                <a href="/" class="text-xs text-gray-300 hover:text-white transition">Back to Main Website</a>
+                <a href="/" class="text-xs text-gray-300 hover:text-white transition">{{__('admin.login_back') }}</a>
             </div>
         </div>
     </div>
