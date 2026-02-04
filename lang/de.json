@@ -1,0 +1,71 @@
+{
+    "nav.home": "STARTSEITE",
+    "nav.about": "ÜBER UNS",
+    "nav.product": "ANGEBOTE",
+    "nav.contact": "KONTAKT",
+
+    "hero.book_now": "Jetzt buchen",
+    "hero.travel_places": "Reiseziele",
+    "hero.features": "Highlights",
+    "hero.desc": "Orte, die man liebt und <br/> immer wieder besuchen möchte",
+
+    "herabout.section": "#Über uns",
+    "herabout.title": "Wir sind ein vertrauenswürdiges Reisebüro für unvergessliche Erlebnisse",
+    "herabout.descrip": "Verwandeln Sie Ihre Reiseträume in nahtlose Realität, ganz ohne Sorgen. Vom ersten Funken der Inspiration bis zu Ihrer sicheren Rückkehr begleiten wir Sie durch jeden Meilenstein Ihrer Reise. Unsere Mission ist es, maßgeschneiderte, sichere und mühelose Reiseerlebnisse zu bieten, die auf Ihre Wünsche zugeschnitten sind – damit jede Sekunde voller Wunder und Entdeckungen ist.",
+    "herabout.sectionB": "UNSERE REISEZIELE",
+    "herabout.desc1": "Erleben Sie das ultimative Inselparadies. Vom ruhigen, spirituellen Herzen Ubuds bis zu den lebhaften Stränden von Seminyak bietet Bali eine perfekte Mischung aus reicher Kultur, atemberaubenden Landschaften und tropischer Ruhe.",
+    "herabout.desc2": "Treten Sie ein in das Herz von Geschichte und Spiritualität. Bewundern Sie die architektonische Pracht des Petersdoms und die künstlerischen Meisterwerke der Vatikanischen Museen im kleinsten, aber einflussreichsten Stadtstaat der Welt.",
+    "herabout.desc3": "Entdecken Sie den zeitlosen Charme Belgiens, wo mittelalterliche Architektur auf erstklassige Schokolade trifft. Erkunden Sie die historischen Plätze von Brüssel und die bezaubernden Kanäle von Brügge für einen unvergesslichen europäischen Kurzurlaub.",
+    "herabout.button": "Mehr anzeigen",
+
+    "hero_youtube.text": "Entdecken Sie die Welt durch die Augen unserer lebendigen Reise-Community. Wir planen nicht nur Reisen, wir kuratieren lebensverändernde Abenteuer, die Menschen zusammenbringen. Sehen Sie sich unsere neuesten Reisen an und erleben Sie, wie wir globale Ziele in gemeinsame Erinnerungen verwandeln. Ihre nächste große Geschichte beginnt hier.",
+    "hero_youtube.button": "MEHR ANSEHEN",
+
+    "hero_review.section": "#Bewertungen",
+    "hero_review.title": "Ihr vertrauenswürdiger Reisepartner",
+
+    "hero_CTA.text": "Warten Sie nicht länger! Starten Sie Ihr Abenteuer <br className=\"hidden md:block\" /> und entdecken Sie noch heute neue Erlebnisse",
+    "hero_CTA.button": "Jetzt buchen",
+
+    "about.title": "Über uns",
+
+    "about_intro.title": "Vorstellung Ihrer vertrauenswürdigen Reiseagentur",
+    "about_intro.desc": "Bei Mjin Amor Travel glauben wir, dass Reisen mehr ist als nur der Besuch neuer Orte. Es geht um die Geschichten, die Sie sammeln, und die Erinnerungen, die für immer bleiben. Seit unserer Gründung im Jahr 2018 haben wir uns darauf spezialisiert, mehr als nur ein Dienstleister zu sein – wir sind Ihre engagierten Partner beim Entdecken. Unsere Mission ist es, die Brücke zwischen Ihren Träumen und der Realität zu schlagen, indem wir die atemberaubendsten verborgenen Schätze der Welt aufdecken, kuratiert für alle, die Authentizität suchen.",
+    "about_intro.bubble_one": "Sicheres Reisen",
+    "about_intro.bubble_desc_one": "Ihre Sicherheit ist unsere Priorität, mit geprüften Unterkünften.",
+    "about_intro.bubble_two": "Kuratierte Ziele",
+    "about_intro.bubble_desc_two": "Sorgfältig ausgewählte Routen und versteckte Orte.",
+    "about_intro.bubble_three": "Personalisierte Erfahrung",
+    "about_intro.bubble_desc_three": "Maßgeschneiderte Reiserouten, passend zu Ihrem Reisestil.",
+
+    "about_img.img_one": "Schaffen Sie unvergessliche Erinnerungen mit den Menschen, die Ihnen am wichtigsten sind.",
+    "about_img.img_two": "Entfliehen Sie dem Alltag und tauchen Sie in die Natur ein. Entdecken Sie verborgene Orte, die Ihre Seele beleben.",
+
+    "about_destination.section": "UNSERE REISEZIELE",
+    "about_destination.desc": "Entdecken Sie mit uns eine Welt atemberaubender Reiseziele. Von unberührten Stränden bis zu majestätischen Bergen sind unsere kuratierten Reiseerlebnisse darauf ausgelegt, zu inspirieren und zu fesseln. Entdecken Sie verborgene Schätze, tauchen Sie in diverse Kulturen ein und schaffen Sie unvergessliche Erinnerungen auf Ihrer Reise zu einigen der schönsten Orte der Erde. Ihr Abenteuer erwartet Sie!",
+
+    "product.title": "Angebote",
+
+    "contact.title": "Kontakt",
+
+    "contact_form.title": "Senden Sie uns eine Nachricht",
+    "contact_form.desc": "Haben Sie Fragen zu unseren Reisen oder benötigen Sie eine individuelle Reiseroute? Senden Sie uns eine Nachricht und unser Team wird sich in Kürze bei Ihnen melden, um Ihren Traumurlaub zu planen.",
+    "contact_form.name": "Name",
+    "contact_form.email": "E-Mail",
+    "contact_form.message": "Nachricht",
+    "contact_form.send": "Nachricht senden",
+    "contact_form.help_center": "Hallo! Wir sind hier, um Ihnen zu helfen.",
+    "contact_form.hotline": "Hotline:",
+    "contact_form.sms": "SMS/WhatsApp:",
+    "contact_form.email_contact": "E-Mail:",
+    "contact_form.socials": "Verbinden Sie sich mit uns",
+
+    "footer.about_us": "Über uns",
+    "footer.products": "Angebote",
+    "footer.contact_us": "Kontakt",
+    "footer.track_records": "Referenzen",
+    "footer.title": "Updates erhalten",
+    "footer.desc": "Abonnieren Sie unseren Newsletter, um Updates und besondere Ankündigungen zu erhalten.",
+    "footer.send_message": "Senden Sie uns eine Nachricht",
+    "footer.sign": "Anmelden"
+}

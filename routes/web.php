@@ -13,7 +13,7 @@ use App\Models\TrackRecord;
 use App\Http\Controllers\UserController;
 
 Route::get('lang/{locale}', function ($locale) {
-    if (in_array($locale, ['en', 'id', 'nl'])) {
+    if (in_array($locale, ['en', 'id', 'nl', 'de', 'fr'])) {
         session()->put('locale', $locale);
     }
     return redirect()->back();

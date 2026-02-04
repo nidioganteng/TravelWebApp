@@ -1,0 +1,71 @@
+{
+    "nav.home": "ACCUEIL",
+    "nav.about": "À PROPOS",
+    "nav.product": "NOS OFFRES",
+    "nav.contact": "CONTACT",
+
+    "hero.book_now": "Réserver maintenant",
+    "hero.travel_places": "Destinations",
+    "hero.features": "Points forts",
+    "hero.desc": "Des lieux que l'on aime visiter <br/> et revisiter sans cesse",
+
+    "herabout.section": "#À propos de nous",
+    "herabout.title": "Nous sommes une agence de voyage de confiance dédiée à des expériences inoubliables",
+    "herabout.descrip": "Transformez vos rêves de voyage en réalité sans le moindre souci. De la première étincelle d'inspiration à votre retour en toute sécurité, nous vous guidons à chaque étape. Notre mission est d'offrir des expériences de voyage sur mesure, sécurisées et sans effort, adaptées à vos désirs uniques, pour que chaque seconde soit remplie d'émerveillement et de découverte.",
+    "herabout.sectionB": "NOS DESTINATIONS",
+    "herabout.desc1": "Vivez le paradis insulaire ultime. Du cœur spirituel et serein d'Ubud aux plages vibrantes de Seminyak, Bali offre un mélange parfait de culture riche, de paysages époustouflants et de tranquillité tropicale.",
+    "herabout.desc2": "Entrez au cœur de l'histoire et de la spiritualité. Admirez la grandeur architecturale de la basilique Saint-Pierre et les chefs-d'œuvre artistiques des musées du Vatican dans le plus petit mais le plus influent État du monde.",
+    "herabout.desc3": "Explorez le charme intemporel de la Belgique, où l'architecture médiévale rencontre le chocolat de renommée mondiale. Découvrez les places historiques de Bruxelles et les canaux enchanteurs de Bruges pour une escapade européenne inoubliable.",
+    "herabout.button": "En savoir plus",
+
+    "hero_youtube.text": "Explorez le monde à travers les yeux de notre communauté de voyageurs. Nous ne planifions pas seulement des voyages, nous créons des aventures qui changent la vie et rapprochent les gens. Regardez nos derniers périples et voyez comment nous transformons des destinations mondiales en souvenirs partagés. Votre prochaine grande histoire commence ici.",
+    "hero_youtube.button": "REGARDER PLUS",
+
+    "hero_review.section": "#Avis",
+    "hero_review.title": "Votre partenaire de confiance",
+
+    "hero_CTA.text": "N'attendez plus ! Commencez votre aventure <br className=\"hidden md:block\" /> et vivez de nouvelles expériences dès aujourd'hui",
+    "hero_CTA.button": "Réserver maintenant",
+
+    "about.title": "À propos de nous",
+
+    "about_intro.title": "Présentation de votre agence de voyage de confiance",
+    "about_intro.desc": "Chez Mjin Amor Travel, nous croyons que voyager ne se limite pas à visiter de nouveaux lieux. Il s'agit des histoires que vous recueillez et des souvenirs qui restent gravés à jamais. Depuis notre création en 2018, nous nous engageons à être bien plus qu'un simple prestataire de services : nous sommes vos partenaires dévoués dans l'exploration. Notre mission est de combler le fossé entre vos rêves et la réalité en dévoilant les joyaux cachés les plus époustouflants du monde, sélectionnés spécifiquement pour ceux qui recherchent l'authenticité.",
+    "about_intro.bubble_one": "Voyage sûr et sécurisé",
+    "about_intro.bubble_desc_one": "Votre sécurité est notre priorité, avec des hébergements vérifiés.",
+    "about_intro.bubble_two": "Destinations sélectionnées",
+    "about_intro.bubble_desc_two": "Itinéraires soigneusement choisis et lieux secrets.",
+    "about_intro.bubble_three": "Expérience personnalisée",
+    "about_intro.bubble_desc_three": "Des itinéraires sur mesure conçus pour correspondre à votre style de voyage.",
+
+    "about_img.img_one": "Créez des souvenirs inoubliables avec ceux qui comptent le plus pour vous.",
+    "about_img.img_two": "Échappez à l'ordinaire et immergez-vous dans la nature. Découvrez des joyaux cachés qui ressourcent votre âme.",
+
+    "about_destination.section": "NOS DESTINATIONS",
+    "about_destination.desc": "Explorez un monde de destinations à couper le souffle avec nous. Des plages immaculées aux montagnes majestueuses, nos expériences de voyage sont conçues pour inspirer et captiver. Découvrez des trésors cachés, imprégnez-vous de cultures diverses et créez des souvenirs inoubliables en voyageant vers certains des plus beaux endroits de la Terre. Votre aventure vous attend !",
+
+    "product.title": "Nos Offres",
+
+    "contact.title": "Contact",
+
+    "contact_form.title": "Envoyez-nous un message",
+    "contact_form.desc": "Vous avez des questions sur nos voyages ou besoin d'un itinéraire personnalisé ? Envoyez-nous un message et notre équipe vous répondra sous peu pour vous aider à planifier vos vacances de rêve.",
+    "contact_form.name": "Nom",
+    "contact_form.email": "E-mail",
+    "contact_form.message": "Message",
+    "contact_form.send": "Envoyer le message",
+    "contact_form.help_center": "Bonjour ! Nous sommes là pour vous aider.",
+    "contact_form.hotline": "Assistance :",
+    "contact_form.sms": "SMS/WhatsApp :",
+    "contact_form.email_contact": "E-mail :",
+    "contact_form.socials": "Suivez-nous",
+
+    "footer.about_us": "À propos",
+    "footer.products": "Nos Offres",
+    "footer.contact_us": "Contactez-nous",
+    "footer.track_records": "Références",
+    "footer.title": "Restez informés",
+    "footer.desc": "Abonnez-vous à notre newsletter pour recevoir des mises à jour et des annonces spéciales.",
+    "footer.send_message": "Envoyez-nous un message",
+    "footer.sign": "S'inscrire"
+}
