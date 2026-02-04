@@ -67,5 +67,12 @@
     "footer.title": "Dapatkan Pembaruan",
     "footer.desc": "Berlangganan newsletter kami untuk menerima pembaruan dan pengumuman khusus.",
     "footer.send_message": "Kirim Pesan Kepada Kami",
-    "footer.sign": "Daftar"
+    "footer.sign": "Daftar",
+
+    "user.register_create": "Buat Akun",
+    "user.register_confirmation": "Sudah punya akun?",
+    "user.register_login": "Masuk",
+    "user.register_button": "kembali ke situs web",
+    "user.register_agreement": "Saya menyetujui",
+    "user.register_terms": "Syarat & Ketentuan"
 }

@@ -8,7 +8,9 @@
                     $languages = [
                     ['code' => 'en', 'name' => 'EN', 'flag' => 'https://flagcdn.com/w40/us.png'],
                     ['code' => 'id', 'name' => 'ID', 'flag' => 'https://flagcdn.com/w40/id.png'],
-                    ['code' => 'nl', 'name' => 'NL', 'flag' => 'https://flagcdn.com/w40/nl.png']
+                    ['code' => 'nl', 'name' => 'NL', 'flag' => 'https://flagcdn.com/w40/nl.png'],
+                    ['code' => 'de', 'name' => 'DE', 'flag' => 'https://flagcdn.com/w40/de.png'],
+                    ['code' => 'fr', 'name' => 'FR', 'flag' => 'https://flagcdn.com/w40/fr.png']
                     ];
                     $currentLocale = app()->getLocale();
                     $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $languages[0];
@@ -32,9 +34,9 @@
                 </div>
 
                 <div class="my-auto">
-                    <h1 class="text-[#67a3bc] text-5xl font-bold mb-2">Create Account</h1>
+                    <h1 class="text-[#67a3bc] text-5xl font-bold mb-2">{{ __('user.register_create') }}</h1>
                     <p class="text-gray-600 mb-8 font-medium">
-                        Already have an account? <a href="{{ route('login') }}" class="text-[#67a3bc] hover:underline">Log In</a>
+                       {{ __('user.register_confirmation') }} <a href="{{ route('login') }}" class="text-[#67a3bc] hover:underline">{{ __('user.register_login') }}</a>
                     </p>
 
                     <form method="POST" action="{{ route('register') }}" class="space-y-4">
@@ -79,7 +81,7 @@
                         <div class="flex items-center gap-2 py-2">
                             <input id="terms" type="checkbox" name="terms" required class="rounded border-gray-300 text-[#67a3bc] focus:ring-[#67a3bc]">
                             <label for="terms" class="text-sm text-gray-600">
-                                I Agree to <a href="#" class="text-[#67a3bc] underline">Terms & Conditions</a>
+                                {{ __('user.register_agreement') }} <a href="#" class="text-[#67a3bc] underline">{{ __('user.register_terms') }}</a>
                             </label>
                         </div>
 
@@ -95,7 +97,7 @@
                     <img src="/img/register/assets/register_img.svg" alt="Scenery" class="absolute inset-0 w-full h-full object-cover">
 
                     <a href="/" class="absolute top-6 left-6 bg-black text-white px-5 py-2 rounded-full text-sm font-medium flex items-center gap-2 hover:bg-gray-800 transition">
-                        back to website
+                         {{ __('user.register_button') }}
                         <span>&rarr;</span>
                     </a>
 

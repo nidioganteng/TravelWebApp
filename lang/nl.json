@@ -67,5 +67,12 @@
     "footer.title": "Ontvang Updates",
     "footer.desc": "Abonneer u op onze nieuwsbrief om updates en speciale aankondigingen te ontvangen.",
     "footer.send_message": "Stuur Ons Een Bericht",
-    "footer.sign": "Aanmelden"
+    "footer.sign": "Aanmelden",
+
+    "user.register_create": "Account aanmaken",
+    "user.register_confirmation": "Heeft u al een account?",
+    "user.register_login": "Inloggen",
+    "user.register_button": "terug naar website",
+    "user.register_agreement": "Ik ga akkoord met de",
+    "user.register_terms": "Algemene Voorwaarden"
 }

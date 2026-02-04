@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\App;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash; // <--- WAJIB IMPORT INI
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {

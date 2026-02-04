@@ -67,5 +67,12 @@
     "footer.title": "Restez informés",
     "footer.desc": "Abonnez-vous à notre newsletter pour recevoir des mises à jour et des annonces spéciales.",
     "footer.send_message": "Envoyez-nous un message",
-    "footer.sign": "S'inscrire"
+    "footer.sign": "S'inscrire",
+
+    "user.register_create": "Créer un compte",
+    "user.register_confirmation": "Vous avez déjà un compte ?",
+    "user.register_login": "Se connecter",
+    "user.register_button": "retour au site web",
+    "user.register_agreement": "J'accepte les",
+    "user.register_terms": "Conditions générales"
 }

@@ -67,5 +67,12 @@
     "footer.title": "Updates erhalten",
     "footer.desc": "Abonnieren Sie unseren Newsletter, um Updates und besondere Ankündigungen zu erhalten.",
     "footer.send_message": "Senden Sie uns eine Nachricht",
-    "footer.sign": "Anmelden"
+    "footer.sign": "Anmelden",
+
+    "user.register_create": "Konto erstellen",
+    "user.register_confirmation": "Haben Sie bereits ein Konto?",
+    "user.register_login": "Anmelden",
+    "user.register_button": "zurück zur Website",
+    "user.register_agreement": "Ich akzeptiere die",
+    "user.register_terms": "Allgemeinen Geschäftsbedingungen"
 }
