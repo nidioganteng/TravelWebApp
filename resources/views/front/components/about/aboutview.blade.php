@@ -3,7 +3,7 @@
     <div class="relative h-[50vh] w-full">
         <div 
             class="absolute inset-0 w-full h-full"
-            style="background-image: url('{{ asset('img/about/assets/background_about.svg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;"
+            style="background-image: url('{{ asset('img/about/assets/background_about.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;"
         ></div>
         <div class="absolute inset-0 bg-black/30"></div>
 

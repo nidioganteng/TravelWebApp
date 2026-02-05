@@ -1,7 +1,9 @@
 <section class="w-full bg-white py-12 px-4 md:px-8 overflow-x-hidden">
     <div class="max-w-7xl mx-auto space-y-12">
 
-        @foreach ($tripsData as $trip)
+
+
+        @forelse ($tripsData as $trip)
         <div class="bg-white border border-gray-300 rounded-[20px] p-6 md:p-14 shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
 
             <h2 class="text-2xl md:text-3xl font-extrabold text-black text-center mb-8">
@@ -74,9 +76,23 @@
                     </div>
                 </div>
 
+                @empty
+                <div class="flex flex-col items-center justify-center py-20 text-center border-2 border-dashed border-gray-200 rounded-[20px]">
+                    <div class="mb-4 text-gray-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">{{ __('no_product_title') }}</h3>
+                    <p class="text-gray-500 mb-8">{{ __('no_product_desc') }}</p>
+                    
+                    <a href="/contact" class="inline-block bg-[#10435E] text-white font-bold py-3 px-8 rounded-xl hover:bg-[#0d364b] transition-colors">
+                        {{ __('contact_us') }}
+                    </a>
+                </div>
             </div>
         </div>
-        @endforeach
+        @endforelse
 
     </div>
 </section>

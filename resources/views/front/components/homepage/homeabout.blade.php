@@ -33,9 +33,9 @@
                         {{ __('herabout.desc1') }}
                     </p>
                     <div class="mt-auto">
-                        <button class="bg-[#123E5E] text-white text-sm md:text-base font-semibold py-2.5 px-6 md:px-8 rounded-full hover:bg-opacity-90 transition duration-300 w-full sm:w-auto">
+                        <a href="/about" class="inline-block bg-[#123E5E] text-white text-sm md:text-base font-semibold py-2.5 px-6 md:px-8 rounded-full hover:bg-opacity-90 transition duration-300 w-full sm:w-auto text-center">
                             {{ __('herabout.button') }}
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -54,9 +54,9 @@
                         {{ __('herabout.desc2') }}
                     </p>
                     <div class="mt-auto">
-                        <button class="bg-[#123E5E] text-white text-sm md:text-base font-semibold py-2.5 px-6 md:px-8 rounded-full hover:bg-opacity-90 transition duration-300 w-full sm:w-auto">
+                        <a href="/about" class="inline-block bg-[#123E5E] text-white text-sm md:text-base font-semibold py-2.5 px-6 md:px-8 rounded-full hover:bg-opacity-90 transition duration-300 w-full sm:w-auto text-center">
                             {{ __('herabout.button') }}
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -75,9 +75,9 @@
                         {{ __('herabout.desc3') }}
                     </p>
                     <div class="mt-auto">
-                        <button class="bg-[#123E5E] text-white text-sm md:text-base font-semibold py-2.5 px-6 md:px-8 rounded-full hover:bg-opacity-90 transition duration-300 w-full sm:w-auto">
+                        <a href="/about" class="inline-block bg-[#123E5E] text-white text-sm md:text-base font-semibold py-2.5 px-6 md:px-8 rounded-full hover:bg-opacity-90 transition duration-300 w-full sm:w-auto">
                             {{ __('herabout.button') }}
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

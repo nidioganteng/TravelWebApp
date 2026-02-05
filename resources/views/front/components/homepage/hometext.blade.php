@@ -3,7 +3,7 @@
         <div class="relative h-screen overflow-y-hidden">
             <div
                 class="absolute inset-0 w-full h-screen"
-                style="--bg-url: url('{{ asset('/img/homepage/assets/background_hero.svg') }}'); background-image: var(--bg-url); background-size: cover; background-position: center; background-repeat: no-repeat; transform: translateZ(0);">
+                style="--bg-url: url('{{ asset('/img/homepage/assets/background_hero.png') }}'); background-image: var(--bg-url); background-size: cover; background-position: center; background-repeat: no-repeat; transform: translateZ(0);">
             </div>
         </div>
     </div>
