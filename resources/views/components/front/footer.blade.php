@@ -33,12 +33,12 @@
                 <form class="space-y-3 w-full max-w-sm mx-auto md:max-w-none">
                     <input
                         type="email"
-                        placeholder="*Email"
+                        placeholder="*{{ __('footer.email_placeholder') }}"
                         class="w-full bg-white/20 border border-white/50 rounded-md py-2 md:py-1 lg:py-2 px-2 lg:px-4 placeholder:text-white/80 focus:outline-none focus:ring-1 focus:ring-white" />
                     <div class="flex flex-col sm:flex-row gap-2">
                         <input
                             type="text"
-                            placeholder="*First Name"
+                            placeholder="*{{ __('footer.name') }}"
                             class="flex-1 bg-white/20 border border-white/50 rounded-md py-2 md:py-1 lg:py-2 px-2 lg:px-4 placeholder:text-white/80 focus:outline-none focus:ring-1 focus:ring-white" />
                         <button
                             type="submit"

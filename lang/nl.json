@@ -68,6 +68,8 @@
     "footer.desc": "Abonneer u op onze nieuwsbrief om updates en speciale aankondigingen te ontvangen.",
     "footer.send_message": "Stuur Ons Een Bericht",
     "footer.sign": "Aanmelden",
+    "footer.email_placeholder": "Uw e-mailadres",
+    "footer.name": "Uw naam",
 
     "user.register_create": "Account aanmaken",
     "user.register_confirmation": "Heeft u al een account?",
@@ -262,5 +264,7 @@
     "user.sidebar": "Profielmenu",
     "user.sidebar.my_booking": "Mijn boekingen",
     "user.sidebar.my_account": "Mijn account",
-    "user.sidebar.logout": "Uitloggen"
+    "user.sidebar.logout": "Uitloggen", 
+
+    "user.product_trip": "Vertreklocaties:"
 }

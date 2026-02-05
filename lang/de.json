@@ -68,6 +68,8 @@
     "footer.desc": "Abonnieren Sie unseren Newsletter, um Updates und besondere Ankündigungen zu erhalten.",
     "footer.send_message": "Senden Sie uns eine Nachricht",
     "footer.sign": "Anmelden",
+    "footer.email_placeholder": "Ihre E-Mail-Adresse",
+    "footer.name": "Ihr Name",
 
     "user.register_create": "Konto erstellen",
     "user.register_confirmation": "Haben Sie bereits ein Konto?",
@@ -262,5 +264,7 @@
     "user.sidebar": "Profilmenü",
     "user.sidebar.my_booking": "Meine Buchungen",
     "user.sidebar.my_account": "Mein Konto",
-    "user.sidebar.logout": "Abmelden"
+    "user.sidebar.logout": "Abmelden", 
+
+    "user.product_trip": "Abreiseorte:"
 }

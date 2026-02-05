@@ -68,6 +68,8 @@
     "footer.desc": "Abonnez-vous à notre newsletter pour recevoir des mises à jour et des annonces spéciales.",
     "footer.send_message": "Envoyez-nous un message",
     "footer.sign": "S'inscrire",
+    "footer.email_placeholder": "Votre adresse email",
+    "footer.name": "Votre nom",
 
     "user.register_create": "Créer un compte",
     "user.register_confirmation": "Vous avez déjà un compte ?",
@@ -262,5 +264,7 @@
     "user.sidebar": "Menu Profil",
     "user.sidebar.my_booking": "Mes Réservations",
     "user.sidebar.my_account": "Mon Compte",
-    "user.sidebar.logout": "Se Déconnecter"
+    "user.sidebar.logout": "Se Déconnecter", 
+
+    "user.product_trip": "Lieux de départ :"
 }

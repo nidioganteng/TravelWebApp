@@ -68,6 +68,8 @@
     "footer.desc": "Berlangganan newsletter kami untuk menerima pembaruan dan pengumuman khusus.",
     "footer.send_message": "Kirim Pesan Kepada Kami",
     "footer.sign": "Daftar",
+    "footer.email_placeholder": "Alamat email Anda",
+    "footer.name": "Nama Anda",
 
     "user.register_create": "Buat Akun",
     "user.register_confirmation": "Sudah punya akun?",
@@ -262,5 +264,7 @@
     "user.sidebar": "Menu Profil",
     "user.sidebar.my_booking": "Pemesanan Saya",
     "user.sidebar.my_account": "Akun Saya",
-    "user.sidebar.logout": "Keluar" 
+    "user.sidebar.logout": "Keluar", 
+
+    "user.product_trip": "Lokasi Keberangkatan:"
 }
