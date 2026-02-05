@@ -4,10 +4,11 @@
             <div class="w-full md:w-1/2 p-6 flex flex-col justify-center">
                 <div class="mb-6">
                     <h1 class="text-4xl font-extrabold text-[#0099FF] mb-2">
-                        {{ __('Forget Password') }}
+                        {{ __('user.forgot_password_title') }}
+
                     </h1>
                     <p class="text-sm text-gray-500">
-                        {{ __('Forget password? No Problem. Just let us know your email address') }}
+                        {{ __('user.forgot_password_desc') }}
                     </p>
                 </div>
 
@@ -23,7 +24,7 @@
                             type="email"
                             name="email"
                             :value="old('email')"
-                            placeholder="Email"
+                            placeholder="{{ __('user.placeholder_email') }}"
                             required
                             autofocus />
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
@@ -31,7 +32,7 @@
 
                     <div class="mt-2">
                         <button type="submit" class="w-full bg-[#0099FF] hover:bg-blue-600 text-white font-bold py-4 px-4 rounded-xl transition duration-200 shadow-lg shadow-blue-200 tracking-tight text-sm">
-                            {{ __('Email Password Reset Link') }}
+                            {{ __('user.forgot_password_button') }}
                         </button>
                     </div>
                 </form>
@@ -46,7 +47,9 @@
             $languages = [
             ['code' => 'en', 'name' => 'EN', 'flag' => 'https://flagcdn.com/w40/us.png'],
             ['code' => 'id', 'name' => 'ID', 'flag' => 'https://flagcdn.com/w40/id.png'],
-            ['code' => 'nl', 'name' => 'NL', 'flag' => 'https://flagcdn.com/w40/nl.png']
+            ['code' => 'nl', 'name' => 'NL', 'flag' => 'https://flagcdn.com/w40/nl.png'],
+            ['code' => 'de', 'name' => 'DE', 'flag' => 'https://flagcdn.com/w40/de.png'],
+            ['code' => 'fr', 'name' => 'FR', 'flag' => 'https://flagcdn.com/w40/fr.png']
             ];
 
             $currentLocale = app()->getLocale();

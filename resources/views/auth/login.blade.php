@@ -7,7 +7,7 @@
                     <img src="/img/login/assets/login_img.svg" alt="Scenery" class="absolute inset-0 w-full h-full object-cover">
 
                     <a href="/" class="absolute top-6 right-6 bg-black text-white px-5 py-2 rounded-full text-sm font-medium flex items-center gap-2 hover:bg-gray-800 transition">
-                        back to website
+                        {{ __('user.login_button') }}
                         <span>&rarr;</span>
                     </a>
 
@@ -18,13 +18,15 @@
             </div>
 
             <div class="w-full md:w-1/2 p-12 flex flex-col justify-between">
-                
+
                 <div class="flex justify-end mb-10">
                     @php
                     $languages = [
-                        ['code' => 'en', 'name' => 'EN', 'flag' => 'https://flagcdn.com/w40/us.png'],
-                        ['code' => 'id', 'name' => 'ID', 'flag' => 'https://flagcdn.com/w40/id.png'],
-                        ['code' => 'nl', 'name' => 'NL', 'flag' => 'https://flagcdn.com/w40/nl.png']
+                    ['code' => 'en', 'name' => 'EN', 'flag' => 'https://flagcdn.com/w40/us.png'],
+                    ['code' => 'id', 'name' => 'ID', 'flag' => 'https://flagcdn.com/w40/id.png'],
+                    ['code' => 'nl', 'name' => 'NL', 'flag' => 'https://flagcdn.com/w40/nl.png'],
+                    ['code' => 'de', 'name' => 'DE', 'flag' => 'https://flagcdn.com/w40/de.png'],
+                    ['code' => 'fr', 'name' => 'FR', 'flag' => 'https://flagcdn.com/w40/fr.png']
                     ];
                     $currentLocale = app()->getLocale();
                     $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $languages[0];
@@ -48,9 +50,9 @@
                 </div>
 
                 <div class="my-auto">
-                    <h1 class="text-[#67a3bc] text-5xl font-bold mb-2">Welcome back!</h1>
+                    <h1 class="text-[#67a3bc] text-5xl font-bold mb-2">{{ __('user.login_welcome') }}</h1>
                     <p class="text-gray-600 mb-8 font-medium">
-                        Don't have an account? <a href="{{ route('register') }}" class="text-[#67a3bc] hover:underline">Create Account</a>
+                        {{ __('user.login_no_account') }} <a href="{{ route('register') }}" class="text-[#67a3bc] hover:underline">{{ __('user.login_register') }}</a>
                     </p>
 
                     <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -59,7 +61,7 @@
                         @csrf
 
                         <div>
-                            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" placeholder="Email" required autofocus autocomplete="username" />
+                            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" placeholder="{{ __('user.placeholder_email') }}" required autofocus autocomplete="username" />
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
 
@@ -67,25 +69,25 @@
                             <x-text-input id="password" class="block mt-1 w-full"
                                 type="password"
                                 name="password"
-                                placeholder="Password"
+                                placeholder="{{ __('user.placeholder_password') }}"
                                 required autocomplete="current-password" />
                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
                         </div>
 
                         <div class="flex items-center justify-start">
                             @if (Route::has('password.request'))
-                                <a class="text-sm text-gray-600 hover:text-[#67a3bc]" href="{{ route('password.request') }}">
-                                    {{ __('Forget password?') }}
-                                </a>
+                            <a class="text-sm text-gray-600 hover:text-[#67a3bc]" href="{{ route('password.request') }}">
+                                {{ __('user.login_forgot_password') }}
+                            </a>
                             @endif
                         </div>
 
                         <button type="submit" class="w-full bg-[#67a3bc] text-white font-bold py-4 rounded-xl hover:bg-[#568da3] transition duration-300 uppercase tracking-wider text-lg shadow-md">
-                            Sign In
+                            {{ __('user.login_sign_in') }}
                         </button>
                     </form>
                 </div>
-                
+
                 <div class="h-4"></div>
             </div>
 

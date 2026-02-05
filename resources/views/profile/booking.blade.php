@@ -2,7 +2,9 @@
 $languages = [
 ['code' => 'en', 'name' => 'EN', 'flag' => 'https://flagcdn.com/w40/us.png'],
 ['code' => 'id', 'name' => 'ID', 'flag' => 'https://flagcdn.com/w40/id.png'],
-['code' => 'nl', 'name' => 'NL', 'flag' => 'https://flagcdn.com/w40/nl.png']
+['code' => 'nl', 'name' => 'NL', 'flag' => 'https://flagcdn.com/w40/nl.png'],
+['code' => 'de', 'name' => 'DE', 'flag' => 'https://flagcdn.com/w40/de.png'],
+['code' => 'fr', 'name' => 'FR', 'flag' => 'https://flagcdn.com/w40/fr.png']
 ];
 
 $currentLocale = app()->getLocale();
@@ -12,7 +14,7 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
 <x-guest-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Booking') }}
+            {{ __('user.booking_title') }}
         </h2>
     </x-slot>
 
@@ -26,7 +28,7 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                 <div class="flex-1">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
                         <div class="flex items-center gap-2">
-                            <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">Active E-tickets</h2>
+                            <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight"> {{ __('user.booking_tickets') }}</h2>
                         </div>
 
                         <div class="flex items-center gap-4">
@@ -53,7 +55,7 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                             </div>
 
                             <a href="/" class="flex items-center gap-2 bg-black text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-gray-800 transition duration-300">
-                                back to website
+                                {{ __('user.booking_back_button') }}
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                 </svg>
@@ -67,12 +69,12 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                         </div>
 
                         <div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-1">No Active Bookings Found</h3>
+                            <h3 class="text-xl font-bold text-gray-900 mb-1"> {{ __('user.booking_no_ticket') }}</h3>
                             <p class="text-gray-500 text-sm leading-relaxed">
-                                Anything you booked shows up here, but it seems like you haven't made any. <br>
+                                {{ __('user.booking_no_ticket_desc') }} <br>
                                 <span class="text-[#0099FF] font-semibold cursor-pointer hover:underline">
                                     <a href="/products">
-                                    Let's create one via products!
+                                        {{ __('user.booking_create') }}
                                     </a>
                                 </span>
                             </p>
@@ -80,11 +82,11 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                     </div>
 
                     <div class="mt-10">
-                        <h2 class="text-2xl font-extrabold text-gray-900 mb-6 tracking-tight">Purchase List</h2>
+                        <h2 class="text-2xl font-extrabold text-gray-900 mb-6 tracking-tight"> {{ __('user.booking_list') }}</h2>
 
                         <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex items-center justify-start">
                             <p class="text-gray-400 font-medium">
-                                No <span class="text-[#0099FF] font-bold cursor-pointer hover:text-blue-500">Purchases Found</span>
+                                {{ __('user.booking_no_purchase') }} <span class="text-[#0099FF] font-bold cursor-pointer hover:text-blue-500">{{ __('user.booking_no_purchase2') }}</span>
                             </p>
                         </div>
                     </div>

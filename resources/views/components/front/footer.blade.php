@@ -8,7 +8,7 @@
                     <a href="{{ route('contact') }}" class="hover:opacity-80">{{ __('footer.contact_us') }}</a>
                     <a href="{{ route('about') }}" class="hover:opacity-80">{{ __('footer.track_records') }}</a>
                 </nav>
-            
+
                 <div class="flex space-x-4 pt-4">
                     <a href="https://www.instagram.com/mijnamor/" class="w-10 h-10 hover:opacity-80 transition-opacity">
                         <img src="{{ asset('img/footer/tiktok.svg') }}" alt="Tiktok" class="w-full h-full" />
@@ -31,21 +31,18 @@
                     {{ __('footer.desc') }}
                 </p>
                 <form class="space-y-3 w-full max-w-sm mx-auto md:max-w-none">
-                    <input 
-                        type="email" 
-                        placeholder="*Email" 
-                        class="w-full bg-white/20 border border-white/50 rounded-md py-2 md:py-1 lg:py-2 px-2 lg:px-4 placeholder:text-white/80 focus:outline-none focus:ring-1 focus:ring-white"
-                    />
+                    <input
+                        type="email"
+                        placeholder="*Email"
+                        class="w-full bg-white/20 border border-white/50 rounded-md py-2 md:py-1 lg:py-2 px-2 lg:px-4 placeholder:text-white/80 focus:outline-none focus:ring-1 focus:ring-white" />
                     <div class="flex flex-col sm:flex-row gap-2">
-                        <input 
-                            type="text" 
-                            placeholder="*First Name" 
-                            class="flex-1 bg-white/20 border border-white/50 rounded-md py-2 md:py-1 lg:py-2 px-2 lg:px-4 placeholder:text-white/80 focus:outline-none focus:ring-1 focus:ring-white"
-                        />
-                        <button 
-                            type="submit" 
-                            class="bg-[#EDE9E8] text-black font-bold py-2 px-6 md:px-2 lg:px-4 rounded-md hover:bg-white transition-colors uppercase text-[10px] whitespace-nowrap"
-                        >
+                        <input
+                            type="text"
+                            placeholder="*First Name"
+                            class="flex-1 bg-white/20 border border-white/50 rounded-md py-2 md:py-1 lg:py-2 px-2 lg:px-4 placeholder:text-white/80 focus:outline-none focus:ring-1 focus:ring-white" />
+                        <button
+                            type="submit"
+                            class="bg-[#EDE9E8] text-black font-bold py-2 px-6 md:px-2 lg:px-4 rounded-md hover:bg-white transition-colors uppercase text-[10px] whitespace-nowrap">
                             {{ __('footer.sign') }}
                         </button>
                     </div>
@@ -62,7 +59,7 @@
                     <p>Rotterdam Nederland</p>
                 </div>
                 <div class="pt-4">
-                    <img src="{{ asset('MijnAmor.svg') }}" alt="" class='w-20'/>
+                    <img src="{{ asset('MijnAmor.svg') }}" alt="" class='w-20' />
                 </div>
             </div>
 
