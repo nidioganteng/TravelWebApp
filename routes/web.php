@@ -19,50 +19,50 @@ Route::get('lang/{locale}', function ($locale) {
     return redirect()->back();
 })->name('lang.switch');
 
-Route::get('/', function () {
-    return view('front.home');
-})->name('home');
-
-// Route About (Dengan Default Tahun 2025 & Range Manual)
-Route::get('/about', function (\Illuminate\Http\Request $request) {
-
-    // 1. Logika Penentuan Tahun Terpilih
-    if ($request->has('year')) {
-        $selectedYear = $request->year;
-    } else {
-        $selectedYear = 2025; //
-    }
-
-    // 2. Query Data
-    $query = App\Models\TrackRecord::query();
-
-    if ($selectedYear) {
-        $query->where('year', $selectedYear);
-    }
-
-    $trackRecords = $query->latest()->get();
-
-    // 3. Generate List Tahun
-    $availableYears = range(date('Y'), 2018);
-
-    // Kirim variable 'selectedYear' ke view biar UI tau lagi nampilin tahun berapa
-    return view('front.about', compact('trackRecords', 'availableYears', 'selectedYear'));
-})->name('about');
-
-// Route Detail Track Record
-Route::get('/track-record/{slug}', function ($slug) {
-
-    $record = App\Models\TrackRecord::with('items')->where('slug', $slug)->firstOrFail();
-    return view('front.show', compact('record'));
-})->name('track-record.show');
-
-Route::get('/products', [UserController::class, 'index'])->name('products');
-
-Route::get('/contact', function () {
-    return view('front.contact');
-})->name('contact');
-
 Route::middleware('auth')->group(function () {
+    Route::get('/', function () {
+        return view('front.home');
+    })->name('home');
+
+    // Route About (Dengan Default Tahun 2025 & Range Manual)
+    Route::get('/about', function (\Illuminate\Http\Request $request) {
+
+        // 1. Logika Penentuan Tahun Terpilih
+        if ($request->has('year')) {
+            $selectedYear = $request->year;
+        } else {
+            $selectedYear = 2025; //
+        }
+
+        // 2. Query Data
+        $query = App\Models\TrackRecord::query();
+
+        if ($selectedYear) {
+            $query->where('year', $selectedYear);
+        }
+
+        $trackRecords = $query->latest()->get();
+
+        // 3. Generate List Tahun
+        $availableYears = range(date('Y'), 2018);
+
+        // Kirim variable 'selectedYear' ke view biar UI tau lagi nampilin tahun berapa
+        return view('front.about', compact('trackRecords', 'availableYears', 'selectedYear'));
+    })->name('about');
+
+    // Route Detail Track Record
+    Route::get('/track-record/{slug}', function ($slug) {
+
+        $record = App\Models\TrackRecord::with('items')->where('slug', $slug)->firstOrFail();
+        return view('front.show', compact('record'));
+    })->name('track-record.show');
+
+    Route::get('/products', [UserController::class, 'index'])->name('products');
+
+    Route::get('/contact', function () {
+        return view('front.contact');
+    })->name('contact');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
