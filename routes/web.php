@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\Auth\AdminAuthController;
 use App\Http\Controllers\ContactController;
 use App\Models\TrackRecord;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\UserController;
 
 Route::get('lang/{locale}', function ($locale) {
@@ -105,6 +106,9 @@ Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function ()
 
     // 5. Messages (Biasanya cuma index & destroy)
     Route::resource('messages', MessageController::class);
+
+    // 6. User Activity Log
+    Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
 });
 
 // Route untuk memproses kirim pesan (POST)
