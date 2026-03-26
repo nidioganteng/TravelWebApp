@@ -10,7 +10,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
+<body x-data="{ isLoading: true }" x-init="window.addEventListener('load', () => isLoading = false)">
+    <div x-show="isLoading" 
+         x-transition.opacity.duration.500ms
+         style="display: none;"
+         class="fixed inset-0 z-9999 flex items-center justify-center bg-white/90">
+        <div class="h-14 w-14 animate-spin rounded-full border-4 border-gray-200 border-t-blue-600"></div>
+    </div>
     <div>
         <div>
             {{ $slot }}

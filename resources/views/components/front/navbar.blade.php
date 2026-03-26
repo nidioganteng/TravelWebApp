@@ -56,7 +56,11 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                     @auth
                     <div class="relative" x-data="{ open: false }" @click.away="open = false">
                         <button @click="open = !open" class="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-blue-600 focus:outline-none transition">
-                            <a href="/profile" class="hover:opacity-80 transition">
+                            @if(Auth::user()->role === 'admin')
+                                <a href="{{ route('admin.dashboard') }}" class="hover:opacity-80 transition">
+                            @else
+                                <a href="/profile" class="hover:opacity-80 transition">
+                            @endif
                                 <div>
                                     <img src="{{ asset('img/navbar/profile.svg') }}" alt="Profile" class="w-5 h-5" />
                                 </div>
@@ -72,9 +76,15 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                             x-transition:enter-end="transform opacity-100 scale-100"
                             class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50">
 
-                            <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                My Profile
-                            </a>
+                            @if(Auth::user()->role === 'admin')
+                                <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    Admin Dashboard
+                                </a>
+                            @else
+                                <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    My Profile
+                                </a>
+                            @endif
 
                             <hr class="border-gray-100">
 
@@ -123,7 +133,11 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                     @auth
                     <div class="relative" x-data="{ open: false }" @click.away="open = false">
                         <button @click="open = !open" class="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-blue-600 focus:outline-none transition">
-                            <a href="/profile" class="hover:opacity-80 transition">
+                            @if(Auth::user()->role === 'admin')
+                                <a href="{{ route('admin.dashboard') }}" class="hover:opacity-80 transition">
+                            @else
+                                <a href="/profile" class="hover:opacity-80 transition">
+                            @endif
                                 <div>
                                     <img src="{{ asset('img/navbar/profile.svg') }}" alt="Profile" class="w-5 h-5" />
                                 </div>
@@ -139,9 +153,15 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                             x-transition:enter-end="transform opacity-100 scale-100"
                             class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50">
 
-                            <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                My Profile
-                            </a>
+                            @if(Auth::user()->role === 'admin')
+                                <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    Admin Dashboard
+                                </a>
+                            @else
+                                <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    My Profile
+                                </a>
+                            @endif
 
                             <hr class="border-gray-100">
 

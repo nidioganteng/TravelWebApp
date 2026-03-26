@@ -3,7 +3,7 @@
         <div class="relative flex flex-col md:flex-row min-h-112.5 items-center justify-center bg-white rounded-3xl overflow-hidden shadow-sm p-8 max-w-5xl mx-auto">
             <div class="w-full md:w-1/2 p-6 flex flex-col justify-center">
                 <div class="mb-6">
-                    <h1 class="text-4xl font-extrabold text-[#0099FF] mb-2">
+                    <h1 class="text-4xl font-extrabold text-[#87B8BE] mb-2">
                         {{ __('user.forgot_password_title') }}
 
                     </h1>
@@ -14,13 +14,13 @@
 
                 <x-auth-session-status class="mb-4" :status="session('status')" />
 
-                <form method="POST" action="{{ route('password.email') }}">
+                <form method="POST" action="{{ route('password.email') }}" @submit="isLoading = true" class="space-y-6">
                     @csrf
 
                     <div class="mb-4">
                         <x-text-input
                             id="email"
-                            class="block w-full bg-gray-200 border-none rounded-lg p-4 placeholder-gray-400 focus:ring-2 focus:ring-blue-400"
+                            class="block w-full bg-gray-200 border-none rounded-lg p-4 placeholder-gray-400 focus:ring-2 focus:ring-blue-100"
                             type="email"
                             name="email"
                             :value="old('email')"
@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="mt-2">
-                        <button type="submit" class="w-full bg-[#0099FF] hover:bg-blue-600 text-white font-bold py-4 px-4 rounded-xl transition duration-200 shadow-lg shadow-blue-200 tracking-tight text-sm">
+                        <button type="submit" class="w-full bg-[#87B8BE] hover:bg-[#92d7e0] text-white font-bold py-4 px-4 rounded-xl transition duration-200 shadow-lg shadow-[#87B8BE] tracking-tight text-sm">
                             {{ __('user.forgot_password_button') }}
                         </button>
                     </div>

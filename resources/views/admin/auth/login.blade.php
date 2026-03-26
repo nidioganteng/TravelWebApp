@@ -12,6 +12,7 @@
 
 <body class="relative min-h-screen w-full overflow-hidden flex items-center justify-center bg-gray-900"
       x-data="{ 
+          isLoading: true,
           activeSlide: 0, 
           slides: [
               '{{ asset('img/admin/login/assets/view_one.svg') }}',
@@ -19,7 +20,18 @@
               '{{ asset('img/admin/login/assets/view_three.svg') }}'
           ] 
       }"
-      x-init="setInterval(() => { activeSlide = (activeSlide + 1) % slides.length }, 5000)">
+      x-init="
+          window.addEventListener('load', () => isLoading = false);
+          setInterval(() => { activeSlide = (activeSlide + 1) % slides.length }, 5000);
+      ">
+
+    {{-- Elemen Loading Overlay (Versi Dark Mode) --}}
+    <div x-show="isLoading" 
+         x-transition.opacity.duration.500ms
+         style="display: none;"
+         class="fixed inset-0 z-9999 flex items-center justify-center bg-gray-900/90 backdrop-blur-sm">
+        <div class="h-14 w-14 animate-spin rounded-full border-4 border-white/20 border-t-[#0099FF]"></div>
+    </div>  
     
     @php
         $languages = [
@@ -85,7 +97,7 @@
             <h1 class="text-4xl font-bold text-white mb-8 text-left">{{__('admin.login_title') }}</h1>
             <p class="text-gray-200 text-xs font-light mb-8 opacity-80 text-left">{{__('admin.login_message') }}</p>
 
-            <form method="POST" action="{{ route('admin.login.submit') }}" class="space-y-5">
+            <form method="POST" action="{{ route('admin.login.submit') }}" @submit="isLoading = true" class="space-y-5">
                 @csrf
 
                 <div class="relative group">
@@ -102,15 +114,30 @@
                     @enderror
                 </div>
 
-                <div class="relative group">
-                    <input type="password" name="password" placeholder="Password"
-                        class="w-full bg-transparent border border-white/30 rounded-lg py-3 px-4 text-white placeholder-gray-300 text-sm focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all"
+                <!-- Input Password dengan Toggle Mata -->
+                <div class="relative group" x-data="{ showPassword: false }">
+                    <input :type="showPassword ? 'text' : 'password'" 
+                        name="password" 
+                        placeholder="Password"
+                        class="w-full bg-transparent border border-white/30 rounded-lg py-3 px-4 text-white placeholder-gray-300 text-sm focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all pr-12"
                         required>
-                    <span class="absolute right-4 top-3.5 text-gray-300 cursor-pointer hover:text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    
+                    <!-- Tombol Mata menggunakan flex items-center agar posisinya rata tengah -->
+                    <button type="button" 
+                            @click="showPassword = !showPassword" 
+                            class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-300 hover:text-white focus:outline-none transition-colors">
+                        
+                        <!-- Icon Mata Terbuka -->
+                        <svg x-show="!showPassword" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+
+                        <!-- Icon Mata Dicoret -->
+                        <svg x-show="showPassword" x-cloak xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
                         </svg>
-                    </span>
+                    </button>
                 </div>
 
                 <button type="submit" class="w-full bg-[#0099FF] hover:bg-[#0066FF] text-white font-semibold py-3 px-4 rounded-lg shadow-lg transform active:scale-95 transition duration-200 mt-6">
@@ -119,7 +146,7 @@
             </form>
 
             <div class="mt-6">
-                <a href="/" class="text-xs text-gray-300 hover:text-white transition">{{__('admin.login_back') }}</a>
+                <a href="{{ route('login') }}" class="text-xs text-gray-300 hover:text-white transition">{{__('admin.login_back') }}</a>
             </div>
         </div>
     </div>

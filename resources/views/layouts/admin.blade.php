@@ -15,6 +15,7 @@
 </head>
 
 <body class="bg-gray-100" x-data="{ mobileOpen: false }">
+
     
     {{-- 1. LOGIKA PHP DITARUH DISINI (Setelah Body) --}}
     @php
@@ -42,7 +43,7 @@
             </div>
 
             <div class="flex justify-center items-center p-8 w-full">
-                <img src="/img/login/icon/MijnIconWhite.svg" alt="Mijn Amor Logo">
+                <a href="/"><img src="/img/login/icon/MijnIconWhite.svg" alt="Mijn Amor Logo"></a>
             </div>
 
             <nav class="flex-1 px-4 space-y-1 overflow-y-auto">
@@ -98,6 +99,12 @@
                 class="w-full flex items-center px-6 py-3 rounded-full transition-all {{ request()->routeIs('admin.messages*') ? 'bg-white text-[#0099FF] shadow-lg' : 'hover:bg-white/10' }}">
                     <i class="fas fa-envelope w-6 mr-4"></i>
                     <span class="font-medium">{{__('admin.sidebar_message') }}</span>
+                </a>
+
+                <a href="{{ route('admin.users.index') }}"
+                    class="flex items-center px-6 py-3 rounded-full transition-all {{ request()->routeIs('admin.users.*') ? 'bg-white text-[#0099FF] shadow-lg' : 'hover:bg-white/10' }}">
+                    <i class="fas fa-users w-6 mr-4"></i>
+                    <span class="font-medium">Manage Users</span>
                 </a>
             </nav>
 
