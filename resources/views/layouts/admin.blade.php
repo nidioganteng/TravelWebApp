@@ -28,6 +28,7 @@
         ];
         $currentLocale = app()->getLocale();
         $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $languages[0];
+        $unreadMessagesCount = \App\Models\Message::where('is_read', false)->count();
     @endphp
 
     <div class="flex min-h-screen">
@@ -96,8 +97,17 @@
                 </div>
 
                 <a href="{{ route('admin.messages.index') }}" 
-                class="w-full flex items-center px-6 py-3 rounded-full transition-all {{ request()->routeIs('admin.messages*') ? 'bg-white text-[#0099FF] shadow-lg' : 'hover:bg-white/10' }}">
-                    <i class="fas fa-envelope w-6 mr-4"></i>
+                    class="w-full flex items-center px-6 py-3 rounded-full transition-all {{ request()->routeIs('admin.messages*') ? 'bg-white text-[#0099FF] shadow-lg' : 'hover:bg-white/10' }}">
+                    
+                    <div class="relative">
+                        <i class="fas fa-envelope w-6 mr-4"></i>
+                        @if($unreadMessagesCount > 0)
+                            <span id="sidebar-badge" class="absolute -top-1 right-2 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow-md border-2 border-[#0099FF]">
+                                {{ $unreadMessagesCount }}
+                            </span>
+                        @endif
+                    </div>
+                    
                     <span class="font-medium">{{__('admin.sidebar_message') }}</span>
                 </a>
 

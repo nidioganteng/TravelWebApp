@@ -36,7 +36,7 @@
                     @foreach($languages as $lang)
                     <a href="{{ route('lang.switch', $lang['code']) }}"
                         class="flex items-center gap-3 px-4 py-3 text-sm text-left transition hover:bg-gray-50
-                           {{ $currentLocale === $lang['code'] ? 'text-[#0099FF] font-bold bg-blue-50' : 'text-gray-700' }}">
+                            {{ $currentLocale === $lang['code'] ? 'text-[#0099FF] font-bold bg-blue-50' : 'text-gray-700' }}">
                         <img src="{{ $lang['flag'] }}" alt="{{ $lang['name'] }}" class="w-5 h-3 object-cover rounded-sm" />
                         {{ $lang['name'] }}
                     </a>
@@ -53,45 +53,86 @@
         </div>
     @endif
 
-    <div x-data="{ selected: null }" class="flex flex-col lg:flex-row gap-6 relative items-start">
+    {{-- PEMBUNGKUS UTAMA ALPINE.JS --}}
+    <div x-data="{ 
+        selected: null,
+        markAsRead(msg) {
+            this.selected = msg;
+            
+            if (!msg.is_read) {
+                fetch(`/admin/messages/${msg.id}/mark-as-read`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
+                    }
+                }).then(response => {
+                    if(response.ok) {
+                        // Update status lokal msg
+                        msg.is_read = true;
+                        
+                        // Kurangi notifikasi badge merah di sidebar
+                        let badge = document.getElementById('sidebar-badge');
+                        if(badge) {
+                            let count = parseInt(badge.innerText) - 1;
+                            if(count > 0) {
+                                badge.innerText = count;
+                            } else {
+                                badge.style.display = 'none';
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    }" class="flex flex-col lg:flex-row gap-6 relative items-start">
         
+        {{-- KOTAK TABEL PESAN --}}
         <div class="bg-white rounded-[20px] shadow-md border border-gray-100 flex flex-col transition-all duration-500 ease-in-out overflow-hidden w-full"
             :class="selected ? 'lg:w-7/12' : 'w-full'">
             
-            {{-- 
-                PERBAIKAN GRID HEADER:
-                Total harus 12.
-                From (3) + Email (4) + Received (3) + Action (2) = 12
-            --}}
+            {{-- HEADER TABEL --}}
             <div class="hidden md:grid grid-cols-12 px-6 py-4 border-b border-gray-100 bg-[#EEF8FF] text-gray-400 font-medium text-sm">
                 <div class="col-span-3">{{ __('admin.message_table_from') }}</div>
                 <div class="col-span-4">{{ __('admin.message_table_email') }}</div>
                 <div class="col-span-3">{{ __('admin.message_table_received') }}</div>
-                <div class="col-span-2 text-right">{{ __('admin.message_table_action') }}</div> {{-- Ubah jadi 2 dan text-right --}}
+                <div class="col-span-2 text-right">{{ __('admin.message_table_action') }}</div>
             </div>
 
             <div class="flex flex-col">
                 @forelse($messages as $msg)
-                    {{-- 
-                        PERBAIKAN GRID BODY (Agar lurus dengan Header):
-                        From (3) + Email (4) + Received (3) + Action (2) = 12
-                    --}}
-                    <div class="flex flex-col md:grid md:grid-cols-12 items-start md:items-center px-6 py-5 border-b border-gray-50 hover:bg-blue-50/30 transition last:border-0">
+                    {{-- SCOPE ALPINE PER BARIS: Mengatur warna berdasarkan isRead --}}
+                    <div x-data="{ isRead: {{ $msg->is_read ? 'true' : 'false' }} }"
+                         class="flex flex-col md:grid md:grid-cols-12 items-start md:items-center px-6 py-5 border-b border-gray-50 transition-all duration-500 last:border-0"
+                         :class="isRead ? 'bg-white hover:bg-gray-50' : 'bg-[#EBF5FF] hover:bg-blue-50'">
+                        
+                        {{-- Nama --}}
                         <div class="md:col-span-3 overflow-hidden pr-2 w-full mb-1 md:mb-0">
-                            <h3 class="font-bold md:font-medium text-gray-800 text-sm md:text-base truncate">{{ $msg->name }}</h3>
+                            <h3 class="text-sm md:text-base truncate transition-colors duration-300"
+                                :class="isRead ? 'text-gray-600 font-medium' : 'text-gray-900 font-extrabold'">
+                                {{ $msg->name }}
+                            </h3>
                         </div>
-                        <div class="md:col-span-4 text-xs md:text-sm text-gray-600 truncate pr-2 w-full mb-2 md:mb-0"> {{-- Ubah jadi 4 --}}
+                        
+                        {{-- Email --}}
+                        <div class="md:col-span-4 text-xs md:text-sm truncate pr-2 w-full mb-2 md:mb-0 transition-colors duration-300" 
+                             :class="isRead ? 'text-gray-500' : 'text-gray-800 font-semibold'"> 
                             {{ $msg->email }}
                         </div>
 
-                        <div class="md:col-span-3 text-xs md:text-sm text-gray-500 mb-3 md:mb-0">
-                            <span class="bg-gray-100 px-2 py-1 rounded-md text-[10px] md:text-xs font-medium">
+                        {{-- Tanggal --}}
+                        <div class="md:col-span-3 text-xs md:text-sm mb-3 md:mb-0">
+                            <span class="px-2 py-1 rounded-md text-[10px] md:text-xs transition-colors duration-300"
+                                  :class="isRead ? 'bg-gray-100 text-gray-500 font-medium' : 'bg-blue-100 text-[#0099FF] font-bold'">
                                 <i class="far fa-clock md:hidden mr-1"></i> {{ $msg->created_at->format('d M Y, H:i') }}
                             </span>
                         </div>
 
-                        <div class="md:col-span-2 flex gap-2 w-full md:w-auto md:justify-end"> {{-- Ubah jadi 2 dan justify-end --}}
-                            <button @click="selected = {{ $msg }}" 
+                        {{-- Action Buttons --}}
+                        <div class="md:col-span-2 flex gap-2 w-full md:w-auto md:justify-end"> 
+                            
+                            {{-- Tombol View All: Mengubah isRead jadi true secara visual, lalu jalankan fungsi AJAX --}}
+                            <button @click="isRead = true; markAsRead({{ $msg }})" 
                                     class="flex-1 md:flex-none justify-center bg-[#0099FF] text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-blue-600 transition flex items-center gap-2 shadow-blue-200 shadow-md whitespace-nowrap">
                                 {{ __('admin.message_btn_view') }} <span class="hidden md:inline">{{ __('admin.message_btn_all') }}</span> <i class="fas fa-caret-right"></i>
                             </button>
@@ -114,6 +155,7 @@
             </div>
         </div>
 
+        {{-- POPUP / MODAL DETAIL PESAN KANAN --}}
         <div class="fixed inset-0 z-100 p-4 flex items-center justify-center bg-black/50 lg:bg-transparent lg:relative lg:inset-auto lg:z-10 lg:p-0 transition-all duration-500 ease-in-out"
              x-show="selected" 
              x-cloak
@@ -145,10 +187,37 @@
                          x-text="selected?.message">
                     </div>
 
-                    <div class="mt-4 text-right">
-                        <span class="text-[10px] md:text-xs text-gray-400 italic">
-                            {{ __('admin.message_detail_sent') }} <span x-text="new Date(selected?.created_at).toLocaleDateString('{{ app()->getLocale() }}', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })"></span>
-                        </span>
+                        {{-- Bagian Bawah Modal: Tanggal dan Action Buttons --}}
+                        <div class="mt-6 pt-4 border-t border-gray-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                            
+                            {{-- Tanggal --}}
+                            <div class="w-full md:w-auto text-left">
+                                <span class="text-[10px] md:text-xs text-gray-400 italic">
+                                    {{ __('admin.message_detail_sent') }} <span x-text="new Date(selected?.created_at).toLocaleDateString('{{ app()->getLocale() }}', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })"></span>
+                                </span>
+                            </div>
+
+                            {{-- Kumpulan Tombol --}}
+                            <div class="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
+                                
+                                {{-- Tombol Copy Email --}}
+                                <div x-data="{ copied: false }" class="w-full sm:w-auto">
+                                    <button type="button" 
+                                            @click="navigator.clipboard.writeText(selected?.email); copied = true; setTimeout(() => copied = false, 2000)"
+                                            class="w-full flex items-center justify-center gap-2 bg-gray-50 text-gray-700 px-5 py-2.5 rounded-lg text-sm font-bold hover:bg-gray-200 transition border border-gray-200 whitespace-nowrap">
+                                        <i class="fas" :class="copied ? 'fa-check text-green-500' : 'fa-copy'"></i> 
+                                        <span x-text="copied ? 'Copied!' : 'Copy Email'"></span>
+                                    </button>
+                                </div>
+
+                                {{-- Tombol Reply (Mailto) --}}
+                                <a :href="'mailto:' + selected?.email + '?subject=Reply%20from%20Mijn%20Amor%20Travel'" 
+                                class="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#0099FF] text-white px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-blue-600 transition shadow-md shadow-blue-200 whitespace-nowrap">
+                                    <i class="fas fa-reply"></i> Reply
+                                </a>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

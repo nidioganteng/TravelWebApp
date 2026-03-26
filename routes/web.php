@@ -106,6 +106,7 @@ Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function ()
 
     // 5. Messages (Biasanya cuma index & destroy)
     Route::resource('messages', MessageController::class);
+    Route::post('/messages/{id}/mark-as-read', [App\Http\Controllers\Admin\MessageController::class, 'markAsRead'])->name('messages.read');
 
     // 6. User Activity Log
     Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
@@ -113,4 +114,3 @@ Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function ()
 
 // Route untuk memproses kirim pesan (POST)
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-Route::resource('messages', MessageController::class);

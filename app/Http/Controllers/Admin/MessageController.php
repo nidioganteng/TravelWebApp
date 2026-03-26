@@ -21,4 +21,16 @@ class MessageController extends Controller
 
         return redirect()->back()->with('success', 'Message successfully deleted.');
     }
+
+    public function markAsRead($id)
+    {
+        $message = Message::findOrFail($id);
+        
+        if (!$message->is_read) {
+            $message->update(['is_read' => true]);
+        }
+
+        // Kembalikan response sukses untuk Alpine.js
+        return response()->json(['success' => true]);
+    }
 }
