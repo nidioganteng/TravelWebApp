@@ -116,13 +116,14 @@
                             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                         </div>
 
+                        <!-- Checkbox Konfirmasi Pembuatan Akun -->
                         <div class="flex items-center gap-2 py-2">
-                            <input id="terms" type="checkbox" name="terms" required class="rounded border-gray-300 text-[#67a3bc] focus:ring-[#67a3bc]">
-                            <label for="terms" class="text-sm text-gray-600">
-                                {{ __('user.register_agreement') }} <a href="#" class="text-[#67a3bc] underline">{{ __('user.register_terms') }}</a>
+                            <input id="terms" type="checkbox" name="terms" required class="rounded border-gray-300 text-[#67a3bc] focus:ring-[#67a3bc] cursor-pointer">
+                            <label for="terms" class="text-sm text-gray-600 cursor-pointer select-none">
+                                {{ __('user.register_agreement_account') }}
                             </label>
                         </div>
-
+                        
                         <x-primary-button type="submit">
                             {{ __('Register') }}
                         </x-primary-button>
