@@ -84,7 +84,7 @@
     "admin.login_title": "Anmelden",
     "admin.login_message": "Willkommen zurück! Bitte melden Sie sich an!",
     "admin.login_button": "Anmelden",
-    "admin.login_back": "Zurück zur Website",
+    "admin.login_back": "Zurück",
 
     "admin.sidebar_Dashboard": "Dashboard",
     "admin.sidebar_manage_product": "Produkte verwalten",

@@ -84,7 +84,7 @@
     "admin.login_title": "Masuk",
     "admin.login_message": "Selamat datang kembali! Silakan masuk ke akun Anda!",
     "admin.login_button": "Masuk",
-    "admin.login_back": "Kembali ke Website Utama",
+    "admin.login_back": "Kembali",
 
     "admin.sidebar_Dashboard": "Dashboard",
     "admin.sidebar_manage_product": "Kelola Produk",

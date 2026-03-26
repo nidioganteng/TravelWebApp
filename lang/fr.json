@@ -84,7 +84,7 @@
     "admin.login_title": "Connexion",
     "admin.login_message": "Bon retour ! Veuillez vous connecter à votre compte !",
     "admin.login_button": "Se connecter",
-    "admin.login_back": "Retour au site principal",
+    "admin.login_back": "Retour",
 
     "admin.sidebar_Dashboard": "Tableau de bord",
     "admin.sidebar_manage_product": "Gérer les produits",

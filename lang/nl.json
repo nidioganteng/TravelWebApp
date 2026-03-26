@@ -84,7 +84,7 @@
     "admin.login_title": "Inloggen",
     "admin.login_message": "Welkom terug! Log in op uw account!",
     "admin.login_button": "Inloggen",
-    "admin.login_back": "Terug naar Hoofdwebsite",
+    "admin.login_back": "Terug",
 
     "admin.sidebar_Dashboard": "Dashboard",
     "admin.sidebar_manage_product": "Producten beheren",
