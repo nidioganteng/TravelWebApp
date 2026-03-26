@@ -78,8 +78,7 @@
     "user.register_confirmation": "Haben Sie bereits ein Konto?",
     "user.register_login": "Anmelden",
     "user.register_button": "zurück zur Website",
-    "user.register_agreement": "Ich akzeptiere die",
-    "user.register_terms": "Allgemeinen Geschäftsbedingungen",
+    "user.register_agreement_account": "Ich stimme zu, ein Konto bei Mijn Amor Travel zu erstellen.",
 
     "admin.login_title": "Anmelden",
     "admin.login_message": "Willkommen zurück! Bitte melden Sie sich an!",

@@ -78,8 +78,7 @@
     "user.register_confirmation": "Heeft u al een account?",
     "user.register_login": "Inloggen",
     "user.register_button": "terug naar website",
-    "user.register_agreement": "Ik ga akkoord met de",
-    "user.register_terms": "Algemene Voorwaarden",
+    "user.register_agreement_account": "Ik ga ermee akkoord om een account aan te maken bij Mijn Amor Travel.",
 
     "admin.login_title": "Inloggen",
     "admin.login_message": "Welkom terug! Log in op uw account!",

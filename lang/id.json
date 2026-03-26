@@ -78,8 +78,7 @@
     "user.register_confirmation": "Sudah punya akun?",
     "user.register_login": "Masuk",
     "user.register_button": "kembali ke situs web",
-    "user.register_agreement": "Saya menyetujui",
-    "user.register_terms": "Syarat & Ketentuan",
+    "user.register_agreement_account": "Saya setuju untuk membuat akun di Mijn Amor Travel.",
 
     "admin.login_title": "Masuk",
     "admin.login_message": "Selamat datang kembali! Silakan masuk ke akun Anda!",
