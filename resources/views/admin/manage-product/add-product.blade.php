@@ -90,6 +90,27 @@
                                     class="w-full border-2 border-gray-300 rounded-xl p-3 pl-12 text-lg md:text-xl focus:outline-none focus:border-[#0099FF] focus:ring-2 focus:ring-[#0099FF]">
                             </div>
                         </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-gray-100">
+                            
+                            <div class="flex flex-col h-full">
+                                <label class="block text-sm font-semibold mb-2 text-gray-700">{{ __('admin.product_ticket_quota') }}</label>
+                                <div class="relative mt-auto">
+                                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"><i class="fas fa-users"></i></span>
+                                    <input type="number" name="ticket_quota" required min="1" value="{{ old('ticket_quota') }}" placeholder="e.g. 40"
+                                        class="w-full border-2 border-gray-300 rounded-xl p-3 pl-10 text-base focus:outline-none focus:border-[#0099FF] focus:ring-2 focus:ring-[#0099FF]">
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col h-full">
+                                <label class="block text-sm font-semibold mb-2 text-gray-700">{{ __('admin.product_departure_datetime') }}</label>
+                                <div class="mt-auto">
+                                    <input type="datetime-local" name="departure_date" required value="{{ old('departure_date') }}"
+                                        class="w-full border-2 border-gray-300 rounded-xl p-3 text-base focus:outline-none focus:border-[#0099FF] focus:ring-2 focus:ring-[#0099FF]">
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
 
                     <div class="space-y-6" x-data="imageUploader()">
