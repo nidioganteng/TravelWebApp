@@ -23,6 +23,8 @@ class ProductController extends Controller
             'product_name' => 'required|string|max:255',
             'product_description' => 'nullable|string',
             'product_price' => 'required|numeric|min:0',
+            'ticket_quota' => 'required|integer|min:1',
+            'departure_date' => 'required|date|after:today', 
             'departure_locations' => 'nullable|string',
             'product_image' => 'required|array',
             'product_image.*' => 'image|mimes:jpeg,png,jpg,svg|max:2048' 
@@ -30,7 +32,6 @@ class ProductController extends Controller
 
         try {
             $imagePaths = [];
-
             if ($request->hasFile('product_image')) {
                 foreach ($request->file('product_image') as $file) {
                     $path = $file->store('products', 'public');
@@ -42,6 +43,8 @@ class ProductController extends Controller
                 'product_name' => $validated['product_name'],
                 'product_description' => $validated['product_description'] ?? null,
                 'product_price' => $validated['product_price'],
+                'ticket_quota' => $validated['ticket_quota'],
+                'departure_date' => $validated['departure_date'],
                 'departure_locations' => $validated['departure_locations'] ?? null,
                 'product_image' => $imagePaths,
                 'is_published' => false,
@@ -59,12 +62,10 @@ class ProductController extends Controller
     {
         $recentlyAdded = Product::where('is_published', false)->latest()->get();
         $archived = Product::where('is_published', true)->latest()->get();
-
         Log::info('Products count:', [
             'recently_added' => $recentlyAdded->count(),
             'archived' => $archived->count()
         ]);
-
         return view('admin.manage-product.product-list', compact('recentlyAdded', 'archived'));
     }
 

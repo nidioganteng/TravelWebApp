@@ -10,9 +10,16 @@ class UserController extends Controller
 {
     public function index()
     {
-        // Mengambil semua user, diurutkan dari yang terakhir aktif. Menggunakan pagination agar rapi.
-        $users = User::orderBy('last_seen_at', 'desc')->paginate(10);
-        
-        return view('admin.users.index', compact('users'));
+        // 1. Ambil data user DENGAN PAGINATION
+        $users = \App\Models\User::latest()->paginate(10);
+
+        // 2. Ambil data booking (PAID prioritas paling atas, lalu urutkan yang terbaru)
+        $bookings = \App\Models\Booking::with(['user', 'product', 'participants'])
+                        ->orderByRaw("CASE WHEN status = 'paid' THEN 1 ELSE 2 END")
+                        ->latest()
+                        ->get();
+
+        // 3. Kirim keduanya ke view
+        return view('admin.users.index', compact('users', 'bookings'));
     }
 }
