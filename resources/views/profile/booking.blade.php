@@ -63,33 +63,67 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                         </div>
                     </div>
 
-                    <div class="bg-white rounded-3xl border border-gray-100 shadow-xl shadow-gray-100/50 p-8 flex items-center gap-6 mb-12 group hover:border-blue-100 transition duration-300">
-                        <div class="w-24 h-24 shrink-0">
-                            <img src="/img/user/icon/booking_img.svg" alt="No Data" class="w-full h-full object-contain">
+                    {{-- LOOPING DATA TIKET --}}
+                    @forelse($activeBookings as $booking)
+                        <div class="bg-white rounded-3xl border border-gray-100 shadow-xl shadow-gray-100/50 p-6 flex flex-col md:flex-row items-start md:items-center gap-6 mb-6 group hover:border-[#0099FF] transition duration-300">
+                            
+                            {{-- Gambar Tur --}}
+                            <div class="w-full md:w-40 h-32 shrink-0 rounded-2xl overflow-hidden bg-gray-100">
+                                @if(is_array($booking->product->product_image) && count($booking->product->product_image) > 0)
+                                    <img src="{{ asset('storage/' . $booking->product->product_image[0]) }}" alt="{{ $booking->product->product_name }}" class="w-full h-full object-cover">
+                                @else
+                                    <div class="w-full h-full flex items-center justify-center text-gray-400"><i class="fas fa-image text-3xl"></i></div>
+                                @endif
+                            </div>
+
+                            {{-- Info Tiket --}}
+                            <div class="flex-1 w-full">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div>
+                                        <h3 class="text-xl font-bold text-gray-900">{{ $booking->product->product_name }}</h3>
+                                        <p class="text-xs text-gray-400 font-medium uppercase tracking-wider mt-1">Ref: {{ $booking->booking_reference }}</p>
+                                    </div>
+                                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+                                        <i class="fas fa-check-circle"></i> PAID
+                                    </span>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 mt-4">
+                                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                                        <i class="far fa-calendar-alt text-[#0099FF] w-4"></i>
+                                        <span>{{ \Carbon\Carbon::parse($booking->product->departure_date)->format('d M Y, H:i') }}</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                                        <i class="fas fa-users text-[#0099FF] w-4"></i>
+                                        <span class="font-bold text-black">{{ $booking->quantity }} Tickets</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-sm text-gray-600 sm:col-span-2">
+                                        <i class="fas fa-euro-sign text-[#0099FF] w-4"></i>
+                                        <span class="font-bold text-black">Total: € {{ number_format($booking->total_price, 2) }}</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-1"> {{ __('user.booking_no_ticket') }}</h3>
-                            <p class="text-gray-500 text-sm leading-relaxed">
-                                {{ __('user.booking_no_ticket_desc') }} <br>
-                                <span class="text-[#0099FF] font-semibold cursor-pointer hover:underline">
-                                    <a href="/products">
-                                        {{ __('user.booking_create') }}
-                                    </a>
-                                </span>
-                            </p>
+                    @empty
+                        {{-- GAMBAR DOMPET BIRU (Tampil kalau belum pernah beli) --}}
+                        <div class="bg-white rounded-3xl border border-gray-100 shadow-xl shadow-gray-100/50 p-8 flex items-center gap-6 mb-12 group hover:border-blue-100 transition duration-300">
+                            <div class="w-24 h-24 shrink-0">
+                                <img src="/img/user/icon/booking_img.svg" alt="No Data" class="w-full h-full object-contain">
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-1"> {{ __('user.booking_no_ticket') }}</h3>
+                                <p class="text-gray-500 text-sm leading-relaxed">
+                                    {{ __('user.booking_no_ticket_desc') }} <br>
+                                    <span class="text-[#0099FF] font-semibold cursor-pointer hover:underline">
+                                        <a href="/products">
+                                            {{ __('user.booking_create') }}
+                                        </a>
+                                    </span>
+                                </p>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="mt-10">
-                        <h2 class="text-2xl font-extrabold text-gray-900 mb-6 tracking-tight"> {{ __('user.booking_list') }}</h2>
-
-                        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex items-center justify-start">
-                            <p class="text-gray-400 font-medium">
-                                {{ __('user.booking_no_purchase') }} <span class="text-[#0099FF] font-bold cursor-pointer hover:text-blue-500">{{ __('user.booking_no_purchase2') }}</span>
-                            </p>
-                        </div>
-                    </div>
+                    @endforelse
 
                 </div>
             </div>
