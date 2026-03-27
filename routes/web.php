@@ -69,7 +69,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/profile/booking', function () {
-        return view('profile.booking');
+        $activeBookings = \App\Models\Booking::with('product')
+                            ->where('user_id', auth()->id())
+                            ->where('status', 'paid')
+                            ->latest()
+                            ->get();
+
+        // Kirim data tiketnya ke halaman view
+        return view('profile.booking', compact('activeBookings'));
     })->name('profile.booking');
 });
 
@@ -114,3 +121,20 @@ Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function ()
 
 // Route untuk memproses kirim pesan (POST)
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+// Rute untuk proses Checkout Stripe (Hanya bisa diakses kalau User sudah Login)
+Route::middleware('auth')->group(function () {
+    Route::post('/checkout/{product}', [App\Http\Controllers\CheckoutController::class, 'process'])->name('checkout.process');
+    Route::get('/checkout/success', [App\Http\Controllers\CheckoutController::class, 'success'])->name('checkout.success');
+    Route::get('/checkout/cancel', [App\Http\Controllers\CheckoutController::class, 'cancel'])->name('checkout.cancel');
+});
+
+Route::middleware('auth')->group(function () {
+    // Rute baru untuk halaman isi data diri (Tambahkan baris ini)
+    Route::get('/checkout/{product}/details', [App\Http\Controllers\CheckoutController::class, 'details'])->name('checkout.details');
+    
+    // Rute yang lama biarkan saja
+    Route::post('/checkout/{product}', [App\Http\Controllers\CheckoutController::class, 'process'])->name('checkout.process');
+    Route::get('/checkout/success', [App\Http\Controllers\CheckoutController::class, 'success'])->name('checkout.success');
+    Route::get('/checkout/cancel', [App\Http\Controllers\CheckoutController::class, 'cancel'])->name('checkout.cancel');
+});
