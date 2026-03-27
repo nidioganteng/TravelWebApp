@@ -13,6 +13,8 @@ class Product extends Model
         'product_name',
         'product_description',
         'product_price',
+        'ticket_quota',         
+        'departure_date',
         'departure_locations',
         'product_image',
         'is_published'
@@ -20,6 +22,8 @@ class Product extends Model
 
     protected $casts = [
         'product_price' => 'decimal:2',
+        'ticket_quota' => 'integer',
+        'departure_date' => 'datetime',
         'product_image' => 'array',
         'is_published' => 'boolean',
     ];
