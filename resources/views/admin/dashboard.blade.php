@@ -35,6 +35,100 @@
             </div>
         </div>
 
+        {{-- BOOKING STATS CARDS --}}
+        <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 mb-10">
+
+            <div class="bg-white rounded-3xl p-5 md:p-6 shadow-md shadow-gray-100/80 border border-white flex items-center gap-4 hover:shadow-lg transition duration-300">
+                <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0">
+                    <i class="fas fa-ticket text-[#0099FF] text-xl"></i>
+                </div>
+                <div>
+                    <p class="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">{{ __('admin.dashboard_total_orders') }}</p>
+                    <p class="text-2xl md:text-3xl font-black text-gray-900">{{ $total_bookings }}</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl p-5 md:p-6 shadow-md shadow-gray-100/80 border border-white flex items-center gap-4 hover:shadow-lg transition duration-300">
+                <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center shrink-0">
+                    <i class="fas fa-check-circle text-green-500 text-xl"></i>
+                </div>
+                <div>
+                    <p class="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">{{ __('admin.dashboard_paid') }}</p>
+                    <p class="text-2xl md:text-3xl font-black text-gray-900">{{ $total_paid }}</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl p-5 md:p-6 shadow-md shadow-gray-100/80 border border-white flex items-center gap-4 hover:shadow-lg transition duration-300">
+                <div class="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center shrink-0">
+                    <i class="fas fa-clock text-orange-400 text-xl"></i>
+                </div>
+                <div>
+                    <p class="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">{{ __('admin.dashboard_unpaid') }}</p>
+                    <p class="text-2xl md:text-3xl font-black text-gray-900">{{ $total_unpaid }}</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl p-5 md:p-6 shadow-md shadow-gray-100/80 border border-white flex items-center gap-4 hover:shadow-lg transition duration-300">
+                <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0">
+                    <i class="fas fa-euro-sign text-[#0099FF] text-xl"></i>
+                </div>
+                <div>
+                    <p class="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">{{ __('admin.dashboard_revenue') }}</p>
+                    <p class="text-xl md:text-2xl font-black text-[#10435E]">€ {{ number_format($total_revenue, 0) }}</p>
+                </div>
+            </div>
+
+        </div>
+
+        {{-- RECENT BOOKINGS --}}
+        <div class="mb-12">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-lg md:text-xl font-bold text-gray-800">{{ __('admin.dashboard_recent_bookings') }}</h3>
+                <a href="{{ route('admin.bookings.index') }}" class="bg-[#0099FF] text-white px-4 md:px-5 py-2 rounded-full text-[10px] md:text-xs font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-200 flex items-center gap-2">
+                    {{ __('admin.dashboard_view_all') }} <i class="fas fa-arrow-right text-[8px] md:text-xs"></i>
+                </a>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-lg shadow-gray-200/50 border border-white overflow-hidden">
+                <div class="hidden md:grid grid-cols-12 px-8 py-5 bg-[#F8FAFC] text-gray-400 font-bold text-[11px] uppercase tracking-wider border-b border-gray-100">
+                    <div class="col-span-3">{{ __('admin.dashboard_booking_ref') }}</div>
+                    <div class="col-span-3">{{ __('admin.booking_col_user') }}</div>
+                    <div class="col-span-3">{{ __('admin.dashboard_booking_tour') }}</div>
+                    <div class="col-span-2 text-center">{{ __('admin.booking_col_total') }}</div>
+                    <div class="col-span-1 text-right">{{ __('admin.dashboard_booking_date') }}</div>
+                </div>
+
+                <div class="flex flex-col">
+                    @forelse($recent_bookings as $booking)
+                    <div class="flex flex-col md:grid md:grid-cols-12 items-start md:items-center px-6 md:px-8 py-5 border-b border-gray-50 last:border-0 hover:bg-[#F0F7FF] transition duration-300 group">
+                        <div class="md:col-span-3 font-bold text-[#10435E] text-xs md:text-sm uppercase tracking-wide mb-1 md:mb-0">
+                            {{ $booking->booking_reference }}
+                        </div>
+                        <div class="md:col-span-3 text-sm font-semibold text-gray-800 mb-1 md:mb-0">
+                            {{ $booking->user->name }}
+                        </div>
+                        <div class="md:col-span-3 text-xs text-gray-500 mb-3 md:mb-0 truncate pr-4">
+                            {{ $booking->product->product_name }}
+                        </div>
+                        <div class="md:col-span-2 text-center mb-3 md:mb-0">
+                            <span class="text-sm font-black text-[#10435E]">€ {{ number_format($booking->total_price, 2) }}</span>
+                        </div>
+                        <div class="md:col-span-1 flex md:justify-end">
+                            <span class="text-[10px] font-bold text-gray-400 bg-gray-100 px-2 py-1 rounded-full border border-gray-200 whitespace-nowrap">
+                                {{ $booking->created_at->format('d M') }}
+                            </span>
+                        </div>
+                    </div>
+                    @empty
+                    <div class="p-10 text-center text-gray-400 text-sm flex flex-col items-center">
+                        <i class="fas fa-ticket text-4xl mb-3 opacity-30"></i>
+                        <p>{{ __('admin.dashboard_booking_empty') }}</p>
+                    </div>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+
         <div class="mb-12">
             <div class="flex justify-between items-center mb-6">
                 <h3 class="text-lg md:text-xl font-bold text-gray-800">{{ __('admin.dashboard_messages_title') }}</h3>
@@ -103,7 +197,7 @@
                         @endphp
                         <div class="w-full md:w-44 h-48 md:h-44 rounded-2xl overflow-hidden shrink-0 shadow-inner bg-gray-50 relative">
                             @if($firstImage)
-                                <img src="{{ Storage::url($firstImage) }}" alt="{{ $product->product_name }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                                <img loading="lazy" src="{{ Storage::url($firstImage) }}" alt="{{ $product->product_name }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
                                 <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition duration-500"></div>
                             @else
                                 <div class="w-full h-full flex items-center justify-center text-gray-400 text-xs font-medium">{{ __('admin.dashboard_prod_no_image') }}</div>
