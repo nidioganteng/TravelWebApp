@@ -2,79 +2,102 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\BookingConfirmationMail;
 use App\Models\Product;
 use App\Models\Booking;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
-use Illuminate\Support\Facades\Log;
 
 class CheckoutController extends Controller
 {
     public function process(Request $request, Product $product)
     {
-       // 1. Validasi Data
+        // 1. Validasi Data
         $request->validate([
-            'quantity' => 'required|integer|min:1|max:' . $product->ticket_quota,
-            'contact_email' => 'required|email', // <-- Validasi baru
-            'contact_phone' => 'required|string|max:20', // <-- Validasi baru
-            'participants' => 'required|array',
-            'participants.*.name' => 'required|string|max:255',
-            'participants.*.category' => 'required|in:Adult,Child',
+            'quantity'               => 'required|integer|min:1',
+            'contact_email'          => 'required|email',
+            'contact_phone'          => 'required|string|max:20',
+            'participants'           => 'required|array',
+            'participants.*.name'    => 'required|string|max:255',
+            'participants.*.category'=> 'required|in:Adult,Child',
         ]);
 
+        // 2. Cek ketersediaan quota secara real-time (pakai DB lock)
         try {
-            // 2. Buat Data Booking Induk
-            $booking = Booking::create([
-                'booking_reference' => 'BKG-' . date('Ymd') . '-' . strtoupper(uniqid()),
-                'user_id' => auth()->id(),
-                'product_id' => $product->id,
-                'quantity' => $request->quantity,
-                'total_price' => $product->product_price * $request->quantity,
-                'status' => 'unpaid',
-                'contact_email' => $request->contact_email, 
-                'contact_phone' => $request->contact_phone, 
-            ]);
+            $booking = DB::transaction(function () use ($request, $product) {
 
-            // 3. SIMPAN DATA PENUMPANG (Ini yang baru!)
-            foreach ($request->participants as $participant) {
-                $booking->participants()->create([
-                    'name' => $participant['name'],
-                    'category' => $participant['category'],
+                // Kunci baris product agar tidak ada race condition
+                $product = Product::lockForUpdate()->findOrFail($product->id);
+
+                // Hitung tiket yang sudah direservasi oleh booking unpaid (dalam 2 jam terakhir)
+                $reserved = Booking::where('product_id', $product->id)
+                    ->where('status', 'unpaid')
+                    ->where('created_at', '>=', now()->subHours(2))
+                    ->sum('quantity');
+
+                $available = $product->ticket_quota - $reserved;
+
+                if ($request->quantity > $available) {
+                    throw new \Exception("Maaf, sisa tiket tersedia hanya {$available}. Silakan kurangi jumlah tiket.");
+                }
+
+                // 3. Buat Booking
+                $booking = Booking::create([
+                    'booking_reference' => 'BKG-' . date('Ymd') . '-' . strtoupper(uniqid()),
+                    'user_id'           => auth()->id(),
+                    'product_id'        => $product->id,
+                    'quantity'          => $request->quantity,
+                    'total_price'       => $product->product_price * $request->quantity,
+                    'status'            => 'unpaid',
+                    'contact_email'     => $request->contact_email,
+                    'contact_phone'     => $request->contact_phone,
                 ]);
-            }
 
-            // 4. Konfigurasi Stripe
-            Stripe::setApiKey(env('STRIPE_SECRET'));
+                // 4. Simpan Data Penumpang
+                foreach ($request->participants as $participant) {
+                    $booking->participants()->create([
+                        'name'     => $participant['name'],
+                        'category' => $participant['category'],
+                    ]);
+                }
 
-            // 5. Buat Sesi Pembayaran (Checkout Session) di Stripe
+                return $booking;
+            });
+
+            // 5. Buat Sesi Stripe (di luar transaksi DB)
+            Stripe::setApiKey(config('services.stripe.secret'));
+
             $checkout_session = Session::create([
                 'payment_method_types' => ['card', 'ideal'],
                 'line_items' => [[
                     'price_data' => [
-                        'currency' => 'eur',
+                        'currency'     => 'eur',
                         'product_data' => [
-                            'name' => $product->product_name,
+                            'name'        => $product->product_name,
                             'description' => 'Tanggal Keberangkatan: ' . \Carbon\Carbon::parse($product->departure_date)->format('d M Y, H:i'),
                         ],
-                        'unit_amount' => intval($product->product_price * 100),
+                        'unit_amount'  => intval($product->product_price * 100),
                     ],
                     'quantity' => $request->quantity,
                 ]],
-                'mode' => 'payment',
+                'mode'        => 'payment',
                 'success_url' => route('checkout.success') . '?session_id={CHECKOUT_SESSION_ID}',
-                'cancel_url' => route('checkout.cancel'),
+                'cancel_url'  => route('checkout.cancel'),
             ]);
 
-            // 6. Simpan ID Sesi Stripe ke Database
+            // 6. Simpan ID Sesi Stripe
             $booking->update(['stripe_session_id' => $checkout_session->id]);
 
-            // 7. Lempar User ke Halaman Stripe
+            // 7. Redirect ke Stripe
             return redirect($checkout_session->url);
 
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('Stripe Error: ' . $e->getMessage());
-            return back()->withErrors(['error' => 'Gagal memproses pesanan: ' . $e->getMessage()]);
+            Log::error('Checkout Error: ' . $e->getMessage());
+            return back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
@@ -94,19 +117,23 @@ class CheckoutController extends Controller
 
     public function success(Request $request)
     {
-        // Halaman ini akan dipanggil otomatis oleh Stripe saat pembayaran SUKSES
         $sessionId = $request->get('session_id');
-        
-        $booking = Booking::where('stripe_session_id', $sessionId)->firstOrFail();
-        
-        // Ubah status jadi PAID
-        $booking->update(['status' => 'paid']);
 
-        // Kurangi Kuota Produk di database
-        $product = $booking->product;
-        $product->decrement('ticket_quota', $booking->quantity);
+        $booking = Booking::with(['product', 'participants'])->where('stripe_session_id', $sessionId)->firstOrFail();
 
-        // Arahkan user ke halaman E-Ticket dengan pesan sukses
+        // Hanya proses jika belum paid (webhook mungkin sudah jalan duluan)
+        if ($booking->status !== 'paid') {
+            $booking->update(['status' => 'paid']);
+            $booking->product->decrement('ticket_quota', $booking->quantity);
+
+            // Kirim email konfirmasi
+            try {
+                Mail::to($booking->contact_email)->send(new BookingConfirmationMail($booking));
+            } catch (\Exception $e) {
+                Log::error('Failed to send booking confirmation email: ' . $e->getMessage());
+            }
+        }
+
         return redirect()->route('profile.booking')->with('success', 'Payment successful! Here is your E-Ticket.');
     }
 
