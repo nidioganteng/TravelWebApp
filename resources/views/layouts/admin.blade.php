@@ -14,9 +14,17 @@
     </style>
 </head>
 
-<body class="bg-gray-100" x-data="{ mobileOpen: false }">
+<body class="bg-gray-100" x-data="{ mobileOpen: false, isLoading: true }" x-init="window.addEventListener('load', () => isLoading = false)">
 
-    
+    {{-- PAGE LOADER --}}
+    <div id="page-loader"
+         x-show="isLoading"
+         x-transition.opacity.duration.500ms
+         style="display: none;"
+         class="fixed inset-0 z-9999 flex items-center justify-center bg-white/90">
+        <div class="h-14 w-14 animate-spin rounded-full border-4 border-gray-200 border-t-blue-600"></div>
+    </div>
+
     {{-- 1. LOGIKA PHP DITARUH DISINI (Setelah Body) --}}
     @php
         $languages = [
@@ -29,6 +37,7 @@
         $currentLocale = app()->getLocale();
         $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $languages[0];
         $unreadMessagesCount = \App\Models\Message::where('is_read', false)->count();
+        $unpaidBookingsCount = \App\Models\Booking::where('status', 'unpaid')->count();
     @endphp
 
     <div class="flex min-h-screen">
@@ -96,9 +105,9 @@
                     </div>
                 </div>
 
-                <a href="{{ route('admin.messages.index') }}" 
+                <a href="{{ route('admin.messages.index') }}"
                     class="w-full flex items-center px-6 py-3 rounded-full transition-all {{ request()->routeIs('admin.messages*') ? 'bg-white text-[#0099FF] shadow-lg' : 'hover:bg-white/10' }}">
-                    
+
                     <div class="relative">
                         <i class="fas fa-envelope w-6 mr-4"></i>
                         @if($unreadMessagesCount > 0)
@@ -107,14 +116,27 @@
                             </span>
                         @endif
                     </div>
-                    
+
                     <span class="font-medium">{{__('admin.sidebar_message') }}</span>
+                </a>
+
+                <a href="{{ route('admin.bookings.index') }}"
+                    class="flex items-center px-6 py-3 rounded-full transition-all {{ request()->routeIs('admin.bookings*') ? 'bg-white text-[#0099FF] shadow-lg' : 'hover:bg-white/10' }}">
+                    <div class="relative">
+                        <i class="fas fa-ticket w-6 mr-4"></i>
+                        @if($unpaidBookingsCount > 0)
+                            <span class="absolute -top-1 right-2 bg-orange-400 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow-md border-2 border-[#0099FF]">
+                                {{ $unpaidBookingsCount }}
+                            </span>
+                        @endif
+                    </div>
+                    <span class="font-medium">{{ __('admin.sidebar_booking') }}</span>
                 </a>
 
                 <a href="{{ route('admin.users.index') }}"
                     class="flex items-center px-6 py-3 rounded-full transition-all {{ request()->routeIs('admin.users.*') ? 'bg-white text-[#0099FF] shadow-lg' : 'hover:bg-white/10' }}">
                     <i class="fas fa-users w-6 mr-4"></i>
-                    <span class="font-medium">Manage Users</span>
+                    <span class="font-medium">{{ __('admin.sidebar_manage_users') }}</span>
                 </a>
             </nav>
 
@@ -176,6 +198,37 @@
             </div>
         </main>
     </div>
+
+    <script>
+        (function () {
+            function showLoader() {
+                var loader = document.getElementById('page-loader');
+                if (loader) loader.style.display = 'flex';
+            }
+
+            // Tampilkan loader saat klik link navigasi
+            document.addEventListener('click', function (e) {
+                var link = e.target.closest('a[href]');
+                if (!link) return;
+                var href = link.getAttribute('href');
+                if (!href || href === '#' || href.startsWith('#') || href.startsWith('javascript:') || link.target === '_blank') return;
+                showLoader();
+            });
+
+            // Tampilkan loader saat submit form
+            document.addEventListener('submit', function () {
+                showLoader();
+            });
+
+            // Sembunyikan loader jika browser restore halaman dari cache (tombol back/forward)
+            window.addEventListener('pageshow', function (e) {
+                if (e.persisted) {
+                    var loader = document.getElementById('page-loader');
+                    if (loader) loader.style.display = 'none';
+                }
+            });
+        })();
+    </script>
 </body>
 
 </html>
