@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -31,11 +33,11 @@ class ProductController extends Controller
         ]);
 
         try {
+            $imageService = new ImageService();
             $imagePaths = [];
             if ($request->hasFile('product_image')) {
                 foreach ($request->file('product_image') as $file) {
-                    $path = $file->store('products', 'public');
-                    $imagePaths[] = $path;
+                    $imagePaths[] = $imageService->store($file, 'products');
                 }
             }
 
@@ -67,6 +69,63 @@ class ProductController extends Controller
             'archived' => $archived->count()
         ]);
         return view('admin.manage-product.product-list', compact('recentlyAdded', 'archived'));
+    }
+
+    public function edit(Product $product)
+    {
+        return view('admin.manage-product.edit-product', compact('product'));
+    }
+
+    public function update(Request $request, Product $product)
+    {
+        $validated = $request->validate([
+            'product_name'        => 'required|string|max:255',
+            'product_description' => 'nullable|string',
+            'product_price'       => 'required|numeric|min:0',
+            'ticket_quota'        => 'required|integer|min:1',
+            'departure_date'      => 'required|date',
+            'departure_locations' => 'nullable|string',
+            'product_image.*'     => 'image|mimes:jpeg,png,jpg,svg|max:2048',
+            'delete_images'       => 'nullable|array',
+        ]);
+
+        try {
+            $imageService   = new ImageService();
+            $existingImages = $product->product_image ?? [];
+
+            // Hapus gambar yang dicentang untuk dihapus
+            if ($request->has('delete_images')) {
+                foreach ($request->delete_images as $imagePath) {
+                    $imageService->delete($imagePath);
+                    $existingImages = array_filter($existingImages, fn($img) => $img !== $imagePath);
+                }
+                $existingImages = array_values($existingImages);
+            }
+
+            // Upload + kompresi gambar baru
+            if ($request->hasFile('product_image')) {
+                foreach ($request->file('product_image') as $file) {
+                    $existingImages[] = $imageService->store($file, 'products');
+                }
+            }
+
+            $product->update([
+                'product_name'        => $validated['product_name'],
+                'product_description' => $validated['product_description'] ?? null,
+                'product_price'       => $validated['product_price'],
+                'ticket_quota'        => $validated['ticket_quota'],
+                'departure_date'      => $validated['departure_date'],
+                'departure_locations' => $validated['departure_locations'] ?? null,
+                'product_image'       => $existingImages,
+            ]);
+
+            return redirect()->route('admin.products.index')
+                ->with('success', 'Product updated successfully!');
+
+        } catch (\Exception $e) {
+            Log::error('Error updating product:', ['error' => $e->getMessage()]);
+            return back()->withErrors(['error' => 'Gagal: ' . $e->getMessage()])->withInput();
+        }
     }
 
     public function publish($id)

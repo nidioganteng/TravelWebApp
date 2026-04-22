@@ -99,7 +99,7 @@
                                         x-transition:enter-start="opacity-0 scale-105"
                                         x-transition:enter-end="opacity-100 scale-100"
                                         class="absolute inset-0">
-                                        <img :src="'/storage/' + image" class="w-full h-full object-cover">
+                                        <img loading="lazy" :src="'/storage/' + image" class="w-full h-full object-cover">
                                     </div>
                                 </template>
                             </div>
@@ -140,10 +140,15 @@
                                 </button>
                             </form>
 
+                            <a href="{{ route('admin.products.edit', $product->id) }}"
+                                class="bg-white border border-blue-100 text-[#0099FF] hover:bg-[#0099FF] hover:text-white w-11 h-11 rounded-xl flex items-center justify-center transition shadow-sm shrink-0">
+                                <i class="fas fa-pen text-xs"></i>
+                            </a>
+
                             <button type="button"
                                 class="delete-product-btn bg-white border border-red-100 text-red-500 hover:bg-red-500 hover:text-white w-11 h-11 rounded-xl flex items-center justify-center transition shadow-sm shrink-0"
                                 data-id="{{ $product->id }}">
-                                <i class="fas fa-trash text-xs"></i> 
+                                <i class="fas fa-trash text-xs"></i>
                             </button>
                         </div>
                     </div>
@@ -183,7 +188,7 @@
                             <div class="relative h-full w-full">
                                 <template x-for="(image, index) in slides" :key="index">
                                     <div x-show="activeSlide === index" class="absolute inset-0">
-                                        <img :src="'/storage/' + image" class="w-full h-full object-cover">
+                                        <img loading="lazy" :src="'/storage/' + image" class="w-full h-full object-cover">
                                     </div>
                                 </template>
                             </div>
@@ -203,14 +208,21 @@
                             {{ __('admin.products_price_label') }} €{{ number_format($product->product_price, 0) }} {{ __('admin.products_person_suffix') }}
                         </span>
                         
-                        <form action="{{ route('admin.products.toggle', $product->id) }}" method="POST" class="w-full sm:w-auto">
-                            @csrf
-                            @method('PATCH')
-                            <button type="submit" class="w-full bg-[#B14141] hover:bg-red-900 text-white px-6 py-2.5 rounded-xl text-[12px] md:text-[14px] font-semibold shadow-md transition active:scale-95 flex items-center justify-center gap-2">
-                                <i class="fas fa-archive"></i> 
-                                <span>{{ __('admin.products_btn_unpublish') }}</span>
-                            </button>
-                        </form>
+                        <div class="flex items-center gap-3 w-full sm:w-auto">
+                            <form action="{{ route('admin.products.toggle', $product->id) }}" method="POST" class="flex-1 sm:flex-none">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="w-full bg-[#B14141] hover:bg-red-900 text-white px-6 py-2.5 rounded-xl text-[12px] md:text-[14px] font-semibold shadow-md transition active:scale-95 flex items-center justify-center gap-2">
+                                    <i class="fas fa-archive"></i>
+                                    <span>{{ __('admin.products_btn_unpublish') }}</span>
+                                </button>
+                            </form>
+
+                            <a href="{{ route('admin.products.edit', $product->id) }}"
+                                class="bg-white border border-blue-100 text-[#0099FF] hover:bg-[#0099FF] hover:text-white w-11 h-11 rounded-xl flex items-center justify-center transition shadow-sm shrink-0">
+                                <i class="fas fa-pen text-xs"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 @empty
