@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\TrackRecord;     
-use App\Models\TrackRecordItem;  
+use App\Models\TrackRecord;
+use App\Models\TrackRecordItem;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
@@ -43,26 +44,28 @@ class TravelRecordController extends Controller
             'items.*.image' => 'required|image|mimes:jpeg,png,jpg|max:10480',
         ]);
 
-        DB::transaction(function () use ($request) {
+        $imageService = new ImageService();
 
-            $bannerPath = $request->file('banner_image')->store('travel-records/banners', 'public');
+        DB::transaction(function () use ($request, $imageService) {
+
+            $bannerPath = $imageService->store($request->file('banner_image'), 'travel-records/banners', 1600);
 
             $travelRecord = TrackRecord::create([
-                'city_name' => $request->city_name,
-                'description' => $request->description,
-                'year' => $request->year,
+                'city_name'    => $request->city_name,
+                'description'  => $request->description,
+                'year'         => $request->year,
                 'banner_image' => $bannerPath,
-                'slug' => Str::slug($request->city_name . '-' . $request->year . '-' . Str::random(5)),
+                'slug'         => Str::slug($request->city_name . '-' . $request->year . '-' . Str::random(5)),
             ]);
 
             foreach ($request->items as $item) {
-                $itemImagePath = $item['image']->store('travel-records/items', 'public');
+                $itemImagePath = $imageService->store($item['image'], 'travel-records/items', 900);
 
                 TrackRecordItem::create([
                     'track_record_id' => $travelRecord->id,
-                    'title' => $item['title'],
-                    'description' => $item['description'],
-                    'image' => $itemImagePath,
+                    'title'           => $item['title'],
+                    'description'     => $item['description'],
+                    'image'           => $itemImagePath,
                 ]);
             }
         });
@@ -127,10 +130,8 @@ class TravelRecordController extends Controller
             }
 
             if ($request->hasFile('banner_image')) {
-
                 if ($record->banner_image) \Storage::disk('public')->delete($record->banner_image);
-
-                $dataToUpdate['banner_image'] = $request->file('banner_image')->store('travel-records/banners', 'public');
+                $dataToUpdate['banner_image'] = (new ImageService())->store($request->file('banner_image'), 'travel-records/banners', 1600);
             }
 
             $record->update($dataToUpdate);
@@ -144,7 +145,7 @@ class TravelRecordController extends Controller
                 $imagePath = null;
 
                 if ($request->hasFile("items.{$index}.image")) {
-                    $imagePath = $request->file("items.{$index}.image")->store('travel-records/items', 'public');
+                    $imagePath = (new ImageService())->store($request->file("items.{$index}.image"), 'travel-records/items', 900);
                 } 
                 elseif (isset($itemData['old_image'])) {
                     $imagePath = $itemData['old_image'];

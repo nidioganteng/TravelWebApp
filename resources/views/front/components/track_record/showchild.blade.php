@@ -2,7 +2,7 @@
     {{-- HERO HEADER --}}
     <header class="relative h-[70vh] md:h-screen w-full overflow-hidden flex items-center justify-center">
         <div class="absolute inset-0">
-            <img src="{{ Storage::url($record->banner_image) }}" class="w-full h-full object-cover object-center">
+            <img loading="lazy" src="{{ Storage::url($record->banner_image) }}" class="w-full h-full object-cover object-center">
             <div class="absolute inset-0 bg-black/40"></div>
         </div>
         
