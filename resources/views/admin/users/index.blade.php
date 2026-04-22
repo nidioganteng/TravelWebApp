@@ -61,9 +61,5 @@
             @include('admin.users.activity')
         </div>
 
-        <div>
-            @include('admin.users.booking')
-        </div>
-
     </div>
 </x-admin-layout>

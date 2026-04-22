@@ -93,7 +93,7 @@
                 <div class="bg-white rounded-[25px] shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col h-full group">
                     
                     <div class="relative h-44 md:h-48 overflow-hidden">
-                        <img src="{{ Storage::url($record->banner_image) }}" alt="{{ $record->city_name }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <img loading="lazy" src="{{ Storage::url($record->banner_image) }}" alt="{{ $record->city_name }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
                         <div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-extrabold text-[#0099FF] shadow-sm">
                             {{ $record->year }}
                         </div>
