@@ -63,46 +63,149 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                         </div>
                     </div>
 
+                    {{-- FLASH MESSAGES --}}
+                    @if(session('success'))
+                        <div class="mb-6 flex items-center gap-3 bg-green-50 border border-green-200 text-green-700 px-5 py-4 rounded-2xl text-sm font-semibold">
+                            <i class="fas fa-check-circle text-green-500"></i>
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if($errors->any())
+                        <div class="mb-6 flex items-center gap-3 bg-red-50 border border-red-200 text-red-700 px-5 py-4 rounded-2xl text-sm font-semibold">
+                            <i class="fas fa-exclamation-circle text-red-500"></i>
+                            {{ $errors->first() }}
+                        </div>
+                    @endif
+
+                    {{-- UNPAID BOOKINGS --}}
+                    @if($unpaidBookings->count() > 0)
+                        <div class="mb-8">
+                            <h3 class="text-lg font-bold text-gray-500 mb-4 flex items-center gap-2">
+                                <i class="fas fa-clock text-orange-400"></i>
+                                {{ __('user.booking_pending_payment') }}
+                            </h3>
+                            @foreach($unpaidBookings as $booking)
+                                <div class="bg-orange-50 border border-orange-200 rounded-3xl p-5 flex flex-col md:flex-row items-start md:items-center gap-5 mb-4">
+                                    <div class="flex-1 w-full">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div>
+                                                <h3 class="text-base font-bold text-gray-800">{{ $booking->product->product_name }}</h3>
+                                                <p class="text-xs text-gray-400 font-medium uppercase tracking-wider mt-1">{{ __('user.booking_ref') }} {{ $booking->booking_reference }}</p>
+                                            </div>
+                                            <span class="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1 shrink-0">
+                                                <i class="fas fa-clock"></i> {{ __('user.booking_status_unpaid') }}
+                                            </span>
+                                        </div>
+                                        <div class="flex flex-wrap gap-x-6 gap-y-1 mt-3">
+                                            <div class="flex items-center gap-2 text-sm text-gray-600">
+                                                <i class="far fa-calendar-alt text-orange-400 w-4"></i>
+                                                <span>{{ \Carbon\Carbon::parse($booking->product->departure_date)->format('d M Y, H:i') }}</span>
+                                            </div>
+                                            <div class="flex items-center gap-2 text-sm text-gray-600">
+                                                <i class="fas fa-euro-sign text-orange-400 w-4"></i>
+                                                <span class="font-bold text-gray-800">€ {{ number_format($booking->total_price, 2) }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <form action="{{ route('profile.booking.cancel', $booking) }}" method="POST"
+                                        onsubmit="return confirm('Cancel booking {{ $booking->booking_reference }}?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="flex items-center gap-2 bg-white border border-red-200 text-red-500 hover:bg-red-500 hover:text-white px-5 py-2.5 rounded-xl text-sm font-bold transition duration-200 shrink-0">
+                                            <i class="fas fa-times-circle"></i>
+                                            {{ __('user.booking_cancel') }}
+                                        </button>
+                                    </form>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+
+                    {{-- PAID TICKETS --}}
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <i class="fas fa-ticket text-[#0099FF]"></i>
+                        {{ __('user.booking_tickets') }}
+                    </h3>
+
                     {{-- LOOPING DATA TIKET --}}
                     @forelse($activeBookings as $booking)
-                        <div class="bg-white rounded-3xl border border-gray-100 shadow-xl shadow-gray-100/50 p-6 flex flex-col md:flex-row items-start md:items-center gap-6 mb-6 group hover:border-[#0099FF] transition duration-300">
-                            
-                            {{-- Gambar Tur --}}
-                            <div class="w-full md:w-40 h-32 shrink-0 rounded-2xl overflow-hidden bg-gray-100">
-                                @if(is_array($booking->product->product_image) && count($booking->product->product_image) > 0)
-                                    <img src="{{ asset('storage/' . $booking->product->product_image[0]) }}" alt="{{ $booking->product->product_name }}" class="w-full h-full object-cover">
-                                @else
-                                    <div class="w-full h-full flex items-center justify-center text-gray-400"><i class="fas fa-image text-3xl"></i></div>
-                                @endif
-                            </div>
+                        <div class="bg-white rounded-3xl border border-gray-100 shadow-xl shadow-gray-100/50 mb-6 group hover:border-[#0099FF] transition duration-300 overflow-hidden"
+                            x-data="{ open: false }">
 
-                            {{-- Info Tiket --}}
-                            <div class="flex-1 w-full">
-                                <div class="flex justify-between items-start mb-2">
-                                    <div>
-                                        <h3 class="text-xl font-bold text-gray-900">{{ $booking->product->product_name }}</h3>
-                                        <p class="text-xs text-gray-400 font-medium uppercase tracking-wider mt-1">Ref: {{ $booking->booking_reference }}</p>
-                                    </div>
-                                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1">
-                                        <i class="fas fa-check-circle"></i> PAID
-                                    </span>
+                            {{-- BAGIAN ATAS: Gambar + Info --}}
+                            <div class="p-6 flex flex-col md:flex-row items-start md:items-center gap-6">
+
+                                {{-- Gambar Tur --}}
+                                <div class="w-full md:w-40 h-32 shrink-0 rounded-2xl overflow-hidden bg-gray-100">
+                                    @if(is_array($booking->product->product_image) && count($booking->product->product_image) > 0)
+                                        <img loading="lazy" src="{{ asset('storage/' . $booking->product->product_image[0]) }}" alt="{{ $booking->product->product_name }}" class="w-full h-full object-cover">
+                                    @else
+                                        <div class="w-full h-full flex items-center justify-center text-gray-400"><i class="fas fa-image text-3xl"></i></div>
+                                    @endif
                                 </div>
 
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 mt-4">
-                                    <div class="flex items-center gap-2 text-sm text-gray-600">
-                                        <i class="far fa-calendar-alt text-[#0099FF] w-4"></i>
-                                        <span>{{ \Carbon\Carbon::parse($booking->product->departure_date)->format('d M Y, H:i') }}</span>
+                                {{-- Info Tiket --}}
+                                <div class="flex-1 w-full">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <div>
+                                            <h3 class="text-xl font-bold text-gray-900">{{ $booking->product->product_name }}</h3>
+                                            <p class="text-xs text-gray-400 font-medium uppercase tracking-wider mt-1">{{ __('user.booking_ref') }} {{ $booking->booking_reference }}</p>
+                                        </div>
+                                        <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1 shrink-0">
+                                            <i class="fas fa-check-circle"></i> {{ __('user.booking_status_paid') }}
+                                        </span>
                                     </div>
-                                    <div class="flex items-center gap-2 text-sm text-gray-600">
-                                        <i class="fas fa-users text-[#0099FF] w-4"></i>
-                                        <span class="font-bold text-black">{{ $booking->quantity }} Tickets</span>
-                                    </div>
-                                    <div class="flex items-center gap-2 text-sm text-gray-600 sm:col-span-2">
-                                        <i class="fas fa-euro-sign text-[#0099FF] w-4"></i>
-                                        <span class="font-bold text-black">Total: € {{ number_format($booking->total_price, 2) }}</span>
+
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 mt-4">
+                                        <div class="flex items-center gap-2 text-sm text-gray-600">
+                                            <i class="far fa-calendar-alt text-[#0099FF] w-4"></i>
+                                            <span>{{ \Carbon\Carbon::parse($booking->product->departure_date)->format('d M Y, H:i') }}</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 text-sm text-gray-600">
+                                            <i class="fas fa-users text-[#0099FF] w-4"></i>
+                                            <span class="font-bold text-black">{{ $booking->quantity }} {{ __('user.booking_tickets_suffix') }}</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 text-sm text-gray-600 sm:col-span-2">
+                                            <i class="fas fa-euro-sign text-[#0099FF] w-4"></i>
+                                            <span class="font-bold text-black">{{ __('user.booking_total') }} € {{ number_format($booking->total_price, 2) }}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                            {{-- TOMBOL EXPAND PESERTA --}}
+                            <button @click="open = !open"
+                                class="w-full flex items-center justify-between px-6 py-3 bg-gray-50 border-t border-gray-100 text-sm font-semibold text-gray-500 hover:bg-blue-50 hover:text-[#0099FF] transition duration-200">
+                                <span class="flex items-center gap-2">
+                                    <i class="fas fa-users text-xs"></i>
+                                    {{ $booking->participants->count() }} {{ __('user.booking_passengers') }}
+                                </span>
+                                <i class="fas fa-chevron-down text-xs transition-transform duration-300" :class="open ? 'rotate-180' : ''"></i>
+                            </button>
+
+                            {{-- DAFTAR PESERTA (Expand ke bawah) --}}
+                            <div x-show="open" x-collapse x-cloak class="border-t border-gray-100">
+                                <div class="p-6 space-y-3">
+                                    <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">{{ __('user.booking_passenger_list') }}</p>
+
+                                    @foreach($booking->participants as $index => $participant)
+                                        <div class="flex items-center gap-4 bg-gray-50 rounded-2xl px-5 py-3">
+                                            <div class="w-8 h-8 rounded-full bg-[#0099FF] text-white flex items-center justify-center text-xs font-black shrink-0">
+                                                {{ $index + 1 }}
+                                            </div>
+                                            <div class="flex-1">
+                                                <p class="text-sm font-bold text-gray-900">{{ $participant->name }}</p>
+                                            </div>
+                                            <span class="text-xs font-semibold px-3 py-1 rounded-full
+                                                {{ $participant->category === 'Adult' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700' }}">
+                                                {{ $participant->category }}
+                                            </span>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
                         </div>
 
                     @empty

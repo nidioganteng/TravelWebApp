@@ -55,4 +55,14 @@ class User extends Authenticatable implements MustVerifyEmail
             'last_seen_at' => 'datetime',
         ];
     }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
 }
