@@ -350,6 +350,7 @@
     "user.booking_pending_payment": "Menunggu Pembayaran",
     "user.booking_status_unpaid": "BELUM LUNAS",
     "user.booking_status_paid": "LUNAS",
+    "user.booking_pay_now": "Bayar Sekarang",
     "user.booking_cancel": "Batalkan Pemesanan",
     "user.booking_ref": "Ref:",
     "user.booking_passengers": "Penumpang",

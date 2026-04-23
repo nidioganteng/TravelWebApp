@@ -350,6 +350,7 @@
     "user.booking_pending_payment": "Pending Payment",
     "user.booking_status_unpaid": "UNPAID",
     "user.booking_status_paid": "PAID",
+    "user.booking_pay_now": "Pay Now",
     "user.booking_cancel": "Cancel Booking",
     "user.booking_ref": "Ref:",
     "user.booking_passengers": "Passengers",

@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Mail\BookingConfirmationMail;
-use App\Models\Product;
 use App\Models\Booking;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use Stripe\Stripe;
 use Stripe\Checkout\Session;
+use Stripe\Stripe;
 
 class CheckoutController extends Controller
 {
@@ -18,12 +18,12 @@ class CheckoutController extends Controller
     {
         // 1. Validasi Data
         $request->validate([
-            'quantity'               => 'required|integer|min:1',
-            'contact_email'          => 'required|email',
-            'contact_phone'          => 'required|string|max:20',
-            'participants'           => 'required|array',
-            'participants.*.name'    => 'required|string|max:255',
-            'participants.*.category'=> 'required|in:Adult,Child',
+            'quantity' => 'required|integer|min:1',
+            'contact_email' => 'required|email',
+            'contact_phone' => 'required|string|max:20',
+            'participants' => 'required|array',
+            'participants.*.name' => 'required|string|max:255',
+            'participants.*.category' => 'required|in:Adult,Child',
         ]);
 
         // 2. Cek ketersediaan quota secara real-time (pakai DB lock)
@@ -47,20 +47,20 @@ class CheckoutController extends Controller
 
                 // 3. Buat Booking
                 $booking = Booking::create([
-                    'booking_reference' => 'BKG-' . date('Ymd') . '-' . strtoupper(uniqid()),
-                    'user_id'           => auth()->id(),
-                    'product_id'        => $product->id,
-                    'quantity'          => $request->quantity,
-                    'total_price'       => $product->product_price * $request->quantity,
-                    'status'            => 'unpaid',
-                    'contact_email'     => $request->contact_email,
-                    'contact_phone'     => $request->contact_phone,
+                    'booking_reference' => 'BKG-'.date('Ymd').'-'.strtoupper(uniqid()),
+                    'user_id' => auth()->id(),
+                    'product_id' => $product->id,
+                    'quantity' => $request->quantity,
+                    'total_price' => $product->product_price * $request->quantity,
+                    'status' => 'unpaid',
+                    'contact_email' => $request->contact_email,
+                    'contact_phone' => $request->contact_phone,
                 ]);
 
                 // 4. Simpan Data Penumpang
                 foreach ($request->participants as $participant) {
                     $booking->participants()->create([
-                        'name'     => $participant['name'],
+                        'name' => $participant['name'],
                         'category' => $participant['category'],
                     ]);
                 }
@@ -75,18 +75,18 @@ class CheckoutController extends Controller
                 'payment_method_types' => ['card', 'ideal'],
                 'line_items' => [[
                     'price_data' => [
-                        'currency'     => 'eur',
+                        'currency' => 'eur',
                         'product_data' => [
-                            'name'        => $product->product_name,
-                            'description' => 'Tanggal Keberangkatan: ' . \Carbon\Carbon::parse($product->departure_date)->format('d M Y, H:i'),
+                            'name' => $product->product_name,
+                            'description' => 'Tanggal Keberangkatan: '.\Carbon\Carbon::parse($product->departure_date)->format('d M Y, H:i'),
                         ],
-                        'unit_amount'  => intval($product->product_price * 100),
+                        'unit_amount' => intval($product->product_price * 100),
                     ],
                     'quantity' => $request->quantity,
                 ]],
-                'mode'        => 'payment',
-                'success_url' => route('checkout.success') . '?session_id={CHECKOUT_SESSION_ID}',
-                'cancel_url'  => route('checkout.cancel'),
+                'mode' => 'payment',
+                'success_url' => route('checkout.success').'?session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url' => route('checkout.cancel'),
             ]);
 
             // 6. Simpan ID Sesi Stripe
@@ -96,7 +96,8 @@ class CheckoutController extends Controller
             return redirect($checkout_session->url);
 
         } catch (\Exception $e) {
-            Log::error('Checkout Error: ' . $e->getMessage());
+            Log::error('Checkout Error: '.$e->getMessage());
+
             return back()->withErrors(['error' => $e->getMessage()]);
         }
     }
@@ -130,17 +131,57 @@ class CheckoutController extends Controller
             try {
                 Mail::to($booking->contact_email)->send(new BookingConfirmationMail($booking));
             } catch (\Exception $e) {
-                Log::error('Failed to send booking confirmation email: ' . $e->getMessage());
+                Log::error('Failed to send booking confirmation email: '.$e->getMessage());
             }
         }
 
         return redirect()->route('profile.booking')->with('success', 'Payment successful! Here is your E-Ticket.');
     }
 
+    public function repay(Booking $booking)
+    {
+        if ($booking->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        if ($booking->status !== 'unpaid') {
+            return back()->withErrors(['error' => 'Only unpaid bookings can be retried.']);
+        }
+
+        try {
+            Stripe::setApiKey(config('services.stripe.secret'));
+
+            $checkout_session = Session::create([
+                'payment_method_types' => ['card', 'ideal'],
+                'line_items' => [[
+                    'price_data' => [
+                        'currency' => 'eur',
+                        'product_data' => [
+                            'name' => $booking->product->product_name,
+                            'description' => 'Tanggal Keberangkatan: '.\Carbon\Carbon::parse($booking->product->departure_date)->format('d M Y, H:i'),
+                        ],
+                        'unit_amount' => intval($booking->product->product_price * 100),
+                    ],
+                    'quantity' => $booking->quantity,
+                ]],
+                'mode' => 'payment',
+                'success_url' => route('checkout.success').'?session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url' => route('checkout.cancel'),
+            ]);
+
+            $booking->update(['stripe_session_id' => $checkout_session->id]);
+
+            return redirect($checkout_session->url);
+
+        } catch (\Exception $e) {
+            Log::error('Repay Error: '.$e->getMessage());
+
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
     public function cancel()
     {
         return redirect('/products')->with('error', 'Payment Cancelled');
     }
-
-
 }

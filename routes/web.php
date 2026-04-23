@@ -1,22 +1,22 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\Auth\AdminAuthController;
+use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TravelRecordController;
-use App\Http\Controllers\Admin\BookingController;
-use App\Http\Controllers\Admin\MessageController;
-use App\Http\Controllers\Admin\Auth\AdminAuthController;
-use App\Http\Controllers\ContactController;
-use App\Models\TrackRecord;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'id', 'nl', 'de', 'fr'])) {
         session()->put('locale', $locale);
     }
+
     return redirect()->back();
 })->name('lang.switch');
 
@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/track-record/{slug}', function ($slug) {
 
         $record = App\Models\TrackRecord::with('items')->where('slug', $slug)->firstOrFail();
+
         return view('front.show', compact('record'));
     })->name('track-record.show');
 
@@ -70,21 +71,23 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/profile/booking', function () {
         $activeBookings = auth()->user()
-                            ->bookings()
-                            ->with(['product', 'participants'])
-                            ->where('status', 'paid')
-                            ->latest()
-                            ->get();
+            ->bookings()
+            ->with(['product', 'participants'])
+            ->where('status', 'paid')
+            ->latest()
+            ->get();
 
         $unpaidBookings = auth()->user()
-                            ->bookings()
-                            ->with('product')
-                            ->where('status', 'unpaid')
-                            ->latest()
-                            ->get();
+            ->bookings()
+            ->with('product')
+            ->where('status', 'unpaid')
+            ->latest()
+            ->get();
 
         return view('profile.booking', compact('activeBookings', 'unpaidBookings'));
     })->name('profile.booking');
+
+    Route::post('/profile/booking/{booking}/repay', [App\Http\Controllers\CheckoutController::class, 'repay'])->name('profile.booking.repay');
 
     Route::delete('/profile/booking/{booking}/cancel', function (\App\Models\Booking $booking) {
         // Pastikan hanya pemilik booking yang bisa cancel
@@ -103,7 +106,7 @@ Route::middleware('auth')->group(function () {
     })->name('profile.booking.cancel');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
 
 Route::prefix('admin')->name('admin.')->group(function () {
     // Menampilkan Form Login (GET) -> akses: /admin/login

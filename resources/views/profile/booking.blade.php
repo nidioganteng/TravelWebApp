@@ -107,16 +107,26 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                                             </div>
                                         </div>
                                     </div>
-                                    <form action="{{ route('profile.booking.cancel', $booking) }}" method="POST"
-                                        onsubmit="return confirm('Cancel booking {{ $booking->booking_reference }}?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="flex items-center gap-2 bg-white border border-red-200 text-red-500 hover:bg-red-500 hover:text-white px-5 py-2.5 rounded-xl text-sm font-bold transition duration-200 shrink-0">
-                                            <i class="fas fa-times-circle"></i>
-                                            {{ __('user.booking_cancel') }}
-                                        </button>
-                                    </form>
+                                    <div class="flex items-center gap-2 shrink-0">
+                                        <form action="{{ route('profile.booking.repay', $booking) }}" method="POST">
+                                            @csrf
+                                            <button type="submit"
+                                                class="flex items-center gap-2 bg-[#0099FF] text-white hover:bg-blue-600 px-5 py-2.5 rounded-xl text-sm font-bold transition duration-200">
+                                                <i class="fas fa-credit-card"></i>
+                                                {{ __('user.booking_pay_now') }}
+                                            </button>
+                                        </form>
+                                        <form action="{{ route('profile.booking.cancel', $booking) }}" method="POST"
+                                            onsubmit="return confirm('Cancel booking {{ $booking->booking_reference }}?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="flex items-center gap-2 bg-white border border-red-200 text-red-500 hover:bg-red-500 hover:text-white px-5 py-2.5 rounded-xl text-sm font-bold transition duration-200">
+                                                <i class="fas fa-times-circle"></i>
+                                                {{ __('user.booking_cancel') }}
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             @endforeach
                         </div>

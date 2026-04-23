@@ -350,6 +350,7 @@
     "user.booking_pending_payment": "Paiement en Attente",
     "user.booking_status_unpaid": "NON PAYÉ",
     "user.booking_status_paid": "PAYÉ",
+    "user.booking_pay_now": "Payer Maintenant",
     "user.booking_cancel": "Annuler la Réservation",
     "user.booking_ref": "Réf :",
     "user.booking_passengers": "Passagers",

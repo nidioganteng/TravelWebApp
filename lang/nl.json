@@ -350,6 +350,7 @@
     "user.booking_pending_payment": "Wachtend op Betaling",
     "user.booking_status_unpaid": "ONBETAALD",
     "user.booking_status_paid": "BETAALD",
+    "user.booking_pay_now": "Nu Betalen",
     "user.booking_cancel": "Boeking Annuleren",
     "user.booking_ref": "Ref:",
     "user.booking_passengers": "Passagiers",

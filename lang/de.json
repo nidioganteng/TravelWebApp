@@ -350,6 +350,7 @@
     "user.booking_pending_payment": "Ausstehende Zahlung",
     "user.booking_status_unpaid": "UNBEZAHLT",
     "user.booking_status_paid": "BEZAHLT",
+    "user.booking_pay_now": "Jetzt Bezahlen",
     "user.booking_cancel": "Buchung Stornieren",
     "user.booking_ref": "Ref:",
     "user.booking_passengers": "Passagiere",
