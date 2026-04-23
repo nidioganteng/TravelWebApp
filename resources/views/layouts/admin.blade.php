@@ -215,9 +215,11 @@
                 showLoader();
             });
 
-            // Tampilkan loader saat submit form
-            document.addEventListener('submit', function () {
-                showLoader();
+            // Tampilkan loader saat submit form (hanya jika tidak dibatalkan via confirm dialog)
+            document.addEventListener('submit', function (e) {
+                if (!e.defaultPrevented) {
+                    showLoader();
+                }
             });
 
             // Sembunyikan loader jika browser restore halaman dari cache (tombol back/forward)
