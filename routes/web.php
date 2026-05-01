@@ -13,7 +13,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('lang/{locale}', function ($locale) {
-    if (in_array($locale, ['en', 'id', 'nl', 'de', 'fr'])) {
+    if (in_array($locale, ['en', 'id', 'nl', 'de', 'pt'])) {
         session()->put('locale', $locale);
     }
 
