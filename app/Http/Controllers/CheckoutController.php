@@ -16,6 +16,10 @@ class CheckoutController extends Controller
 {
     public function process(Request $request, Product $product)
     {
+        if ($product->isExpired()) {
+            return back()->withErrors(['error' => 'Produk ini sudah expired dan tidak bisa dipesan.']);
+        }
+
         // 1. Validasi Data
         $request->validate([
             'quantity' => 'required|integer|min:1',
@@ -104,6 +108,10 @@ class CheckoutController extends Controller
 
     public function details(Request $request, Product $product)
     {
+        if ($product->isExpired()) {
+            return redirect()->back()->withErrors(['error' => 'Produk ini sudah expired dan tidak bisa dipesan.']);
+        }
+
         // Ambil jumlah tiket yang dipilih user (default 1)
         $quantity = $request->query('quantity', 1);
 

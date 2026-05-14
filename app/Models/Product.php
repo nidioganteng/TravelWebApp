@@ -13,11 +13,11 @@ class Product extends Model
         'product_name',
         'product_description',
         'product_price',
-        'ticket_quota',         
+        'ticket_quota',
         'departure_date',
         'departure_locations',
         'product_image',
-        'is_published'
+        'is_published',
     ];
 
     protected $casts = [
@@ -27,4 +27,9 @@ class Product extends Model
         'product_image' => 'array',
         'is_published' => 'boolean',
     ];
+
+    public function isExpired(): bool
+    {
+        return $this->departure_date !== null && $this->departure_date->isPast();
+    }
 }

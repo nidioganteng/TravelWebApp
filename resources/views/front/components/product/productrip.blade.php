@@ -89,12 +89,16 @@
                     </div>
 
                     {{-- BAGIAN BAWAH: FORM PEMESANAN --}}
-                    {{-- BAGIAN BAWAH: FORM PEMESANAN --}}
                     <div class="mt-8 pt-6 border-t border-gray-100">
-                        @if($trip->ticket_quota > 0)
+                        @if($trip->isExpired())
+                            {{-- Jika Sudah Expired --}}
+                            <button disabled class="w-full bg-red-100 text-red-400 text-lg font-bold py-4 px-6 rounded-xl cursor-not-allowed flex justify-center items-center gap-2">
+                                <i class="fas fa-calendar-times"></i> Trip Expired
+                            </button>
+                        @elseif($trip->ticket_quota > 0)
                             {{-- Form akan menembak ke route checkout nantinya --}}
                             <form action="{{ route('checkout.details', $trip->id) }}" method="GET" class="flex flex-col sm:flex-row gap-4">
-                                
+
                                 {{-- Input Jumlah Tiket --}}
                                 <div class="flex items-center justify-between sm:justify-start border-2 border-gray-200 rounded-xl px-4 py-2 bg-gray-50 focus-within:border-[#10435E] transition-colors">
                                     <span class="text-[#10435E] text-lg mr-3" title="Number of People"><i class="fas fa-user-friends"></i></span>

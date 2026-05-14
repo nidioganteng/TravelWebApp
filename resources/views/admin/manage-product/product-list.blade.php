@@ -75,8 +75,13 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                 @forelse($recentlyAdded as $product)
-                <div class="bg-white border rounded-3xl p-5 md:p-6 shadow-sm relative transition hover:shadow-md">
-                    <h3 class="font-extrabold text-gray-900 text-center mb-4 text-base md:text-lg">{{ $product->product_name }}</h3>
+                <div class="bg-white border rounded-3xl p-5 md:p-6 shadow-sm relative transition hover:shadow-md {{ $product->isExpired() ? 'border-red-200' : '' }}">
+                    <div class="flex items-center justify-center gap-2 mb-4">
+                        <h3 class="font-extrabold text-gray-900 text-base md:text-lg">{{ $product->product_name }}</h3>
+                        @if($product->isExpired())
+                            <span class="bg-red-100 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">Expired</span>
+                        @endif
+                    </div>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div x-data="{ 
@@ -170,8 +175,13 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                 @forelse($archived as $product)
-                <div class="bg-white border rounded-3xl p-5 md:p-6 shadow-sm transition hover:shadow-md">
-                    <h3 class="font-extrabold text-gray-900 text-center mb-4 text-base md:text-lg">{{ $product->product_name }}</h3>
+                <div class="bg-white border rounded-3xl p-5 md:p-6 shadow-sm transition hover:shadow-md {{ $product->isExpired() ? 'border-red-200' : '' }}">
+                    <div class="flex items-center justify-center gap-2 mb-4">
+                        <h3 class="font-extrabold text-gray-900 text-base md:text-lg">{{ $product->product_name }}</h3>
+                        @if($product->isExpired())
+                            <span class="bg-red-100 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">Expired</span>
+                        @endif
+                    </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div x-data="{ 
                                 activeSlide: 0, 
