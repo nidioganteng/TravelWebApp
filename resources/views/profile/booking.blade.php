@@ -26,7 +26,7 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                 <x-front.sidebar-user />
 
                 <div class="flex-1">
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4" data-reveal>
                         <div class="flex items-center gap-2">
                             <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight"> {{ __('user.booking_tickets') }}</h2>
                         </div>
@@ -85,7 +85,7 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                                 {{ __('user.booking_pending_payment') }}
                             </h3>
                             @foreach($unpaidBookings as $booking)
-                                <div class="bg-orange-50 border border-orange-200 rounded-3xl p-5 flex flex-col md:flex-row items-start md:items-center gap-5 mb-4">
+                                <div class="bg-orange-50 border border-orange-200 rounded-3xl p-5 flex flex-col md:flex-row items-start md:items-center gap-5 mb-4" data-reveal data-delay="{{ min($loop->index * 80, 600) }}">
                                     <div class="flex-1 w-full">
                                         <div class="flex justify-between items-start mb-2">
                                             <div>
@@ -141,7 +141,8 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                     {{-- LOOPING DATA TIKET --}}
                     @forelse($activeBookings as $booking)
                         <div class="bg-white rounded-3xl border border-gray-100 shadow-xl shadow-gray-100/50 mb-6 group hover:border-[#0099FF] transition duration-300 overflow-hidden"
-                            x-data="{ open: false }">
+                            x-data="{ open: false }"
+                            data-reveal data-delay="{{ min($loop->index * 100, 600) }}">
 
                             {{-- BAGIAN ATAS: Gambar + Info --}}
                             <div class="p-6 flex flex-col md:flex-row items-start md:items-center gap-6">

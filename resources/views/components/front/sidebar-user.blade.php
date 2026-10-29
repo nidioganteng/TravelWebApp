@@ -12,7 +12,16 @@
         </button>
     </div>
 
-    <div :class="sidebarOpen ? 'flex' : 'hidden'" class="flex-col md:flex h-full transition-all duration-300">
+    <div x-show="sidebarOpen"
+        x-transition:enter="transition ease-out duration-[250ms]"
+        x-transition:enter-start="opacity-0 -translate-y-2"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 -translate-y-2"
+        data-sidebar
+        style="display: none;"
+        class="flex flex-col h-full">
 
         <div class="flex items-center gap-4 mb-6 pb-6 border-b border-gray-100">
             <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center text-xl font-bold text-gray-400 shadow-inner shrink-0">
