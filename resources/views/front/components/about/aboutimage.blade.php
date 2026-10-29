@@ -2,10 +2,10 @@
 
     <div class="max-w-7xl mx-auto">
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
 
             {{-- Kolom Kiri --}}
-            <div class="lg:col-span-3 flex flex-col gap-4 relative lg:mb-24">
+            <div class="md:col-span-1 lg:col-span-3 flex flex-col gap-4 relative lg:mb-24" data-reveal="left">
                 <div class="bg-white rounded-[30px] shadow-xl overflow-hidden hover:scale-105 transition-transform duration-300">
 
                     <div class="h-50 overflow-hidden">
@@ -25,7 +25,7 @@
             </div>
 
             {{-- Kolom Tengah (Gambar Besar) --}}
-            <div class="lg:col-span-6 relative z-10">
+            <div class="md:col-span-1 lg:col-span-6 relative z-10" data-reveal>
                 <div class="rounded-[40px] overflow-hidden shadow-2xl">
                     <img 
                         src="{{ asset('img/about/assets/about_imgMAIN.png') }}"
@@ -36,7 +36,7 @@
             </div>
 
             {{-- Kolom Kanan --}}
-            <div class="lg:col-span-3 flex flex-col gap-4 relative lg:mt-24">
+            <div class="md:col-span-1 lg:col-span-3 flex flex-col gap-4 relative lg:mt-24" data-reveal="right">
                 <div class="bg-white rounded-[30px] shadow-xl overflow-hidden hover:scale-105 transition-transform duration-300">
 
                     <div class="h-60 overflow-hidden">

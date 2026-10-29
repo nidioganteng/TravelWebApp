@@ -1,5 +1,5 @@
 <div>
-    <div class="text-center max-w-7xl mx-auto section-spacing">
+    <div class="text-center max-w-7xl mx-auto section-spacing" data-reveal>
         <h1 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-black mb-4 leading-tight">
             {{ __('about_destination.section') }}
         </h1>
@@ -41,7 +41,7 @@
         <div class="flex flex-wrap justify-center gap-6 md:gap-8 w-full max-w-360">
 
             @foreach($trackRecords as $record)
-                <div class="w-full max-w-100 lg:max-w-112.5 bg-[#ffffff] rounded-md overflow-hidden shadow-2xl pb-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer flex flex-col group">
+                <div class="w-full max-w-100 lg:max-w-112.5 bg-[#ffffff] rounded-md overflow-hidden shadow-2xl pb-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer flex flex-col group" data-reveal data-delay="{{ min($loop->index * 120, 600) }}">
                     {{-- Gambar --}}
                     <div class="h-56 sm:h-64 md:h-70 w-full overflow-hidden">
                         <img 

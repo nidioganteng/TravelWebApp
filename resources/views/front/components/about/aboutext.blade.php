@@ -1,12 +1,12 @@
 <div class="px-6 py-8 md:px-16 md:py-20 bg-white h-full max-w-7xl mx-auto">
 
     <div class="flex flex-col md:flex-row gap-10 mb-16 items-center">
-        <div class="w-full md:w-1/2">
+        <div class="w-full md:w-1/2" data-reveal="left">
             <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-black leading-tight">
                 {!! __('about_intro.title') !!}
             </h2>
         </div>
-        <div class="w-full md:w-1/2">
+        <div class="w-full md:w-1/2" data-reveal="right">
             <p class="text-gray-600 text-[10px] sm:text-[12px] md:text-[14px] leading-relaxed text-justify">
                 {{ __('about_intro.desc') }}
             </p>
@@ -16,7 +16,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         
         {{-- Bubble 1 --}}
-        <div class="bg-white p-6 rounded-[30px] border border-gray-100 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] flex items-center gap-5 hover:-translate-y-1.25 transition-transform duration-300">
+        <div class="bg-white p-6 rounded-[30px] border border-gray-100 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] flex items-center gap-5 hover:-translate-y-1.25 transition-transform duration-300" data-reveal data-delay="0">
             <div class="w-16 h-16 min-w-16 rounded-full bg-[#5FA8C4] flex items-center justify-center text-white shadow-md">
                 <img 
                     src="{{ asset('img/about/icon/shield.svg') }}" 
@@ -33,7 +33,7 @@
         </div>
 
         {{-- Bubble 2 --}}
-        <div class="bg-white p-6 rounded-[30px] border border-gray-100 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] flex items-center gap-5 hover:-translate-y-1.25 transition-transform duration-300">
+        <div class="bg-white p-6 rounded-[30px] border border-gray-100 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] flex items-center gap-5 hover:-translate-y-1.25 transition-transform duration-300" data-reveal data-delay="120">
             <div class="w-16 h-16 min-w-16 rounded-full bg-[#000000] flex items-center justify-center text-white shadow-md">
                 <img 
                     src="{{ asset('img/about/icon/world.svg') }}" 
@@ -50,7 +50,7 @@
         </div>
 
         {{-- Bubble 3 --}}
-        <div class="bg-white p-6 rounded-[30px] border border-gray-100 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] flex items-center gap-5 hover:-translate-y-1.25 transition-transform duration-300">
+        <div class="bg-white p-6 rounded-[30px] border border-gray-100 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] flex items-center gap-5 hover:-translate-y-1.25 transition-transform duration-300" data-reveal data-delay="240">
             <div class="w-16 h-16 min-w-16 rounded-full bg-[#5FA8C4] flex items-center justify-center text-white shadow-md">
                 <img 
                     src="{{ asset('img/about/icon/star.svg') }}" 
