@@ -11,7 +11,7 @@ $languages = [
 $currentLocale = app()->getLocale();
 $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $languages[0];
 @endphp
-<div class="fixed inset-x-0 z-20 w-full backdrop-blur-sm" x-data="{ mobileOpen: false }">
+<div class="fixed inset-x-0 z-20 w-full backdrop-blur-sm" data-navbar x-data="{ mobileOpen: false }">
     <div class="mx-auto c-space max-w-7xl">
         <div class="flex items-center justify-between py-4 sm:py-4">
 
@@ -97,7 +97,7 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                         </div>
                     </div>
                     @else
-                    <a href="{{ route('register') }}" class="hover:opacity-80 transition">
+                    <a href="{{ route('register') }}" class="p-3 flex items-center justify-center hover:opacity-80 transition">
                         <img src="{{ asset('img/navbar/profile.svg') }}" alt="Profile" class="w-5 h-5" />
                     </a>
                     @endauth
@@ -174,13 +174,13 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                         </div>
                     </div>
                     @else
-                    <a href="{{ route('register') }}" class="hover:opacity-80 transition">
+                    <a href="{{ route('register') }}" class="p-3 flex items-center justify-center hover:opacity-80 transition">
                         <img src="{{ asset('img/navbar/profile.svg') }}" alt="Profile" class="w-5 h-5" />
                     </a>
                     @endauth
                 </div>
 
-                <button @click="mobileOpen = !mobileOpen" class="text-white">
+                <button @click="mobileOpen = !mobileOpen" class="text-white min-w-[44px] min-h-[44px] flex items-center justify-center">
                     <img :src="mobileOpen ? '{{ asset('img/navbar/close.svg') }}' : '{{ asset('img/navbar/menu.svg') }}'" alt="toggle" class="w-8 h-8" />
                 </button>
             </div>
@@ -188,6 +188,12 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
     </div>
 
     <div x-show="mobileOpen"
+        x-transition:enter="transition ease-out duration-[250ms]"
+        x-transition:enter-start="opacity-0 -translate-y-3"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 -translate-y-3"
         style="display: none;"
         class="block overflow-hidden text-center sm:hidden backdrop-blur-lg">
         <nav class="pb-5">
