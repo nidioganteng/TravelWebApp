@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto space-y-12">
 
         @forelse ($tripsData as $trip)
-        <div class="bg-white border border-gray-300 rounded-[20px] p-6 md:p-14 shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
+        <div class="bg-white border border-gray-300 rounded-[20px] p-6 md:p-14 shadow-[0_4px_20px_rgba(0,0,0,0.08)]" data-reveal data-delay="{{ min($loop->index * 100, 600) }}">
 
             <h2 class="text-2xl md:text-3xl font-extrabold text-black text-center mb-8">
                 {{ $trip->product_name }}

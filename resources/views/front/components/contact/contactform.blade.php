@@ -7,7 +7,7 @@
         </div>
     @endif
   
-    <div class="flex flex-col md:flex-row bg-white rounded-[30px] shadow-2xl overflow-hidden">
+    <div class="flex flex-col md:flex-row bg-white rounded-[30px] shadow-2xl overflow-hidden" data-reveal>
 
         <div class="w-full md:w-3/5 p-8 md:p-12">
             <h2 class="text-3xl font-bold text-black mb-4">{{ __('contact_form.title') }}</h2>
@@ -102,30 +102,30 @@
             <div class="mt-10">
                 <div class="border-t border-white/20 mb-6"></div>
                 <p class="text-sm font-bold mb-4">{{ __('contact_form.socials') }}</p>
-                <div class="flex gap-9">
+                <div class="flex gap-6">
                     <div class="cursor-pointer hover:text-blue-300">
-                        <a href="tel:+310612397002">
-                            <img src="{{ asset('img/contact/icon/phone.svg') }}" alt="" class='w-10'/>
+                        <a href="tel:+310612397002" class="p-1.5 inline-flex items-center justify-center">
+                            <img src="{{ asset('img/contact/icon/phone.svg') }}" alt="Phone" class="w-10" />
                         </a>
                     </div>
                     <div class="cursor-pointer hover:text-blue-300">
-                        <a href="https://www.facebook.com/mijn.amor.3/">
-                            <img src="{{ asset('img/contact/icon/facebook.svg') }}" alt="" class='w-10'/>
+                        <a href="https://www.facebook.com/mijn.amor.3/" class="p-1.5 inline-flex items-center justify-center">
+                            <img src="{{ asset('img/contact/icon/facebook.svg') }}" alt="Facebook" class="w-10" />
                         </a>
                     </div>
                     <div class="cursor-pointer hover:text-blue-300">
-                        <a href="https://wa.me/31612397002">
-                            <img src="{{ asset('img/contact/icon/whatsapp.svg') }}" alt="" class='w-10'/>
+                        <a href="https://wa.me/31612397002" class="p-1.5 inline-flex items-center justify-center">
+                            <img src="{{ asset('img/contact/icon/whatsapp.svg') }}" alt="WhatsApp" class="w-10" />
                         </a>
                     </div>
                     <div class="cursor-pointer hover:text-blue-300">
-                        <a href="https://www.instagram.com/mijnamor/">
-                            <img src="{{ asset('img/contact/icon/instagram.svg') }}" alt="" class='w-10'/>
+                        <a href="https://www.instagram.com/mijnamor/" class="p-1.5 inline-flex items-center justify-center">
+                            <img src="{{ asset('img/contact/icon/instagram.svg') }}" alt="Instagram" class="w-10" />
                         </a>
                     </div>
                     <div class="cursor-pointer hover:text-blue-300">
-                        <a href="https://www.tiktok.com/@mijnamor">
-                            <img src="{{ asset('img/contact/icon/tiktok.svg') }}" alt="" class='w-10'/>
+                        <a href="https://www.tiktok.com/@mijnamor" class="p-1.5 inline-flex items-center justify-center">
+                            <img src="{{ asset('img/contact/icon/tiktok.svg') }}" alt="TikTok" class="w-10" />
                         </a>
                     </div>
                 </div>
