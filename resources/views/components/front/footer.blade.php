@@ -1,7 +1,7 @@
 <footer class="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen bg-[#87B8BE] text-white py-10 px-4 md:py-12 md:px-6">
     <div class="max-w-7xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-5 lg:gap-8 items-center md:items-start">
-            <div class="space-y-6 flex flex-col items-center md:items-start text-center md:text-left">
+            <div class="space-y-6 flex flex-col items-center md:items-start text-center md:text-left" data-reveal="left">
                 <nav class="flex flex-col space-y-3 text-lg font-medium">
                     <a href="{{ route('about') }}" class="hover:opacity-80">{{ __('footer.about_us') }}</a>
                     <a href="{{ route('products') }}" class="hover:opacity-80">{{ __('footer.products') }}</a>
@@ -10,22 +10,22 @@
                 </nav>
 
                 <div class="flex space-x-4 pt-4">
-                    <a href="https://www.instagram.com/mijnamor/" class="w-10 h-10 hover:opacity-80 transition-opacity">
+                    <a href="https://www.instagram.com/mijnamor/" class="w-10 h-10 relative hover:opacity-80 transition-opacity before:absolute before:content-[''] before:inset-[-2px]">
                         <img src="{{ asset('img/footer/tiktok.svg') }}" alt="Tiktok" class="w-full h-full" />
                     </a>
-                    <a href="https://www.facebook.com/mijn.amor.3/" class="w-10 h-10 hover:opacity-80 transition-opacity">
+                    <a href="https://www.facebook.com/mijn.amor.3/" class="w-10 h-10 relative hover:opacity-80 transition-opacity before:absolute before:content-[''] before:inset-[-2px]">
                         <img src="{{ asset('img/footer/facebook.svg') }}" alt="Facebook" class="w-full h-full" />
                     </a>
-                    <a href="https://www.youtube.com/@edniksayang/videos" class="w-10 h-10 hover:opacity-80 transition-opacity">
+                    <a href="https://www.youtube.com/@edniksayang/videos" class="w-10 h-10 relative hover:opacity-80 transition-opacity before:absolute before:content-[''] before:inset-[-2px]">
                         <img src="{{ asset('img/footer/youtube.svg') }}" alt="Youtube" class="w-full h-full" />
                     </a>
-                    <a href="https://www.instagram.com/mijnamor/" class="w-10 h-10 hover:opacity-80 transition-opacity">
+                    <a href="https://www.instagram.com/mijnamor/" class="w-10 h-10 relative hover:opacity-80 transition-opacity before:absolute before:content-[''] before:inset-[-2px]">
                         <img src="{{ asset('img/footer/instagram.svg') }}" alt="Instagram" class="w-full h-full" />
                     </a>
                 </div>
             </div>
 
-            <div class="border-x-0 md:border-x border-white/40 px-0 md:px-4 lg:px-10 text-center w-full">
+            <div class="border-x-0 md:border-x border-white/40 px-0 md:px-4 lg:px-10 text-center w-full" data-reveal>
                 <h2 class="text-2xl md:text-3xl font-semibold mb-2">{{ __('footer.title') }}</h2>
                 <p class="lg:text-sm md:text-[12px] mb-6 leading-relaxed px-2 md:px-0">
                     {{ __('footer.desc') }}
@@ -49,7 +49,7 @@
                 </form>
             </div>
 
-            <div class="flex flex-col items-center md:items-end text-center md:text-right space-y-4">
+            <div class="flex flex-col items-center md:items-end text-center md:text-right space-y-4" data-reveal="right">
                 <a href="{{ route('contact') }}" class="flex items-center gap-2 text-lg font-medium hover:opacity-80">
                     {{ __('footer.send_message') }} <span>→</span>
                 </a>
