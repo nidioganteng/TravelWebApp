@@ -17,7 +17,7 @@
     <main class="max-w-375 mx-auto px-5 py-12 md:py-24">
         <div class="flex flex-col gap-16 md:gap-32">
             @foreach($record->items as $index => $item)
-                <div class="flex flex-col {{ $index % 2 != 0 ? 'md:flex-row-reverse' : 'md:flex-row' }} items-center gap-8 md:gap-16 lg:gap-24">
+                <div class="flex flex-col {{ $index % 2 != 0 ? 'md:flex-row-reverse' : 'md:flex-row' }} items-center gap-8 md:gap-16 lg:gap-24" data-reveal="{{ $index % 2 == 0 ? 'left' : 'right' }}">
                     <div class="w-full md:w-1/2">
                         <div class="rounded-[20px] md:rounded-[30px] overflow-hidden shadow-xl aspect-video md:aspect-square lg:aspect-4/3 w-full bg-gray-100">
                             <img src="{{ Storage::url($item->image) }}" 

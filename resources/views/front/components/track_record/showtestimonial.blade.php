@@ -69,7 +69,7 @@
 <section class="w-full overflow-hidden bg-white"> 
     <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div class="text-center w-full mx-auto py-10 md:py-16">
+        <div class="text-center w-full mx-auto py-10 md:py-16" data-reveal>
             <h1 class="text-3xl sm:text-4xl md:text-[48px] font-extrabold text-black mb-4 leading-tight">
                 Here from our clients
             </h1>
