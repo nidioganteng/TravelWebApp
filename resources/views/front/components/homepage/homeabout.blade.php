@@ -1,5 +1,5 @@
 <section>
-    <div class="w-full px-4 md:px-8 max-w-7xl mx-auto section-spacing text-center">
+    <div class="w-full px-4 md:px-8 max-w-7xl mx-auto section-spacing text-center" data-reveal>
         <h3 class="text-[#61A4BF] font-semibold text-md md:text-xl lg:text-2xl mb-2 md:mb-4 tracking-wide">
             {{ __('herabout.section') }}
         </h3>
@@ -18,11 +18,11 @@
 
         <div class="flex flex-wrap justify-center gap-6 md:gap-8 w-full max-w-360">
           
-            <div class="w-full max-w-100 lg:max-w-112.5 bg-[#D8D8D8] rounded-md overflow-hidden shadow-lg pb-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl cursor-pointer flex flex-col">
+            <div class="w-full max-w-100 lg:max-w-112.5 bg-[#D8D8D8] rounded-md overflow-hidden shadow-lg pb-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl cursor-pointer flex flex-col" data-reveal data-delay="0">
                 <div class="h-56 sm:h-64 md:h-70 w-full">
-                    <img 
-                        src="{{ asset('img/homepage/assets/tour_belgia.jpg') }}" 
-                        alt="Belgia" 
+                    <img
+                        src="{{ asset('img/homepage/assets/tour_belgia.jpg') }}"
+                        alt="Belgia"
                         class="w-full h-full object-cover"
                     />
                 </div>
@@ -40,11 +40,11 @@
                 </div>
             </div>
 
-            <div class="w-full max-w-100 lg:max-w-112.5 bg-[#D8D8D8] rounded-md overflow-hidden shadow-lg pb-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl cursor-pointer flex flex-col">
+            <div class="w-full max-w-100 lg:max-w-112.5 bg-[#D8D8D8] rounded-md overflow-hidden shadow-lg pb-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl cursor-pointer flex flex-col" data-reveal data-delay="120">
                 <div class="h-56 sm:h-64 md:h-70 w-full">
-                    <img 
-                        src="{{ asset('img/homepage/assets/tour_bali.jpg') }}" 
-                        alt="Bali" 
+                    <img
+                        src="{{ asset('img/homepage/assets/tour_bali.jpg') }}"
+                        alt="Bali"
                         class="w-full h-full object-cover"
                     />
                 </div>
@@ -61,11 +61,11 @@
                 </div>
             </div>
 
-            <div class="w-full max-w-100 lg:max-w-112.5 bg-[#D8D8D8] rounded-md overflow-hidden shadow-lg pb-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl cursor-pointer flex flex-col">
+            <div class="w-full max-w-100 lg:max-w-112.5 bg-[#D8D8D8] rounded-md overflow-hidden shadow-lg pb-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl cursor-pointer flex flex-col" data-reveal data-delay="240">
                 <div class="h-56 sm:h-64 md:h-70 w-full">
-                    <img 
-                        src="{{ asset('img/homepage/assets/tour_vatican.jpg') }}" 
-                        alt="Vatican City" 
+                    <img
+                        src="{{ asset('img/homepage/assets/tour_vatican.jpg') }}"
+                        alt="Vatican City"
                         class="w-full h-full object-cover"
                     />
                 </div>

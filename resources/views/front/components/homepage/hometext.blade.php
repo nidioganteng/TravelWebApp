@@ -38,7 +38,7 @@
                         <div class="bg-white rounded-full p-1 pl-7 flex items-center gap-6 max-w-md shadow-lg relative text-start">
                             <div class="flex-1">
                                 <h3 class="text-black font-bold text-[10px] md:text-[14px]">{{ __('hero.features') }}</h3>
-                                <p class="text-gray-500 text-[8px] md:text-[11px] leading-tight mt-1">
+                                <p class="text-gray-500 text-[11px] leading-tight mt-1">
                                     {{-- Gunakan {!! !!} karena di JSON ada tag <br/> --}}
                                     {!! __('hero.desc') !!}
                                 </p>

@@ -69,7 +69,7 @@
 <section class="w-full overflow-hidden"> 
     <div class="container mx-auto max-w-7xl px-4 md:px-0">
         
-        <div class="text-center max-w-7xl mx-auto section-spacing">
+        <div class="text-center max-w-7xl mx-auto section-spacing" data-reveal>
             <h3 class="text-[#61A4BF] font-semibold text-md md:text-xl lg:text-2xl mb-2">
                 {{ __('hero_review.section') }}
             </h3>
@@ -111,9 +111,10 @@
         </div>
     </div>
 
-    <div 
+    <div
         class="relative w-full max-w-7xl mx-auto h-100 md:h-175 overflow-hidden rounded-xl md:rounded-3xl flex flex-col items-center justify-center text-center mt-10 mb-8 md:mb-16 px-4 md:px-0"
         style="background-image: url('{{ asset('img/homepage/assets/CTAimg.svg') }}'); background-size: cover; background-position: center;"
+        data-reveal
     >
         <div class="absolute inset-0 bg-black/30"></div>
 
