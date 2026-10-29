@@ -108,3 +108,53 @@ trix-toolbar .trix-button-group--file-tools {
 .trix-content li {
     display: list-item !important;
 }
+
+/* ── Scroll Reveal ──────────────────────────────────────────────────────── */
+html.js [data-reveal]:not(.reveal-visible) {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html.js [data-reveal="left"]:not(.reveal-visible) {
+    transform: translateX(-28px);
+}
+
+html.js [data-reveal="right"]:not(.reveal-visible) {
+    transform: translateX(28px);
+}
+
+/* specificity (0,1,0) — does not override Tailwind hover utilities (0,2,0) */
+:where(html.js [data-reveal]).reveal-visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* ── Navbar Scroll ──────────────────────────────────────────────────────── */
+[data-navbar] {
+    transition: background-color 0.25s ease;
+}
+
+[data-navbar].navbar-scrolled {
+    background-color: rgba(7, 22, 40, 0.90);
+}
+
+/* ── Sidebar: always visible on desktop regardless of Alpine x-show ──────── */
+@media (min-width: 768px) {
+    [data-sidebar] {
+        display: flex !important;
+        flex-direction: column;
+    }
+}
+
+/* ── Reduced Motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    html.js [data-reveal]:not(.reveal-visible),
+    html.js [data-reveal="left"]:not(.reveal-visible),
+    html.js [data-reveal="right"]:not(.reveal-visible) {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}
