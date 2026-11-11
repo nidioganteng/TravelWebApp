@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\BookingConfirmationMail;
 use App\Models\Booking;
 use App\Models\Product;
+use App\Services\BookingPaymentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
 
 class CheckoutController extends Controller
 {
+    public function __construct(private readonly BookingPaymentService $paymentService) {}
+
     public function process(Request $request, Product $product)
     {
         if ($product->isExpired()) {
@@ -128,20 +129,25 @@ class CheckoutController extends Controller
     {
         $sessionId = $request->get('session_id');
 
-        $booking = Booking::with(['product', 'participants'])->where('stripe_session_id', $sessionId)->firstOrFail();
-
-        // Hanya proses jika belum paid (webhook mungkin sudah jalan duluan)
-        if ($booking->status !== 'paid') {
-            $booking->update(['status' => 'paid']);
-            $booking->product->decrement('ticket_quota', $booking->quantity);
-
-            // Kirim email konfirmasi
-            try {
-                Mail::to($booking->contact_email)->send(new BookingConfirmationMail($booking));
-            } catch (\Exception $e) {
-                Log::error('Failed to send booking confirmation email: '.$e->getMessage());
-            }
+        if (! $sessionId) {
+            return redirect()->route('profile.booking')
+                ->withErrors(['error' => 'Link pembayaran tidak valid.']);
         }
+
+        $booking = Booking::where('stripe_session_id', $sessionId)->firstOrFail();
+
+        if ($booking->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $stripeSession = $this->paymentService->retrieveCheckoutSession($sessionId);
+
+        if (! $stripeSession || $stripeSession->payment_status !== 'paid') {
+            return redirect()->route('profile.booking')
+                ->withErrors(['error' => 'Pembayaran belum selesai atau terjadi kesalahan. Silakan cek status booking Anda.']);
+        }
+
+        $this->paymentService->markAsPaid($booking);
 
         return redirect()->route('profile.booking')->with('success', 'Payment successful! Here is your E-Ticket.');
     }

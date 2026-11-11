@@ -2,43 +2,40 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Support\Facades\App;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        // 1. BUAT AKUN ADMIN
-        User::create([
-            'name' => 'Mijn Amor Admin',
-            'email' => 'mijnamor@travel.com', 
-            'status' => 'active',
-            'password' => Hash::make('M1jnAm0r_Tr4vel@2018'), 
-            'role' => 'admin', 
-        ]);
+        $email = env('SEED_ADMIN_EMAIL');
+        $password = env('SEED_ADMIN_PASSWORD');
 
-        // 2. User Lama 
-        User::create([
-            'name' => 'Risma',
-            'email' => 'jagungbakar@gmail.com',
-            'status' => 'active',
-            'password' => Hash::make('rismaCantik23'), 
-            'role' => 'user',
-        ]);
+        if (App::isProduction()) {
+            if (empty($email) || empty($password)) {
+                $this->command->error(
+                    'SEED_ADMIN_EMAIL dan SEED_ADMIN_PASSWORD harus diisi di .env sebelum seeding di production.'
+                );
 
-        User::create([
-            'name' => 'Benedito',
-            'email' => 'nidio.shop24@gmail.com',
-            'status' => 'active',
-            'password' => Hash::make('beneditoCantik24'), 
-            'role' => 'user',
-        ]);
+                return;
+            }
+        } else {
+            $email = $email ?: 'admin@example.com';
+            $password = $password ?: 'password';
+        }
+
+        User::firstOrCreate(
+            ['email' => $email],
+            [
+                'name' => 'Admin',
+                'email_verified_at' => now(),
+                'status' => 'active',
+                'password' => Hash::make($password),
+                'role' => 'admin',
+            ]
+        );
     }
 }
