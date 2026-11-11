@@ -14,6 +14,9 @@ it('register POST is throttled after 5 attempts per minute', function () {
             'password' => 'password',
             'password_confirmation' => 'password',
         ]);
+        // Logout setelah setiap registrasi berhasil agar guest middleware
+        // tidak memblokir request berikutnya sebelum throttle tercapai.
+        auth()->logout();
     }
 
     $this->post('/register', [

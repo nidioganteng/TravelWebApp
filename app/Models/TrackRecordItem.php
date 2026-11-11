@@ -9,7 +9,7 @@ class TrackRecordItem extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = ['track_record_id', 'title', 'description', 'image'];
 
     public function trackRecord()
     {

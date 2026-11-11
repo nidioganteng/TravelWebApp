@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\InsufficientQuotaException;
 use App\Models\Booking;
 use App\Models\Product;
 use App\Services\BookingPaymentService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -23,13 +25,19 @@ class CheckoutController extends Controller
 
         // 1. Validasi Data
         $request->validate([
-            'quantity' => 'required|integer|min:1',
+            'quantity' => 'required|integer|min:1|max:20',
             'contact_email' => 'required|email',
             'contact_phone' => 'required|string|max:20',
             'participants' => 'required|array',
-            'participants.*.name' => 'required|string|max:255',
+            'participants.*.name' => 'required|string|max:100',
             'participants.*.category' => 'required|in:Adult,Child',
         ]);
+
+        if (count($request->participants) !== (int) $request->quantity) {
+            return back()
+                ->withErrors(['participants' => 'Jumlah peserta harus sama dengan jumlah tiket yang dipesan.'])
+                ->withInput();
+        }
 
         // 2. Cek ketersediaan quota secara real-time (pakai DB lock)
         try {
@@ -47,7 +55,7 @@ class CheckoutController extends Controller
                 $available = $product->ticket_quota - $reserved;
 
                 if ($request->quantity > $available) {
-                    throw new \Exception("Maaf, sisa tiket tersedia hanya {$available}. Silakan kurangi jumlah tiket.");
+                    throw new InsufficientQuotaException($available);
                 }
 
                 // 3. Buat Booking
@@ -83,7 +91,7 @@ class CheckoutController extends Controller
                         'currency' => 'eur',
                         'product_data' => [
                             'name' => $product->product_name,
-                            'description' => 'Tanggal Keberangkatan: '.\Carbon\Carbon::parse($product->departure_date)->format('d M Y, H:i'),
+                            'description' => 'Tanggal Keberangkatan: '.Carbon::parse($product->departure_date)->format('d M Y, H:i'),
                         ],
                         'unit_amount' => intval($product->product_price * 100),
                     ],
@@ -100,10 +108,12 @@ class CheckoutController extends Controller
             // 7. Redirect ke Stripe
             return redirect($checkout_session->url);
 
+        } catch (InsufficientQuotaException $e) {
+            return back()->withErrors(['error' => $e->getMessage()])->withInput();
         } catch (\Exception $e) {
             Log::error('Checkout Error: '.$e->getMessage());
 
-            return back()->withErrors(['error' => $e->getMessage()]);
+            return back()->withErrors(['error' => 'Terjadi kesalahan saat memproses pesanan. Silakan coba lagi.'])->withInput();
         }
     }
 
@@ -172,7 +182,7 @@ class CheckoutController extends Controller
                         'currency' => 'eur',
                         'product_data' => [
                             'name' => $booking->product->product_name,
-                            'description' => 'Tanggal Keberangkatan: '.\Carbon\Carbon::parse($booking->product->departure_date)->format('d M Y, H:i'),
+                            'description' => 'Tanggal Keberangkatan: '.Carbon::parse($booking->product->departure_date)->format('d M Y, H:i'),
                         ],
                         'unit_amount' => intval($booking->product->product_price * 100),
                     ],
@@ -190,7 +200,7 @@ class CheckoutController extends Controller
         } catch (\Exception $e) {
             Log::error('Repay Error: '.$e->getMessage());
 
-            return back()->withErrors(['error' => $e->getMessage()]);
+            return back()->withErrors(['error' => 'Terjadi kesalahan saat memproses pembayaran ulang. Silakan coba lagi.']);
         }
     }
 

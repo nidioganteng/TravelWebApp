@@ -2,18 +2,20 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Blade; 
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function register(): void
-    {
-        //
-    }
+    public function register(): void {}
 
     public function boot(): void
-    {   
-        \Illuminate\Support\Facades\Blade::component('layouts.app', 'main');
+    {
+        Blade::component('layouts.app', 'main');
+
+        if (app()->isProduction() && config('app.debug')) {
+            Log::critical('APP_DEBUG is true in production. Disable it immediately to prevent information disclosure.');
+        }
     }
 }

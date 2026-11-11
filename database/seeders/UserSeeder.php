@@ -27,15 +27,15 @@ class UserSeeder extends Seeder
             $password = $password ?: 'password';
         }
 
-        User::firstOrCreate(
-            ['email' => $email],
-            [
-                'name' => 'Admin',
-                'email_verified_at' => now(),
-                'status' => 'active',
-                'password' => Hash::make($password),
-                'role' => 'admin',
-            ]
-        );
+        $user = User::firstOrNew(['email' => $email]);
+
+        if (! $user->exists) {
+            $user->name = 'Admin';
+            $user->email_verified_at = now();
+            $user->status = 'active';
+            $user->password = Hash::make($password);
+            $user->role = 'admin';
+            $user->save();
+        }
     }
 }

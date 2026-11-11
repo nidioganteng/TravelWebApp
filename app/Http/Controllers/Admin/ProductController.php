@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
@@ -17,9 +18,6 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        Log::info('Request Data:', $request->all());
-        Log::info('Has File:', ['has_file' => $request->hasFile('product_image')]);
-
         $validated = $request->validate([
             'product_name' => 'required|string|max:255',
             'product_description' => 'nullable|string',
@@ -28,7 +26,7 @@ class ProductController extends Controller
             'departure_date' => 'required|date|after:today',
             'departure_locations' => 'nullable|string',
             'product_image' => 'required|array',
-            'product_image.*' => 'image|mimes:jpeg,png,jpg,svg|max:2048',
+            'product_image.*' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         try {
@@ -58,7 +56,7 @@ class ProductController extends Controller
         } catch (\Exception $e) {
             Log::error('Error creating product:', ['error' => $e->getMessage()]);
 
-            return back()->withErrors(['error' => 'Gagal: '.$e->getMessage()])->withInput();
+            return back()->withErrors(['error' => 'Gagal menyimpan produk. Silakan coba lagi.'])->withInput();
         }
     }
 
@@ -66,10 +64,6 @@ class ProductController extends Controller
     {
         $recentlyAdded = Product::where('is_published', false)->latest()->get();
         $archived = Product::where('is_published', true)->latest()->get();
-        Log::info('Products count:', [
-            'recently_added' => $recentlyAdded->count(),
-            'archived' => $archived->count(),
-        ]);
 
         return view('admin.manage-product.product-list', compact('recentlyAdded', 'archived'));
     }
@@ -81,6 +75,8 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
+        $existingImages = $product->product_image ?? [];
+
         $validated = $request->validate([
             'product_name' => 'required|string|max:255',
             'product_description' => 'nullable|string',
@@ -88,24 +84,21 @@ class ProductController extends Controller
             'ticket_quota' => 'required|integer|min:1',
             'departure_date' => 'required|date',
             'departure_locations' => 'nullable|string',
-            'product_image.*' => 'image|mimes:jpeg,png,jpg,svg|max:2048',
+            'product_image.*' => 'image|mimes:jpeg,png,jpg|max:2048',
             'delete_images' => 'nullable|array',
+            'delete_images.*' => ['string', Rule::in($existingImages)],
         ]);
 
         try {
             $imageService = new ImageService;
-            $existingImages = $product->product_image ?? [];
 
-            // Hapus gambar yang dicentang untuk dihapus
             if ($request->has('delete_images')) {
-                foreach ($request->delete_images as $imagePath) {
+                foreach ($validated['delete_images'] as $imagePath) {
                     $imageService->delete($imagePath);
-                    $existingImages = array_filter($existingImages, fn ($img) => $img !== $imagePath);
+                    $existingImages = array_values(array_filter($existingImages, fn ($img) => $img !== $imagePath));
                 }
-                $existingImages = array_values($existingImages);
             }
 
-            // Upload + kompresi gambar baru
             if ($request->hasFile('product_image')) {
                 foreach ($request->file('product_image') as $file) {
                     $existingImages[] = $imageService->store($file, 'products');
@@ -130,7 +123,7 @@ class ProductController extends Controller
         } catch (\Exception $e) {
             Log::error('Error updating product:', ['error' => $e->getMessage()]);
 
-            return back()->withErrors(['error' => 'Gagal: '.$e->getMessage()])->withInput();
+            return back()->withErrors(['error' => 'Gagal memperbarui produk. Silakan coba lagi.'])->withInput();
         }
     }
 
@@ -153,7 +146,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         try {
-            $product = \App\Models\Product::findOrFail($id);
+            $product = Product::findOrFail($id);
             $product->delete();
 
             return response()->json([
@@ -161,9 +154,11 @@ class ProductController extends Controller
                 'message' => 'The product has been successfully deleted',
             ]);
         } catch (\Exception $e) {
+            Log::error('Error deleting product:', ['error' => $e->getMessage(), 'id' => $id]);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to delete product'.$e->getMessage(),
+                'message' => 'Failed to delete product.',
             ], 500);
         }
     }

@@ -9,7 +9,7 @@ class TrackRecord extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = ['city_name', 'description', 'year', 'banner_image', 'slug'];
 
     public function items()
     {
