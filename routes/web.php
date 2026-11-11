@@ -17,7 +17,7 @@ Route::get('lang/{locale}', function ($locale) {
     }
 
     return redirect()->back();
-})->name('lang.switch');
+})->middleware('throttle:30,1')->name('lang.switch');
 
 Route::get('/', function () {
     return view('front.home');
@@ -77,7 +77,7 @@ Route::middleware('auth')->group(function () {
         return view('profile.booking', compact('activeBookings', 'unpaidBookings'));
     })->name('profile.booking');
 
-    Route::post('/profile/booking/{booking}/repay', [App\Http\Controllers\CheckoutController::class, 'repay'])->name('profile.booking.repay');
+    Route::post('/profile/booking/{booking}/repay', [App\Http\Controllers\CheckoutController::class, 'repay'])->middleware('throttle:10,1')->name('profile.booking.repay');
 
     Route::delete('/profile/booking/{booking}/cancel', function (\App\Models\Booking $booking) {
         if ($booking->user_id !== auth()->id()) {
@@ -123,12 +123,12 @@ Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function ()
 });
 
 // Route untuk memproses kirim pesan (POST)
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:3,10')->name('contact.store');
 
 // Checkout Routes (auth protected)
 Route::middleware('auth')->group(function () {
     Route::get('/checkout/{product}/details', [App\Http\Controllers\CheckoutController::class, 'details'])->name('checkout.details');
-    Route::post('/checkout/{product}', [App\Http\Controllers\CheckoutController::class, 'process'])->name('checkout.process');
+    Route::post('/checkout/{product}', [App\Http\Controllers\CheckoutController::class, 'process'])->middleware('throttle:10,1')->name('checkout.process');
     Route::get('/checkout/success', [App\Http\Controllers\CheckoutController::class, 'success'])->name('checkout.success');
     Route::get('/checkout/cancel', [App\Http\Controllers\CheckoutController::class, 'cancel'])->name('checkout.cancel');
 });

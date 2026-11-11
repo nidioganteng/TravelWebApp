@@ -16,7 +16,15 @@
             </p>
 
             <form action="{{ route('contact.store') }}" method="POST" class="space-y-6">
-                @csrf {{-- WAJIB ADA: Tiket keamanan Laravel --}}
+                @csrf
+
+                {{-- Time trap: timestamp terenkripsi untuk mendeteksi submit instan --}}
+                <input type="hidden" name="form_token" value="{{ \Illuminate\Support\Facades\Crypt::encryptString((string)time()) }}">
+
+                {{-- Honeypot: disembunyikan via CSS, bukan type=hidden, agar bot yang tidak render CSS mengisinya --}}
+                <div style="position:absolute;left:-9999px;top:-9999px;opacity:0;height:0;overflow:hidden;" aria-hidden="true">
+                    <input type="text" name="website_url" value="" tabindex="-1" autocomplete="off">
+                </div>
 
                 <div>
                     <label class="block text-black font-bold mb-2">{{ __('contact_form.name') }}</label>
@@ -47,6 +55,13 @@
                         class="w-full bg-[#F3F3F3] rounded-2xl px-6 py-4 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                     ></textarea>
                 </div>
+                @if(config('services.turnstile.site_key'))
+                <div>
+                    <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site_key') }}"></div>
+                    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+                </div>
+                @endif
+
                 <div class="flex justify-end pt-4">
                     <button type="submit" class="bg-[#10435E] text-white font-bold py-4 px-10 rounded-2xl shadow-lg hover:bg-[#0d364b] transition-colors">
                         {{ __('contact_form.send') }}

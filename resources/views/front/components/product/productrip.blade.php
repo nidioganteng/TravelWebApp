@@ -83,7 +83,7 @@
                         <div class="mb-4">
                             <p class="font-semibold text-black mb-2">{{ __('user.product_trip') }}</p>
                             <div class="prose max-w-none list-disc pl-2 trix-content">
-                                {!! $trip->departure_locations !!}
+                                {!! nl2br(e(strip_tags(preg_replace('/<br\s*\/?>/i', "\n", $trip->departure_locations ?? '')))) !!}
                             </div>
                         </div>
                     </div>

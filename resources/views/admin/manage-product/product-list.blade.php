@@ -127,7 +127,7 @@
                             <p class="text-[11px] md:text-[12px] text-gray-500 line-clamp-4 mb-3 leading-relaxed">{{ $product->product_description }}</p>
                             <p class="font-bold text-[11px] md:text-[12px] text-gray-700">{{ __('admin.products_departure_label') }}</p>
                             <div class="text-[11px] md:text-[12px] text-gray-600 ml-2 mt-1 italic">
-                                {!! $product->departure_locations !!}
+                                {!! nl2br(e(strip_tags(preg_replace('/<br\s*\/?>/i', "\n", $product->departure_locations ?? '')))) !!}
                             </div>
                         </div>
                     </div>
@@ -208,7 +208,7 @@
                             <p class="text-[11px] md:text-[12px] text-gray-500 line-clamp-4 mb-3 leading-relaxed">{{ $product->product_description }}</p>
                             <p class="font-bold text-[11px] md:text-[12px]">{{ __('admin.products_departure_label') }}</p>
                             <div class="text-[11px] md:text-[12px] text-gray-600 ml-2 mt-1 italic">
-                                {!! $product->departure_locations !!}
+                                {!! nl2br(e(strip_tags(preg_replace('/<br\s*\/?>/i', "\n", $product->departure_locations ?? '')))) !!}
                             </div>
                         </div>
                     </div>

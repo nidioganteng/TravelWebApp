@@ -221,7 +221,7 @@
                                     <span class="text-[9px] md:text-[10px] font-bold text-gray-400 uppercase tracking-wider">{{ __('admin.dashboard_prod_departure') }}</span>
                                 </div>
                                 <div class="text-[10px] text-gray-700 line-clamp-1 font-medium pl-4">
-                                    {!! strip_tags($product->departure_locations) !!}
+                                    {!! nl2br(e(strip_tags(preg_replace('/<br\s*\/?>/i', "\n", $product->departure_locations ?? '')))) !!}
                                 </div>
                             </div>
 

@@ -7,7 +7,6 @@ use App\Models\Product;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -26,14 +25,14 @@ class ProductController extends Controller
             'product_description' => 'nullable|string',
             'product_price' => 'required|numeric|min:0',
             'ticket_quota' => 'required|integer|min:1',
-            'departure_date' => 'required|date|after:today', 
+            'departure_date' => 'required|date|after:today',
             'departure_locations' => 'nullable|string',
             'product_image' => 'required|array',
-            'product_image.*' => 'image|mimes:jpeg,png,jpg,svg|max:2048' 
+            'product_image.*' => 'image|mimes:jpeg,png,jpg,svg|max:2048',
         ]);
 
         try {
-            $imageService = new ImageService();
+            $imageService = new ImageService;
             $imagePaths = [];
             if ($request->hasFile('product_image')) {
                 foreach ($request->file('product_image') as $file) {
@@ -47,7 +46,9 @@ class ProductController extends Controller
                 'product_price' => $validated['product_price'],
                 'ticket_quota' => $validated['ticket_quota'],
                 'departure_date' => $validated['departure_date'],
-                'departure_locations' => $validated['departure_locations'] ?? null,
+                'departure_locations' => $validated['departure_locations']
+                    ? strip_tags($validated['departure_locations'])
+                    : null,
                 'product_image' => $imagePaths,
                 'is_published' => false,
             ]);
@@ -56,7 +57,8 @@ class ProductController extends Controller
                 ->with('success', 'Product added successfully!');
         } catch (\Exception $e) {
             Log::error('Error creating product:', ['error' => $e->getMessage()]);
-            return back()->withErrors(['error' => 'Gagal: ' . $e->getMessage()])->withInput();
+
+            return back()->withErrors(['error' => 'Gagal: '.$e->getMessage()])->withInput();
         }
     }
 
@@ -66,8 +68,9 @@ class ProductController extends Controller
         $archived = Product::where('is_published', true)->latest()->get();
         Log::info('Products count:', [
             'recently_added' => $recentlyAdded->count(),
-            'archived' => $archived->count()
+            'archived' => $archived->count(),
         ]);
+
         return view('admin.manage-product.product-list', compact('recentlyAdded', 'archived'));
     }
 
@@ -79,25 +82,25 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $validated = $request->validate([
-            'product_name'        => 'required|string|max:255',
+            'product_name' => 'required|string|max:255',
             'product_description' => 'nullable|string',
-            'product_price'       => 'required|numeric|min:0',
-            'ticket_quota'        => 'required|integer|min:1',
-            'departure_date'      => 'required|date',
+            'product_price' => 'required|numeric|min:0',
+            'ticket_quota' => 'required|integer|min:1',
+            'departure_date' => 'required|date',
             'departure_locations' => 'nullable|string',
-            'product_image.*'     => 'image|mimes:jpeg,png,jpg,svg|max:2048',
-            'delete_images'       => 'nullable|array',
+            'product_image.*' => 'image|mimes:jpeg,png,jpg,svg|max:2048',
+            'delete_images' => 'nullable|array',
         ]);
 
         try {
-            $imageService   = new ImageService();
+            $imageService = new ImageService;
             $existingImages = $product->product_image ?? [];
 
             // Hapus gambar yang dicentang untuk dihapus
             if ($request->has('delete_images')) {
                 foreach ($request->delete_images as $imagePath) {
                     $imageService->delete($imagePath);
-                    $existingImages = array_filter($existingImages, fn($img) => $img !== $imagePath);
+                    $existingImages = array_filter($existingImages, fn ($img) => $img !== $imagePath);
                 }
                 $existingImages = array_values($existingImages);
             }
@@ -110,13 +113,15 @@ class ProductController extends Controller
             }
 
             $product->update([
-                'product_name'        => $validated['product_name'],
+                'product_name' => $validated['product_name'],
                 'product_description' => $validated['product_description'] ?? null,
-                'product_price'       => $validated['product_price'],
-                'ticket_quota'        => $validated['ticket_quota'],
-                'departure_date'      => $validated['departure_date'],
-                'departure_locations' => $validated['departure_locations'] ?? null,
-                'product_image'       => $existingImages,
+                'product_price' => $validated['product_price'],
+                'ticket_quota' => $validated['ticket_quota'],
+                'departure_date' => $validated['departure_date'],
+                'departure_locations' => $validated['departure_locations']
+                    ? strip_tags($validated['departure_locations'])
+                    : null,
+                'product_image' => $existingImages,
             ]);
 
             return redirect()->route('admin.products.index')
@@ -124,7 +129,8 @@ class ProductController extends Controller
 
         } catch (\Exception $e) {
             Log::error('Error updating product:', ['error' => $e->getMessage()]);
-            return back()->withErrors(['error' => 'Gagal: ' . $e->getMessage()])->withInput();
+
+            return back()->withErrors(['error' => 'Gagal: '.$e->getMessage()])->withInput();
         }
     }
 
@@ -132,13 +138,15 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $product->update(['is_published' => true]);
+
         return back()->with('success', 'Produk berhasil dipublish!');
     }
 
     public function togglePublish(Product $product)
     {
-        $product->is_published = !$product->is_published;
+        $product->is_published = ! $product->is_published;
         $product->save();
+
         return back()->with('success', 'Status produk berhasil diperbarui!');
     }
 
@@ -150,12 +158,12 @@ class ProductController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'The product has been successfully deleted'
+                'message' => 'The product has been successfully deleted',
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to delete product' . $e->getMessage()
+                'message' => 'Failed to delete product'.$e->getMessage(),
             ], 500);
         }
     }
