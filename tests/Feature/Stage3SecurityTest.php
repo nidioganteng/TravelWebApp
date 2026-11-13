@@ -1,7 +1,9 @@
 <?php
 
 use App\Models\Product;
+use App\Models\TrackRecord;
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Cache;
 
 // ─── Item 7: Mass-assignment protection ──────────────────────────────────────
@@ -163,4 +165,23 @@ it('admin products toggle route has correct URL without double admin prefix', fu
 
     expect($url)->not->toContain('/admin/admin/');
     expect($url)->toContain('/admin/products/1/toggle');
+});
+
+// ─── Item 10 (TravelRecordController): svg rejected in update ─────────────────
+
+it('admin travel record update rejects svg banner_image', function () {
+    $admin = User::factory()->create(['role' => 'admin', 'status' => 'active']);
+    $this->actingAs($admin);
+
+    $record = TrackRecord::factory()->create();
+
+    $svgFile = UploadedFile::fake()->create('malicious.svg', 10, 'image/svg+xml');
+
+    $this->patch(route('admin.travel-records.update', $record), [
+        'city_name' => $record->city_name,
+        'description' => $record->description,
+        'year' => $record->year,
+        'banner_image' => $svgFile,
+        'items' => [['title' => 'T', 'description' => 'D', 'old_image' => 'x.jpg']],
+    ])->assertSessionHasErrors('banner_image');
 });
