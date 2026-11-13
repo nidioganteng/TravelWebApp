@@ -28,6 +28,24 @@ Route::get('/', function () {
     return view('front.home');
 })->name('home');
 
+Route::get('/robots.txt', function () {
+    $disallow = [
+        '/admin', '/profile', '/checkout',
+        '/login', '/register', '/forgot-password',
+        '/reset-password', '/stripe', '/lang',
+    ];
+
+    $lines = ['User-agent: *'];
+    foreach ($disallow as $path) {
+        $lines[] = 'Disallow: '.$path;
+    }
+    $lines[] = '';
+    $lines[] = 'Sitemap: '.config('app.url').'/sitemap.xml';
+
+    return response(implode("\n", $lines), 200)
+        ->header('Content-Type', 'text/plain');
+})->name('robots');
+
 Route::get('/about', function (Request $request) {
     if ($request->has('year')) {
         $selectedYear = $request->year;
