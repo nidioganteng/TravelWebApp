@@ -14,6 +14,7 @@ use App\Http\Controllers\UserController;
 use App\Models\Booking;
 use App\Models\TrackRecord;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
 Route::get('lang/{locale}', function ($locale) {
@@ -45,6 +46,30 @@ Route::get('/robots.txt', function () {
     return response(implode("\n", $lines), 200)
         ->header('Content-Type', 'text/plain');
 })->name('robots');
+
+Route::get('/sitemap.xml', function () {
+    $xml = Cache::remember('sitemap.xml', 3600, function () {
+        $urls = [
+            ['loc' => route('home'), 'changefreq' => 'weekly', 'priority' => '1.0'],
+            ['loc' => route('about'), 'changefreq' => 'monthly', 'priority' => '0.8'],
+            ['loc' => route('products'), 'changefreq' => 'weekly', 'priority' => '0.9'],
+            ['loc' => route('contact'), 'changefreq' => 'yearly', 'priority' => '0.7'],
+        ];
+
+        foreach (TrackRecord::query()->latest('updated_at')->get(['slug', 'updated_at']) as $record) {
+            $urls[] = [
+                'loc' => route('track-record.show', $record->slug),
+                'lastmod' => $record->updated_at->toAtomString(),
+                'changefreq' => 'monthly',
+                'priority' => '0.6',
+            ];
+        }
+
+        return view('seo.sitemap', compact('urls'))->render();
+    });
+
+    return response($xml, 200)->header('Content-Type', 'application/xml');
+})->name('sitemap');
 
 Route::get('/about', function (Request $request) {
     if ($request->has('year')) {
