@@ -356,5 +356,15 @@
     "user.booking_passengers": "Passengers",
     "user.booking_passenger_list": "Passenger List",
     "user.booking_tickets_suffix": "Tickets",
-    "user.booking_total": "Total:"
+    "user.booking_total": "Total:",
+
+    "seo.site_name": "Mijn Amor Travel",
+    "seo.home_title": "Mijn Amor Travel — Tour & Travel Agency",
+    "seo.home_description": "Discover unforgettable travel experiences with Mijn Amor Travel. We curate bespoke tour packages to destinations worldwide.",
+    "seo.about_title": "About Us — Mijn Amor Travel",
+    "seo.about_description": "Learn about Mijn Amor Travel, a trusted tour and travel agency dedicated to providing unforgettable journeys since 2018.",
+    "seo.products_title": "Tour Packages — Mijn Amor Travel",
+    "seo.products_description": "Explore our curated tour packages and travel destinations. Find your perfect trip with Mijn Amor Travel.",
+    "seo.contact_title": "Contact Us — Mijn Amor Travel",
+    "seo.contact_description": "Get in touch with Mijn Amor Travel. Have questions about our tours or need a custom itinerary? We are here to help."
 }

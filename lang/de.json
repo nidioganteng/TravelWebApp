@@ -356,5 +356,15 @@
     "user.booking_passengers": "Passagiere",
     "user.booking_passenger_list": "Passagierliste",
     "user.booking_tickets_suffix": "Tickets",
-    "user.booking_total": "Gesamt:"
+    "user.booking_total": "Gesamt:",
+
+    "seo.site_name": "Mijn Amor Travel",
+    "seo.home_title": "Mijn Amor Travel — Reisveranstalter",
+    "seo.home_description": "Entdecken Sie unvergessliche Reiseerlebnisse mit Mijn Amor Travel. Wir bieten maßgeschneiderte Reisepakete zu Zielen weltweit.",
+    "seo.about_title": "Über Uns — Mijn Amor Travel",
+    "seo.about_description": "Erfahren Sie mehr über Mijn Amor Travel, ein vertrauenswürdiges Reiseunternehmen, das sich seit 2018 unvergesslichen Reisen widmet.",
+    "seo.products_title": "Reisepakete — Mijn Amor Travel",
+    "seo.products_description": "Entdecken Sie unsere kuratierten Reisepakete und Reiseziele. Finden Sie Ihre perfekte Reise mit Mijn Amor Travel.",
+    "seo.contact_title": "Kontakt — Mijn Amor Travel",
+    "seo.contact_description": "Kontaktieren Sie Mijn Amor Travel. Haben Sie Fragen zu unseren Touren oder benötigen Sie eine individuelle Reiseroute? Wir helfen Ihnen gerne."
 }

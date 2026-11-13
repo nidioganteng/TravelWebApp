@@ -356,5 +356,15 @@
     "user.booking_passengers": "Penumpang",
     "user.booking_passenger_list": "Daftar Penumpang",
     "user.booking_tickets_suffix": "Tiket",
-    "user.booking_total": "Total:"
+    "user.booking_total": "Total:",
+
+    "seo.site_name": "Mijn Amor Travel",
+    "seo.home_title": "Mijn Amor Travel — Agen Tur & Perjalanan",
+    "seo.home_description": "Temukan pengalaman perjalanan tak terlupakan bersama Mijn Amor Travel. Kami menyediakan paket tur pilihan ke berbagai destinasi di seluruh dunia.",
+    "seo.about_title": "Tentang Kami — Mijn Amor Travel",
+    "seo.about_description": "Kenali Mijn Amor Travel, agen tur dan perjalanan terpercaya yang berdedikasi memberikan perjalanan tak terlupakan sejak 2018.",
+    "seo.products_title": "Paket Tur — Mijn Amor Travel",
+    "seo.products_description": "Jelajahi paket tur pilihan dan destinasi perjalanan kami. Temukan perjalanan sempurna Anda bersama Mijn Amor Travel.",
+    "seo.contact_title": "Hubungi Kami — Mijn Amor Travel",
+    "seo.contact_description": "Hubungi Mijn Amor Travel. Punya pertanyaan tentang tur kami atau butuh itinerari khusus? Kami siap membantu Anda."
 }
