@@ -4,7 +4,6 @@
     'ogImage' => null,
     'robots' => 'index, follow',
     'jsonld' => null,
-    'googleSiteVerification' => '',
 ])
 
 @php
@@ -23,8 +22,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ asset('MijnAmor.svg') }}" type="image/svg">
 
-    @if($googleSiteVerification)
-    <meta name="google-site-verification" content="{{ $googleSiteVerification }}">
+    @if(config('app.google_site_verification'))
+    <meta name="google-site-verification" content="{{ config('app.google_site_verification') }}">
+    @endif
+    @if(config('app.bing_site_verification'))
+    <meta name="msvalidate.01" content="{{ config('app.bing_site_verification') }}">
     @endif
 
     <title>{{ $pageTitle }}</title>

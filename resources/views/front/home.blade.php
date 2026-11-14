@@ -1,4 +1,4 @@
-<x-main :title="__('seo.home_title')" :description="__('seo.home_description')" :googleSiteVerification="config('app.google_site_verification')">
+<x-main :title="__('seo.home_title')" :description="__('seo.home_description')">
 
     <x-slot:jsonld>
         @include('seo.travel_agency')
