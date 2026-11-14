@@ -1,8 +1,7 @@
 <x-auth-split-layout>
 
-    {{-- Language Switcher --}}
     @php
-        $languages    = [
+        $languages     = [
             ['code' => 'en', 'name' => 'EN', 'flag' => 'https://flagcdn.com/w40/us.png'],
             ['code' => 'id', 'name' => 'ID', 'flag' => 'https://flagcdn.com/w40/id.png'],
             ['code' => 'nl', 'name' => 'NL', 'flag' => 'https://flagcdn.com/w40/nl.png'],
@@ -13,7 +12,9 @@
         $currentLang   = collect($languages)->firstWhere('code', $currentLocale) ?? $languages[0];
     @endphp
 
-    <div class="relative mb-6 flex justify-end" x-data="{ langOpen: false }" @click.away="langOpen = false">
+    {{-- Language Switcher: flows on mobile, absolute top-right on desktop --}}
+    <div class="relative flex justify-end px-6 pt-5 lg:absolute lg:right-6 lg:top-5 lg:z-10 lg:px-0 lg:pt-0"
+         x-data="{ langOpen: false }" @click.away="langOpen = false">
         <button @click="langOpen = !langOpen"
                 class="flex cursor-pointer items-center gap-2 transition hover:opacity-80 focus:outline-none">
             <img src="{{ $currentLang['flag'] }}" alt="{{ $currentLang['name'] }}" class="h-4 w-6 rounded-sm object-cover" />
@@ -31,49 +32,54 @@
         </div>
     </div>
 
-    {{-- Heading --}}
-    <div class="mb-7">
-        <h1 class="text-3xl font-bold text-gray-900">{{ __('user.forgot_password_title') }}</h1>
-        <p class="mt-2 text-sm leading-relaxed text-gray-500">
-            {{ __('user.forgot_password_desc') }}
-        </p>
-    </div>
+    {{-- Content (centered vertically in card on desktop) --}}
+    <div class="my-auto w-full max-w-md mx-auto px-8 py-10 xl:px-12">
 
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <form method="POST" action="{{ route('password.email') }}" @submit="isLoading = true" class="space-y-5">
-        @csrf
-
-        {{-- Email --}}
-        <div>
-            <label for="email" class="mb-1.5 block text-sm font-medium text-gray-700">
-                {{ __('Email') }}
-            </label>
-            <input id="email"
-                   type="email"
-                   name="email"
-                   value="{{ old('email') }}"
-                   placeholder="{{ __('user.placeholder_email') }}"
-                   required
-                   autofocus
-                   autocomplete="email"
-                   class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-gray-900 placeholder-gray-400 transition-colors focus:border-[#67a3bc] focus:outline-none focus:ring-2 focus:ring-[#67a3bc]/30">
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        {{-- Heading --}}
+        <div class="mb-7">
+            <h1 class="text-3xl font-bold text-gray-900">{{ __('user.forgot_password_title') }}</h1>
+            <p class="mt-2 text-sm leading-relaxed text-gray-500">
+                {{ __('user.forgot_password_desc') }}
+            </p>
         </div>
 
-        {{-- Submit --}}
-        <button type="submit"
-                class="mt-2 w-full cursor-pointer rounded-full bg-[#111] py-4 text-base font-semibold tracking-wide text-white transition-colors hover:bg-[#2a2a2a] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
-                x-bind:disabled="isLoading">
-            {{ __('user.forgot_password_button') }}
-        </button>
-    </form>
+        <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    {{-- Back to login --}}
-    <p class="mt-auto pt-6 text-center text-sm text-gray-500">
-        <a href="{{ route('login') }}" class="font-semibold text-[#67a3bc] hover:underline">
-            ← {{ __('user.register_login') }}
-        </a>
-    </p>
+        <form method="POST" action="{{ route('password.email') }}" @submit="isLoading = true" class="space-y-5">
+            @csrf
+
+            {{-- Email --}}
+            <div>
+                <label for="email" class="mb-1.5 block text-sm font-medium text-gray-700">
+                    {{ __('Email') }}
+                </label>
+                <input id="email"
+                       type="email"
+                       name="email"
+                       value="{{ old('email') }}"
+                       placeholder="{{ __('user.placeholder_email') }}"
+                       required
+                       autofocus
+                       autocomplete="email"
+                       class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-gray-900 placeholder-gray-400 transition-colors focus:border-[#67a3bc] focus:outline-none focus:ring-2 focus:ring-[#67a3bc]/30">
+                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            </div>
+
+            {{-- Submit --}}
+            <button type="submit"
+                    class="mt-2 w-full cursor-pointer rounded-full bg-[#111] py-4 text-base font-semibold tracking-wide text-white transition-colors hover:bg-[#2a2a2a] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
+                    x-bind:disabled="isLoading">
+                {{ __('user.forgot_password_button') }}
+            </button>
+        </form>
+
+        {{-- Back to login --}}
+        <p class="mt-6 text-center text-sm text-gray-500">
+            <a href="{{ route('login') }}" class="font-semibold text-[#67a3bc] hover:underline">
+                ← {{ __('user.register_login') }}
+            </a>
+        </p>
+
+    </div>
 
 </x-auth-split-layout>

@@ -101,12 +101,11 @@
                 </div>
             </div>
 
-            {{-- RIGHT: 37.5% — floating card --}}
-            <div class="relative lg:col-span-3 lg:min-h-screen">
-                <div class="-mt-6 w-full rounded-t-3xl bg-white shadow-2xl lg:absolute lg:inset-4 lg:mt-0 lg:overflow-y-auto lg:rounded-3xl">
-                    <div class="flex flex-col px-6 py-8 lg:min-h-full lg:px-8 lg:py-10 xl:px-12">
-                        {{ $slot }}
-                    </div>
+            {{-- RIGHT: 37.5% — card fills column via flex + padding --}}
+            <div class="lg:col-span-3 lg:flex lg:p-4">
+                <div class="relative -mt-6 min-w-0 w-full rounded-t-3xl bg-white shadow-xl
+                            lg:mt-0 lg:flex lg:flex-1 lg:min-h-0 lg:flex-col lg:overflow-y-auto lg:rounded-3xl">
+                    {{ $slot }}
                 </div>
             </div>
 
