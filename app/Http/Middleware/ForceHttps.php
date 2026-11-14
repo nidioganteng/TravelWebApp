@@ -10,8 +10,17 @@ class ForceHttps
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (config('app.env') === 'production' && ! $request->secure()) {
-            return redirect()->secure($request->getRequestUri(), 301);
+        if (config('app.env') === 'production') {
+            if (! $request->secure()) {
+                return redirect()->secure($request->getRequestUri(), 301);
+            }
+
+            $appHost = parse_url(config('app.url'), PHP_URL_HOST);
+            if ($appHost && $request->getHost() !== $appHost) {
+                $url = rtrim(config('app.url'), '/').$request->getRequestUri();
+
+                return redirect($url, 301);
+            }
         }
 
         return $next($request);
