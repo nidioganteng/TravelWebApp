@@ -1,88 +1,79 @@
-<x-guest-layout>
-    <div class="min-h-screen flex flex-col justify-center items-center bg-gray-100 px-4">
-        <div class="relative flex flex-col md:flex-row min-h-112.5 items-center justify-center bg-white rounded-3xl overflow-hidden shadow-sm p-8 max-w-5xl mx-auto">
-            <div class="w-full md:w-1/2 p-6 flex flex-col justify-center">
-                <div class="mb-6">
-                    <h1 class="text-4xl font-extrabold text-[#87B8BE] mb-2">
-                        {{ __('user.forgot_password_title') }}
+<x-auth-split-layout>
 
-                    </h1>
-                    <p class="text-sm text-gray-500">
-                        {{ __('user.forgot_password_desc') }}
-                    </p>
-                </div>
-
-                <x-auth-session-status class="mb-4" :status="session('status')" />
-
-                <form method="POST" action="{{ route('password.email') }}" @submit="isLoading = true" class="space-y-6">
-                    @csrf
-
-                    <div class="mb-4">
-                        <x-text-input
-                            id="email"
-                            class="block w-full bg-gray-200 border-none rounded-lg p-4 placeholder-gray-400 focus:ring-2 focus:ring-blue-100"
-                            type="email"
-                            name="email"
-                            :value="old('email')"
-                            placeholder="{{ __('user.placeholder_email') }}"
-                            required
-                            autofocus />
-                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                    </div>
-
-                    <div class="mt-2">
-                        <button type="submit" class="w-full bg-[#87B8BE] hover:bg-[#92d7e0] text-white font-bold py-4 px-4 rounded-xl transition duration-200 shadow-lg shadow-[#87B8BE] tracking-tight text-sm">
-                            {{ __('user.forgot_password_button') }}
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="hidden md:flex w-full md:w-1/2 justify-center items-center p-6">
-                <div class="w-full flex justify-center">
-                    <img src="/img/login/assets/forgot_password.svg" alt="Illustration" class="max-w-[80%] h-auto">
-                </div>
-            </div>
-            @php
-            $languages = [
+    {{-- Language Switcher --}}
+    @php
+        $languages    = [
             ['code' => 'en', 'name' => 'EN', 'flag' => 'https://flagcdn.com/w40/us.png'],
             ['code' => 'id', 'name' => 'ID', 'flag' => 'https://flagcdn.com/w40/id.png'],
             ['code' => 'nl', 'name' => 'NL', 'flag' => 'https://flagcdn.com/w40/nl.png'],
             ['code' => 'de', 'name' => 'DE', 'flag' => 'https://flagcdn.com/w40/de.png'],
-            ['code' => 'pt', 'name' => 'PT', 'flag' => 'https://flagcdn.com/w40/pt.png']
-            ];
+            ['code' => 'pt', 'name' => 'PT', 'flag' => 'https://flagcdn.com/w40/pt.png'],
+        ];
+        $currentLocale = app()->getLocale();
+        $currentLang   = collect($languages)->firstWhere('code', $currentLocale) ?? $languages[0];
+    @endphp
 
-            $currentLocale = app()->getLocale();
-            $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $languages[0];
-            @endphp
-
-            <div class="absolute top-8 right-8" x-data="{ langOpen: false }" @click.away="langOpen = false">
-                <button
-                    @click="langOpen = !langOpen"
-                    class="flex items-center gap-2 focus:outline-none hover:opacity-80 transition group">
-                    <img src="{{ $currentLang['flag'] }}" alt="{{ $currentLang['name'] }}" class="w-6 h-4 object-cover rounded-sm shadow-sm" />
-                    <span class="text-gray-800 text-sm font-bold uppercase">{{ $currentLang['code'] }}</span>
-                    <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                    </svg>
-                </button>
-
-                <div x-show="langOpen"
-                    x-transition:enter="transition ease-out duration-100"
-                    x-transition:enter-start="opacity-0 scale-95"
-                    x-transition:enter-end="opacity-100 scale-100"
-                    style="display: none;"
-                    class="absolute top-full right-0 mt-2 w-32 bg-white border border-gray-100 rounded-xl shadow-xl overflow-hidden z-50">
-                    @foreach($languages as $lang)
-                    <a href="{{ route('lang.switch', $lang['code']) }}"
-                        class="flex items-center gap-3 w-full px-4 py-3 text-sm text-left transition hover:bg-gray-50
-                       {{ $currentLocale === $lang['code'] ? 'text-blue-500 font-bold' : 'text-gray-700' }}">
-                        <img src="{{ $lang['flag'] }}" alt="{{ $lang['name'] }}" class="w-5 h-3 object-cover rounded-sm" />
-                        {{ $lang['name'] }}
-                    </a>
-                    @endforeach
-                </div>
-            </div>
+    <div class="mb-6 flex justify-end" x-data="{ langOpen: false }" @click.away="langOpen = false">
+        <button @click="langOpen = !langOpen"
+                class="flex cursor-pointer items-center gap-2 transition hover:opacity-80 focus:outline-none">
+            <img src="{{ $currentLang['flag'] }}" alt="{{ $currentLang['name'] }}" class="h-4 w-6 rounded-sm object-cover" />
+            <span class="text-sm font-bold uppercase text-gray-800">{{ $currentLang['code'] }}</span>
+        </button>
+        <div x-show="langOpen" style="display:none;"
+             class="absolute right-6 top-16 z-50 w-32 overflow-hidden rounded-lg border border-gray-100 bg-white shadow-xl lg:right-10 lg:top-14">
+            @foreach($languages as $lang)
+            <a href="{{ route('lang.switch', $lang['code']) }}"
+               class="flex w-full items-center gap-3 px-4 py-3 text-left text-sm transition hover:bg-gray-50 {{ $currentLocale === $lang['code'] ? 'font-bold text-blue-500' : 'text-gray-700' }}">
+                <img src="{{ $lang['flag'] }}" alt="{{ $lang['name'] }}" class="h-3 w-5 rounded-sm object-cover" />
+                {{ $lang['name'] }}
+            </a>
+            @endforeach
         </div>
     </div>
-</x-guest-layout>
+
+    {{-- Heading --}}
+    <div class="mb-7">
+        <h1 class="text-3xl font-bold text-gray-900">{{ __('user.forgot_password_title') }}</h1>
+        <p class="mt-2 text-sm leading-relaxed text-gray-500">
+            {{ __('user.forgot_password_desc') }}
+        </p>
+    </div>
+
+    <x-auth-session-status class="mb-4" :status="session('status')" />
+
+    <form method="POST" action="{{ route('password.email') }}" @submit="isLoading = true" class="space-y-5">
+        @csrf
+
+        {{-- Email --}}
+        <div>
+            <label for="email" class="mb-1.5 block text-sm font-medium text-gray-700">
+                {{ __('Email') }}
+            </label>
+            <input id="email"
+                   type="email"
+                   name="email"
+                   value="{{ old('email') }}"
+                   placeholder="{{ __('user.placeholder_email') }}"
+                   required
+                   autofocus
+                   autocomplete="email"
+                   class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-gray-900 placeholder-gray-400 transition-colors focus:border-[#67a3bc] focus:outline-none focus:ring-2 focus:ring-[#67a3bc]/30">
+            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div>
+
+        {{-- Submit --}}
+        <button type="submit"
+                class="mt-2 w-full cursor-pointer rounded-full bg-[#111] py-4 text-base font-semibold tracking-wide text-white transition-colors hover:bg-[#2a2a2a] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
+                x-bind:disabled="isLoading">
+            {{ __('user.forgot_password_button') }}
+        </button>
+    </form>
+
+    {{-- Back to login --}}
+    <p class="mt-6 text-center text-sm text-gray-500">
+        <a href="{{ route('login') }}" class="font-semibold text-[#67a3bc] hover:underline">
+            ← {{ __('user.register_login') }}
+        </a>
+    </p>
+
+</x-auth-split-layout>
