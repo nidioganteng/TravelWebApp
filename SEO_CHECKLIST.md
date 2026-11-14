@@ -28,7 +28,10 @@
 | Hero images tidak lazy | ✅ | `showchild.blade.php` |
 | Satu `<h1>` per halaman publik | ✅ | homeabout, hometestimonial, aboutdestination, showtestimonial |
 | Redirect HTTP → HTTPS (production only) | ✅ | `ForceHttps` middleware |
+| Canonical host redirect www↔non-www (production only, 301) | ✅ | `ForceHttps` middleware |
 | `GOOGLE_SITE_VERIFICATION` meta tag (opsional) | ✅ | `layouts/app.blade.php`, `config/app.php` |
+| `BING_SITE_VERIFICATION` meta tag (opsional) | ✅ | `layouts/app.blade.php`, `config/app.php` |
+| JSON-LD ItemList dengan `TouristTrip`, `Offer`, harga EUR, ketersediaan | ✅ | `seo/product_list.blade.php` |
 
 ---
 
@@ -40,6 +43,10 @@ Tambahkan ke `.env` di server production jika dibutuhkan:
 # Google Search Console — HTML tag verification (opsional)
 # Dapatkan dari: Search Console → Settings → Ownership verification → HTML tag
 GOOGLE_SITE_VERIFICATION=
+
+# Bing Webmaster Tools — meta tag verification (opsional)
+# Dapatkan dari: Bing Webmaster Tools → Settings → Site Verification → Meta Tag
+BING_SITE_VERIFICATION=
 ```
 
 Env yang sudah ada di `.env.example` dan tetap relevan untuk SEO:
@@ -87,9 +94,13 @@ TRUSTED_PROXIES=<proxy-ip>             # agar redirect HTTPS tidak loop di balik
 
 1. Buka [webmaster.bing.com](https://www.bing.com/webmasters)
 2. Klik **Add a site** → masukkan URL root
-3. Verifikasi via XML file atau meta tag (mirip GSC)
-4. Import dari GSC: Bing menawarkan **Import from Google Search Console** — ini cara paling cepat
-5. Submit sitemap: Sitemaps → masukkan `sitemap.xml`
+3. **Metode meta tag** (didukung app ini):
+   - Pilih verifikasi via **Meta Tag**
+   - Salin nilai content dari tag `<meta name="msvalidate.01" ...>` yang diberikan
+   - Tambahkan ke `.env`: `BING_SITE_VERIFICATION=<nilai-dari-bing>`
+   - Deploy, lalu klik **Verify**
+4. **Alternatif cepat — Import dari GSC**: Bing menawarkan **Import from Google Search Console** — ini cara paling cepat jika GSC sudah terverifikasi
+5. Submit sitemap: **Sitemaps** → masukkan `sitemap.xml`
 
 ### 3. Rich Results Test
 
