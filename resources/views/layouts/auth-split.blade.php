@@ -1,7 +1,7 @@
 <x-guest-layout>
     @php $totalSlides = count($slides); @endphp
 
-    <div class="flex min-h-screen flex-col lg:flex-row"
+    <div class="flex min-h-screen flex-col lg:grid lg:grid-cols-8"
          x-data="{
              currentSlide: 0,
              totalSlides: {{ $totalSlides }},
@@ -13,7 +13,7 @@
          }">
 
         {{-- ── LEFT: Photo Panel ── --}}
-        <div class="relative h-[28vh] shrink-0 overflow-hidden lg:sticky lg:top-0 lg:h-screen lg:w-1/2">
+        <div class="relative h-[28vh] shrink-0 overflow-hidden lg:col-span-5 lg:sticky lg:top-0 lg:h-screen">
 
             {{-- Slides (stacked absolutely, opacity fade) --}}
             @foreach($slides as $phpIndex => $slide)
@@ -45,9 +45,6 @@
                 </a>
                 <a href="{{ route('home') }}"
                    class="flex items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-sm font-medium text-white/85 backdrop-blur-sm transition-colors hover:bg-white/20 hover:text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-3.5 w-3.5 shrink-0">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-                    </svg>
                     {{ __('user.auth_back_to_website') }}
                 </a>
             </div>
@@ -55,9 +52,9 @@
             {{-- Bottom: Headline + Description + Dots (desktop only) --}}
             <div class="absolute inset-x-0 bottom-0 z-20 hidden px-8 py-10 lg:block xl:px-12">
                 @foreach($slides as $phpIndex => $slide)
-                <div :class="currentSlide === {{ $phpIndex }} ? '' : 'hidden'">
+                <div :class="currentSlide === {{ $phpIndex }} ? '' : 'hidden'" class="max-w-[32rem]">
                     <h2 class="text-3xl font-bold leading-tight text-white xl:text-4xl">{{ $slide['headline'] }}</h2>
-                    <p class="mt-3 max-w-sm text-sm leading-relaxed text-white/75 xl:text-base">{{ $slide['description'] }}</p>
+                    <p class="mt-3 text-sm leading-relaxed text-white/75 xl:text-base">{{ $slide['description'] }}</p>
                 </div>
                 @endforeach
 
@@ -76,8 +73,8 @@
         </div>
 
         {{-- ── RIGHT: Form Card ── --}}
-        <div class="relative lg:flex lg:flex-1 lg:items-center lg:justify-center lg:min-h-screen lg:py-10 lg:px-8">
-            <div class="relative z-10 -mt-6 w-full rounded-t-3xl bg-white px-6 pb-12 pt-8 shadow-2xl lg:-mt-0 lg:max-w-lg lg:rounded-3xl lg:px-10 lg:py-10 lg:shadow-xl">
+        <div class="relative lg:col-span-3 lg:flex lg:items-center lg:justify-center lg:min-h-screen lg:py-10 lg:px-3">
+            <div class="relative z-10 -mt-6 w-full max-w-md rounded-t-3xl bg-white px-6 pb-12 pt-8 shadow-2xl lg:mt-0 lg:rounded-3xl lg:px-8 lg:py-10 xl:px-12">
                 {{ $slot }}
             </div>
         </div>
