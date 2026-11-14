@@ -1,25 +1,20 @@
 Auth Background Images
 ======================
 
-Images used in the auth split-screen layout (login, register, forgot/reset password)
-are configured in config/auth_ui.php.
+Upload 3 file ke folder ini dengan nama PERSIS seperti berikut:
 
-Currently the layout uses existing homepage images:
-  - img/homepage/assets/background_hero.png  (slide 1)
-  - img/homepage/assets/tour_bali.jpg         (slide 2)
-  - img/homepage/assets/tour_vatican.jpg      (slide 3)
+  slide-hero.webp    →  Slide 1 — foto perjalanan/destinasi umum
+  slide-bali.webp    →  Slide 2 — foto Bali
+  slide-vatican.webp →  Slide 3 — foto Vatikan
 
-To add custom auth-specific images:
-  1. Place .webp files here (1920x1080, under 300 KB recommended)
-  2. Update the 'image' paths in config/auth_ui.php
+Spesifikasi yang direkomendasikan:
+  Format   : WebP  (JPEG/PNG juga didukung, tapi ganti ekstensi di config/auth_ui.php)
+  Resolusi : 1920 × 1080 px  (landscape, rasio 16:9)
+  Ukuran   : maks 300 KB per file  (gunakan squoosh.app atau cwebp untuk kompresi)
 
-To add or change translation text for each slide:
-  - Edit 'headline_key' and 'description_key' in config/auth_ui.php
-  - Add the matching keys to all lang/*.json files
-    (en.json, id.json, nl.json, de.json, pt.json)
+Setelah upload, segarkan cache dengan:
+  php artisan config:clear
 
-Slideshow behaviour:
-  - Slides auto-advance every 6 seconds with a crossfade
-  - Auto-advance pauses when the browser tab is hidden
-  - Auto-advance is disabled for users with prefers-reduced-motion
-  - Clicking a dot restarts the timer from that slide
+Untuk mengganti nama, tambah slide, atau mengubah teks headline/deskripsi:
+  → Edit config/auth_ui.php
+  → Tambah/ubah key teks di lang/*.json  (en, id, nl, de, pt)
