@@ -10,47 +10,16 @@
 
             <div class="flex flex-col lg:flex-row gap-8">
 
-                {{-- KOLOM KIRI: SLIDER GAMBAR --}}
+                {{-- KOLOM KIRI: GAMBAR PRODUK --}}
                 <div class="w-full lg:w-[40%]">
-                    <div class="aspect-4/5 w-full overflow-hidden rounded-2xl relative"
-                        x-data="{
-                            activeSlide: 0,
-                            slides: {{ json_encode($trip['product_image']) }},
-                            init() {
-                                if (this.slides.length > 1) {
-                                    setInterval(() => {
-                                        this.activeSlide = (this.activeSlide === this.slides.length - 1) ? 0 : this.activeSlide + 1;
-                                    }, 10000);
-                                }
-                            }
-                        }">
-
-                        <div class="relative h-full w-full">
-                            <template x-for="(image, index) in slides" :key="index">
-                                <div x-show="activeSlide === index"
-                                    x-transition:enter="transition duration-700 ease-out"
-                                    x-transition:enter-start="opacity-0"
-                                    x-transition:enter-end="opacity-100"
-                                    x-transition:leave="transition duration-700 ease-in"
-                                    x-transition:leave-start="opacity-100"
-                                    x-transition:leave-end="opacity-0"
-                                    class="absolute inset-0">
-                                    <img :src="'/storage/' + image"
-                                        alt="{{ $trip['product_name'] }}"
-                                        class="w-full h-full object-cover">
-                                </div>
-                            </template>
-                        </div>
-
-                        <template x-if="slides.length > 1">
-                            <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-2">
-                                <template x-for="(image, index) in slides" :key="index">
-                                    <div :class="activeSlide === index ? 'bg-white w-5' : 'bg-white/50 w-2'"
-                                        class="h-1.5 rounded-full transition-all duration-500">
-                                    </div>
-                                </template>
-                            </div>
-                        </template>
+                    <div class="aspect-4/5 w-full overflow-hidden rounded-2xl">
+                        @php $firstImage = is_array($trip['product_image']) ? ($trip['product_image'][0] ?? null) : $trip['product_image']; @endphp
+                        @if($firstImage)
+                            <img src="{{ Storage::url($firstImage) }}"
+                                 alt="{{ $trip['product_name'] }}"
+                                 class="w-full h-full object-cover"
+                                 loading="lazy">
+                        @endif
                     </div>
                 </div>
 
