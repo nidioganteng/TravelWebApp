@@ -3,6 +3,7 @@
     'description' => null,
     'ogImage' => null,
     'robots' => 'index, follow',
+    'jsonld' => null,
 ])
 
 @php
@@ -58,6 +59,10 @@
     </main>
 
     <x-front.footer />
+
+    @if($jsonld)
+    {!! $jsonld !!}
+    @endif
 
 </body>
 
