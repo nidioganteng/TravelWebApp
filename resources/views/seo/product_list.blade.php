@@ -8,22 +8,40 @@
         'url'             => route('products'),
         'itemListElement' => $tripsData->values()->map(function ($product, $index) {
             $imageUrl = null;
-            if (is_array($product->product_image) && !empty($product->product_image)) {
+            if (is_array($product->product_image) && ! empty($product->product_image)) {
                 $imageUrl = url(\Illuminate\Support\Facades\Storage::url($product->product_image[0]));
             }
 
-            $item = [
-                '@type'    => 'ListItem',
-                'position' => $index + 1,
-                'name'     => $product->product_name,
-                'url'      => route('products'),
+            $availability = $product->ticket_quota > 0
+                ? 'https://schema.org/InStock'
+                : 'https://schema.org/SoldOut';
+
+            $trip = [
+                '@type' => 'TouristTrip',
+                'name'  => $product->product_name,
+                'url'   => route('products'),
+                'offers' => [
+                    '@type'           => 'Offer',
+                    'price'           => number_format((float) $product->product_price, 2, '.', ''),
+                    'priceCurrency'   => 'EUR',
+                    'availability'    => $availability,
+                    'url'             => route('products'),
+                ],
             ];
 
             if ($imageUrl) {
-                $item['image'] = $imageUrl;
+                $trip['image'] = $imageUrl;
             }
 
-            return $item;
+            if ($product->departure_date) {
+                $trip['startDate'] = $product->departure_date->toIso8601String();
+            }
+
+            return [
+                '@type'    => 'ListItem',
+                'position' => $index + 1,
+                'item'     => $trip,
+            ];
         })->all(),
     ];
 @endphp
