@@ -13,14 +13,14 @@
         $currentLang   = collect($languages)->firstWhere('code', $currentLocale) ?? $languages[0];
     @endphp
 
-    <div class="mb-6 flex justify-end" x-data="{ langOpen: false }" @click.away="langOpen = false">
+    <div class="relative mb-6 flex justify-end" x-data="{ langOpen: false }" @click.away="langOpen = false">
         <button @click="langOpen = !langOpen"
                 class="flex cursor-pointer items-center gap-2 transition hover:opacity-80 focus:outline-none">
             <img src="{{ $currentLang['flag'] }}" alt="{{ $currentLang['name'] }}" class="h-4 w-6 rounded-sm object-cover" />
             <span class="text-sm font-bold uppercase text-gray-800">{{ $currentLang['code'] }}</span>
         </button>
         <div x-show="langOpen" style="display:none;"
-             class="absolute right-6 top-16 z-50 w-32 overflow-hidden rounded-lg border border-gray-100 bg-white shadow-xl lg:right-10 lg:top-14">
+             class="absolute right-0 top-full z-50 mt-2 w-32 overflow-hidden rounded-lg border border-gray-100 bg-white shadow-xl">
             @foreach($languages as $lang)
             <a href="{{ route('lang.switch', $lang['code']) }}"
                class="flex w-full items-center gap-3 px-4 py-3 text-left text-sm transition hover:bg-gray-50 {{ $currentLocale === $lang['code'] ? 'font-bold text-blue-500' : 'text-gray-700' }}">
