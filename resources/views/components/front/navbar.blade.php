@@ -97,7 +97,7 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                         </div>
                     </div>
                     @else
-                    <a href="{{ route('register') }}" class="p-3 flex items-center justify-center hover:opacity-80 transition">
+                    <a href="{{ route('login') }}" class="p-3 flex items-center justify-center hover:opacity-80 transition">
                         <img src="{{ asset('img/navbar/profile.svg') }}" alt="Profile" class="w-5 h-5" />
                     </a>
                     @endauth
@@ -174,7 +174,7 @@ $currentLang = collect($languages)->firstWhere('code', $currentLocale) ?: $langu
                         </div>
                     </div>
                     @else
-                    <a href="{{ route('register') }}" class="p-3 flex items-center justify-center hover:opacity-80 transition">
+                    <a href="{{ route('login') }}" class="p-3 flex items-center justify-center hover:opacity-80 transition">
                         <img src="{{ asset('img/navbar/profile.svg') }}" alt="Profile" class="w-5 h-5" />
                     </a>
                     @endauth
