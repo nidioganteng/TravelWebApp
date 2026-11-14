@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Product;
+use App\Models\TrackRecord;
+
 // ─── Helper ──────────────────────────────────────────────────────────────────
 
 function extractJsonLd(string $html): ?array
@@ -32,6 +35,36 @@ it('contact JSON-LD decodes to valid TravelAgency schema', function () {
     expect($data)->not->toBeNull()
         ->and($data['@context'])->toBe('https://schema.org')
         ->and($data['@type'])->toBe('TravelAgency');
+});
+
+// ─── Article (track-record show) ─────────────────────────────────────────────
+
+it('track-record show JSON-LD decodes to valid Article schema', function () {
+    $record = TrackRecord::factory()->create();
+
+    $data = extractJsonLd($this->get(route('track-record.show', $record->slug))->getContent());
+
+    expect($data)->not->toBeNull()
+        ->and($data['@context'])->toBe('https://schema.org')
+        ->and($data['@type'])->toBe('Article')
+        ->and($data['headline'])->toBe($record->city_name.' '.$record->year)
+        ->and($data['datePublished'])->not->toBeNull()
+        ->and($data['publisher']['@type'])->toBe('Organization');
+});
+
+// ─── ItemList (products) ──────────────────────────────────────────────────────
+
+it('products page JSON-LD decodes to valid ItemList schema', function () {
+    Product::factory()->create(['is_published' => true]);
+
+    $data = extractJsonLd($this->get(route('products'))->getContent());
+
+    expect($data)->not->toBeNull()
+        ->and($data['@context'])->toBe('https://schema.org')
+        ->and($data['@type'])->toBe('ItemList')
+        ->and($data['itemListElement'])->not->toBeEmpty()
+        ->and($data['itemListElement'][0]['@type'])->toBe('ListItem')
+        ->and($data['itemListElement'][0]['position'])->toBe(1);
 });
 
 // ─── Encoding safety ─────────────────────────────────────────────────────────
