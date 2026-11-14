@@ -70,9 +70,9 @@
     <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div class="text-center w-full mx-auto py-10 md:py-16" data-reveal>
-            <h1 class="text-3xl sm:text-4xl md:text-[48px] font-extrabold text-black mb-4 leading-tight">
+            <h2 class="text-3xl sm:text-4xl md:text-[48px] font-extrabold text-black mb-4 leading-tight">
                 Here from our clients
-            </h1>
+            </h2>
             <p class="text-gray-600 text-[10px] sm:text-[12px] md:text-[14px] leading-relaxed max-w-3xl md:max-w-5xl mx-auto">
                 Your journey is our passion. We’ve helped thousands of explorers discover the hidden gems of Europe with ease and comfort. Here is why our clients trust us to handle their most precious travel moments.
             </p>
@@ -90,6 +90,7 @@
                                     width="48"
                                     height="48"
                                     alt="{{ $review['name'] }}"
+                                    loading="lazy"
                                     src="{{ $review['img'] }}"
                                 />
                                 <div class="flex flex-col">
@@ -117,6 +118,7 @@
                                     width="48"
                                     height="48"
                                     alt="{{ $review['name'] }}"
+                                    loading="lazy"
                                     src="{{ $review['img'] }}"
                                 />
                                 <div class="flex flex-col">

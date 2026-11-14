@@ -1,8 +1,8 @@
 <div>
     <div class="text-center max-w-7xl mx-auto section-spacing" data-reveal>
-        <h1 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-black mb-4 leading-tight">
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-black mb-4 leading-tight">
             {{ __('about_destination.section') }}
-        </h1>
+        </h2>
 
         <p class="text-gray-600 text-[10px] sm:text-[12px] md:text-[14px] leading-relaxed max-w-3xl md:max-w-7xl mx-auto">
             {{ __('about_destination.desc') }}
@@ -44,9 +44,10 @@
                 <div class="w-full max-w-100 lg:max-w-112.5 bg-[#ffffff] rounded-md overflow-hidden shadow-2xl pb-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer flex flex-col group" data-reveal data-delay="{{ min($loop->index * 120, 600) }}">
                     {{-- Gambar --}}
                     <div class="h-56 sm:h-64 md:h-70 w-full overflow-hidden">
-                        <img 
-                            src="{{ Storage::url($record->banner_image) }}" 
-                            alt="{{ $record->city_name }}" 
+                        <img
+                            src="{{ Storage::url($record->banner_image) }}"
+                            alt="{{ $record->city_name }}"
+                            loading="lazy"
                             class="w-full h-full object-cover transition duration-700 group-hover:scale-110"
                         />
                     </div>

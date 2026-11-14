@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\ForceHttps;
 use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\TrackUserActivity;
@@ -24,6 +25,9 @@ return Application::configure(basePath: dirname(__DIR__))
                      Request::HEADER_X_FORWARDED_PORT |
                      Request::HEADER_X_FORWARDED_PROTO,
         );
+        $middleware->web(prepend: [
+            ForceHttps::class,
+        ]);
         $middleware->web(append: [
             SetLocale::class,
             TrackUserActivity::class,

@@ -9,9 +9,10 @@
                 <div class="bg-white rounded-[30px] shadow-xl overflow-hidden hover:scale-105 transition-transform duration-300">
 
                     <div class="h-50 overflow-hidden">
-                        <img 
+                        <img
                             src="{{ asset('img/about/assets/about_imgTWO.jpg') }}"
-                            alt="Travel Group 1" 
+                            alt="Travel Group 1"
+                            loading="lazy"
                             class="w-full h-full object-cover"
                         />
                     </div>
@@ -27,9 +28,10 @@
             {{-- Kolom Tengah (Gambar Besar) --}}
             <div class="md:col-span-1 lg:col-span-6 relative z-10" data-reveal>
                 <div class="rounded-[40px] overflow-hidden shadow-2xl">
-                    <img 
+                    <img
                         src="{{ asset('img/about/assets/about_imgMAIN.png') }}"
-                        alt="Travel Group Main" 
+                        alt="Travel Group Main"
+                        loading="lazy"
                         class="w-full h-75 md:h-125 object-cover"
                     />
                 </div>
@@ -40,9 +42,10 @@
                 <div class="bg-white rounded-[30px] shadow-xl overflow-hidden hover:scale-105 transition-transform duration-300">
 
                     <div class="h-60 overflow-hidden">
-                        <img 
+                        <img
                             src="{{ asset('img/about/assets/about_imgONE.png') }}"
-                            alt="Travel Group 2" 
+                            alt="Travel Group 2"
+                            loading="lazy"
                             class="w-full h-full object-cover"
                         />
                     </div>

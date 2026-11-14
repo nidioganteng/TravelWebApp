@@ -74,9 +74,9 @@
                 {{ __('hero_review.section') }}
             </h3>
 
-            <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-black mb-4 leading-tight">
+            <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-black mb-4 leading-tight">
                 {{ __('hero_review.title') }}
-            </h1>
+            </h2>
         </div>
 
         <div class="relative flex w-full flex-col items-center justify-center overflow-hidden">
@@ -90,7 +90,8 @@
                                     class="rounded-full bg-white/30"
                                     width="32"
                                     height="32"
-                                    alt=""
+                                    alt="{{ $review['name'] }}"
+                                    loading="lazy"
                                     src="{{ $review['img'] }}"
                                 />
                                 <div class="flex flex-col">

@@ -12,9 +12,9 @@
     </div>
     <div class="bg-[#A8A8A8] flex flex-col items-center justify-center py-10 md:py-20 px-4 mt-10 md:mt-16 w-screen relative left-1/2 -translate-x-1/2">
         
-        <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-black mb-8 md:mb-12 text-center">
+        <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-black mb-8 md:mb-12 text-center">
             {{ __('herabout.sectionB') }}
-        </h1>
+        </h2>
 
         <div class="flex flex-wrap justify-center gap-6 md:gap-8 w-full max-w-360">
           
@@ -23,6 +23,7 @@
                     <img
                         src="{{ asset('img/homepage/assets/tour_belgia.jpg') }}"
                         alt="Belgia"
+                        loading="lazy"
                         class="w-full h-full object-cover"
                     />
                 </div>
@@ -45,6 +46,7 @@
                     <img
                         src="{{ asset('img/homepage/assets/tour_bali.jpg') }}"
                         alt="Bali"
+                        loading="lazy"
                         class="w-full h-full object-cover"
                     />
                 </div>
@@ -66,6 +68,7 @@
                     <img
                         src="{{ asset('img/homepage/assets/tour_vatican.jpg') }}"
                         alt="Vatican City"
+                        loading="lazy"
                         class="w-full h-full object-cover"
                     />
                 </div>

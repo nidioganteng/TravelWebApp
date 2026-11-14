@@ -4,6 +4,7 @@
         <img
             src="{{ asset('img/homepage/icon/youtube.svg') }}"
             alt="YouTube"
+            loading="lazy"
             class="h-6 md:h-8 object-contain"
         />
     </div>
@@ -12,19 +13,19 @@
         
         <div class="overflow-hidden rounded-xl shadow-lg transform -rotate-3 md:-rotate-6 transition-transform hover:rotate-0 duration-300 w-1/3">
             <a href="https://www.youtube.com/watch?v=fug5wdbjdkc">
-                <img src="{{ asset('img/homepage/assets/fotoYT_one.JPG') }}" alt="Nature" class="w-full h-28 sm:h-40 md:h-64 object-cover" />
+                <img src="{{ asset('img/homepage/assets/fotoYT_one.JPG') }}" alt="Nature" loading="lazy" class="w-full h-28 sm:h-40 md:h-64 object-cover" />
             </a>
         </div>
 
         <div class="z-10 overflow-hidden rounded-xl shadow-2xl transform scale-110 transition-transform hover:scale-115 duration-300 w-1/3">
             <a href="https://www.youtube.com/watch?v=KIll7fpWBMs">
-                <img src="{{ asset('img/homepage/assets/fotoYT_three.jpg') }}" alt="Coastal City" class="w-full h-36 sm:h-48 md:h-72 object-cover" />
+                <img src="{{ asset('img/homepage/assets/fotoYT_three.jpg') }}" alt="Coastal City" loading="lazy" class="w-full h-36 sm:h-48 md:h-72 object-cover" />
             </a>
         </div>
 
         <div class="overflow-hidden rounded-xl shadow-lg transform rotate-3 md:rotate-6 transition-transform hover:rotate-0 duration-300 w-1/3">
             <a href="https://www.youtube.com/watch?v=hpfSFm16mj0">
-                <img src="{{ asset('img/homepage/assets/fotoYT_two.jpg') }}" alt="Santorini" class="w-full h-28 sm:h-40 md:h-64 object-cover" />
+                <img src="{{ asset('img/homepage/assets/fotoYT_two.jpg') }}" alt="Santorini" loading="lazy" class="w-full h-28 sm:h-40 md:h-64 object-cover" />
             </a>
         </div>
 
