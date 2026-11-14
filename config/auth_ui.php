@@ -14,17 +14,17 @@ return [
      */
     'slides' => [
         [
-            'image' => 'img/auth/slide-hero.webp',
+            'image' => 'img/auth/slide-1.webp',
             'headline_key' => 'user.auth_headline',
             'description_key' => 'user.auth_subheadline',
         ],
         [
-            'image' => 'img/auth/slide-bali.webp',
+            'image' => 'img/auth/slide-2.webp',
             'headline_key' => 'user.auth_headline_slide2',
             'description_key' => 'user.auth_subheadline_slide2',
         ],
         [
-            'image' => 'img/auth/slide-vatican.webp',
+            'image' => 'img/auth/slide-3.webp',
             'headline_key' => 'user.auth_headline_slide3',
             'description_key' => 'user.auth_subheadline_slide3',
         ],

@@ -3,9 +3,9 @@ Auth Background Images
 
 Upload 3 file ke folder ini dengan nama PERSIS seperti berikut:
 
-  slide-hero.webp    →  Slide 1 — foto perjalanan/destinasi umum
-  slide-bali.webp    →  Slide 2 — foto Bali
-  slide-vatican.webp →  Slide 3 — foto Vatikan
+  slide-1.webp   →  Foto perjalanan / destinasi (slide 1)
+  slide-2.webp   →  Foto perjalanan / destinasi (slide 2)
+  slide-3.webp   →  Foto perjalanan / destinasi (slide 3)
 
 Spesifikasi yang direkomendasikan:
   Format   : WebP  (JPEG/PNG juga didukung, tapi ganti ekstensi di config/auth_ui.php)
@@ -15,6 +15,8 @@ Spesifikasi yang direkomendasikan:
 Setelah upload, segarkan cache dengan:
   php artisan config:clear
 
-Untuk mengganti nama, tambah slide, atau mengubah teks headline/deskripsi:
-  → Edit config/auth_ui.php
-  → Tambah/ubah key teks di lang/*.json  (en, id, nl, de, pt)
+Untuk mengubah teks headline / deskripsi tiap slide:
+  → Edit lang/*.json  (en, id, nl, de, pt)
+  → Key: user.auth_headline, user.auth_subheadline
+         user.auth_headline_slide2, user.auth_subheadline_slide2
+         user.auth_headline_slide3, user.auth_subheadline_slide3
